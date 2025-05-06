@@ -22,7 +22,7 @@ const phases = [
   {
   number: "04",
     title: "Quality — We know what excellence feels like",
-    subtitle: "t’s not just about how it looks — it’s how it works.",
+    subtitle: "It’s not just about how it looks — it’s how it works.",
     description: "We focus on thoughtful, functional design that enhances both guest experience and operational flow."
     }
 ];
