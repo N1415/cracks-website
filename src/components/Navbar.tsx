@@ -31,7 +31,7 @@ const Navbar = () => {
             {['Home', 'Our Method', 'About', 'Services', 'Fees', 'Team', 'Contact'].map((item) => (
               <a 
                 key={item} 
-                href={`#${item.toLowerCase()}`}
+                href={`#${item.toLowerCase().replace(' ', '-')}`}
                 className="text-white font-lato font-thin text-sm tracking-wide hover:text-gray-300 transition-colors"
               >
                 {item.toUpperCase()}
