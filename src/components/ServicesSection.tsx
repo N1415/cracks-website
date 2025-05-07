@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Download, FileText, PieChart, BookOpen, ChefHat, Store, Users, TrendingUp, Clipboard, Settings } from 'lucide-react';
+import { Download } from 'lucide-react';
 
 const services = [
   {
@@ -77,7 +77,7 @@ const deliverables = [
 
 
 const ServicesSection = () => {
-  const [activeService, setActiveService] = useState<number | null>(null);
+  const [, setActiveService] = useState<number | null>(null);
  const handleDownloadPDF = () => {
     // PDF URL
     const pdfUrl = "https://banpdomqwvebesayycpm.supabase.co/storage/v1/object/public/pdf/Cracks%20Pitchs/Restaurant-Development-Services.pdf";
@@ -103,11 +103,9 @@ const ServicesSection = () => {
               onMouseEnter={() => setActiveService(service.id)}
               onMouseLeave={() => setActiveService(null)}
             >
-              <div className={`text-black mb-5 transform transition-transform duration-300 ${activeService === service.id ? 'scale-110' : 'scale-100'}`}>
-                {service.icon}
-              </div>
+              
               <h3 className="font-playfair text-xl text-black mb-4">{service.title}</h3>
-              <p className="font-lato font-thin text-black">{service.description}</p>
+              <p className="font-lato font-thin text-black"style={{ fontWeight: '300' }}>{service.description}</p>
             </div>
           ))}
         </div>
@@ -122,15 +120,13 @@ const ServicesSection = () => {
                 key={index} 
                 className="bg-white-900/50 border border-black/10 p-8 hover:border-white/30 transition-all duration-300 backdrop-blur-sm group"
               >
-                <div className="text-black-400 mb-6 group-hover:text-black transition-colors">
-                  {deliverable.icon}
-                </div>
+                
                 <h3 className="font-playfair text-xl mb-4">{deliverable.title}</h3>
                 <ul className="font-lato font-thin text-black-300 mb-6 space-y-2">
                   {deliverable.items.map((item, i) => (
                     <li key={i} className="flex items-start">
                       <span className="mr-2 text-black/60">•</span>
-                      <span>{item}</span>
+                      <span style={{ fontWeight: '300' }}>{item}</span>
                     </li>
                   ))}
                 </ul>

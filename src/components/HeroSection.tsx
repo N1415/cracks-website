@@ -10,9 +10,10 @@ const HeroSection = () => {
       (entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-in');
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+            const target = entry.target as HTMLElement; // <-- add this line
+            target.classList.add('animate-fade-in');
+            target.style.opacity = '1';
+            target.style.transform = 'translateY(0)';
           }
         });
       },

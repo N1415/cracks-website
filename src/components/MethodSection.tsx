@@ -1,4 +1,4 @@
-import { Users, Heart, Settings, Globe } from 'lucide-react';
+
 
 const methods = [
   {
@@ -21,7 +21,7 @@ const methods = [
 
 const MethodSection = () => {
   return (
-    <section className="py-24 bg-white">
+    <section id="method" className="py-24 bg-white">
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="text-center mb-20">
           <h2 className="text-4xl text-black mb-4 font-playfair font-medium tracking-wide">OUR METHOD</h2>
@@ -35,10 +35,6 @@ const MethodSection = () => {
               key={index}
               className="bg-white border border-gray-200 p-8 shadow-sm hover:shadow-md transition-all duration-300 group"
             >
-              <div className="text-gray-600 mb-6 group-hover:text-black transition-colors">
-                {method.icon}
-              </div>
-              
               <h3 className="text-xl font-playfair text-black mb-4 font-medium">
                 {method.title}
               </h3>
