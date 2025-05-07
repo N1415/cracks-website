@@ -52,6 +52,7 @@ const AboutSection = () => {
               <h4 className="font-playfair text-s mb-4">{phase.subtitle}</h4>
               <p className="font-lato text-white"
                 style={{ fontWeight: '300' }}>{phase.description}</p>
+
         </div>    
           ))}
         </div>

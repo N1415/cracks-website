@@ -107,7 +107,11 @@ const ServicesSection = () => {
                 {service.icon}
               </div>
               <h3 className="font-playfair text-xl text-black mb-4">{service.title}</h3>
+<<<<<<< HEAD
               <p className="font-lato font-thin text-black">{service.description}</p>
+=======
+              <p className="font-lato font-thin text-black-700">{service.description}</p>
+>>>>>>> da88734f801991c99e1206c204602be771d65f01
             </div>
           ))}
         </div>
@@ -134,7 +138,11 @@ const ServicesSection = () => {
                     </li>
                   ))}
                 </ul>
+<<<<<<< HEAD
                 <p className="font-lato font-thin text-black text-sm italic"style={{ fontWeight: '300' }}>{deliverable.description}</p>
+=======
+                <p className="font-lato font-thin text-black-400 text-sm italic">{deliverable.description}</p>
+>>>>>>> da88734f801991c99e1206c204602be771d65f01
               </div>
             ))}
           </div>
@@ -143,7 +151,11 @@ const ServicesSection = () => {
         {/* Download Button */}
         <div className="text-center">
           <button 
+<<<<<<< HEAD
             className="bg-black border-black text-white font-lato font-light py-4 px-8 flex items-center justify-center mx-auto hover:bg-gray-200 transition-colors group cursor-pointer"
+=======
+            className="bg-white border-black text-black font-lato font-light py-4 px-8 flex items-center justify-center mx-auto hover:bg-gray-200 transition-colors group cursor-pointer"
+>>>>>>> da88734f801991c99e1206c204602be771d65f01
             onClick={handleDownloadPDF}
           >
             <Download size={20} className="mr-2 group-hover:transform group-hover:-translate-y-1 transition-transform" />

@@ -71,21 +71,18 @@ const HeroSection = () => {
         </h1>
         
         <h2 
-          ref={subtitleRef} 
-          className="opacity-0 font-playfair text-xl md:text-sm lg:text-base text-white mb-6 tracking-wider" 
-          style={{ 
-            transition: 'opacity 1.5s ease-in-out, transform 1.5s ease-in-out', 
-            transform: 'translateY(20px)',
-            fontSize: '85%' 
-          }}
-        >
-          BUILDING HOSPITALITY ICONS, ONE CONCEPT AT A TIME
-        </h2>
+  ref={subtitleRef} 
+  className="opacity-0 font-playfair text-xl md:text-sm lg:text-base text-white mb-6 tracking-wider" 
+  style={{ 
+    transition: 'opacity 1.5s ease-in-out, transform 1.5s ease-in-out', 
+    transform: 'translateY(20px)',
+    fontSize: '85%' 
+  }}
+>
+  BUILDING HOSPITALITY ICONS, ONE CONCEPT AT A TIME
+</h2>
         
-        <button 
-          onClick={scrollToMethod}
-          className="bg-white text-black font-lato font-thin py-3 px-8 tracking-wide hover:bg-gray-200 transition-colors"
-        >
+        <button className="bg-white text-black font-lato font-thin py-3 px-8 tracking-wide hover:bg-gray-200 transition-colors">
           DISCOVER OUR SERVICES
         </button>
       </div>
