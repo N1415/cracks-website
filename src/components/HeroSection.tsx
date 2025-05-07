@@ -38,10 +38,10 @@ const HeroSection = () => {
     };
   }, []);
 
-  const scrollToMethod = () => {
-    const methodSection = document.getElementById('services');
-    if (methodSection) {
-      methodSection.scrollIntoView({ behavior: 'smooth' });
+  const scrollToServices = () => {
+    const servicesSection = document.getElementById('services');
+    if (servicesSection) {
+      servicesSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -72,18 +72,21 @@ const HeroSection = () => {
         </h1>
         
         <h2 
-  ref={subtitleRef} 
-  className="opacity-0 font-playfair text-xl md:text-sm lg:text-base text-white mb-6 tracking-wider" 
-  style={{ 
-    transition: 'opacity 1.5s ease-in-out, transform 1.5s ease-in-out', 
-    transform: 'translateY(20px)',
-    fontSize: '85%' 
-  }}
->
-  BUILDING HOSPITALITY ICONS, ONE CONCEPT AT A TIME
-</h2>
+          ref={subtitleRef} 
+          className="opacity-0 font-playfair text-xl md:text-sm lg:text-base text-white mb-6 tracking-wider" 
+          style={{ 
+            transition: 'opacity 1.5s ease-in-out, transform 1.5s ease-in-out', 
+            transform: 'translateY(20px)',
+            fontSize: '85%' 
+          }}
+        >
+          BUILDING HOSPITALITY ICONS, ONE CONCEPT AT A TIME
+        </h2>
         
-        <button className="bg-white text-black font-lato font-thin py-3 px-8 tracking-wide hover:bg-gray-200 transition-colors">
+        <button 
+          onClick={scrollToServices}
+          className="bg-white text-black font-lato font-thin py-3 px-8 tracking-wide hover:bg-gray-200 transition-colors"
+        >
           DISCOVER OUR SERVICES
         </button>
       </div>
@@ -91,7 +94,7 @@ const HeroSection = () => {
       {/* Scroll Down Indicator */}
       <div 
         className="absolute bottom-10 left-1/2 transform -translate-x-1/2 cursor-pointer animate-bounce"
-        onClick={scrollToMethod}
+        onClick={scrollToServices}
       >
         <ChevronDown size={32} className="text-white" />
       </div>
