@@ -28,7 +28,6 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-<<<<<<< HEAD
   const handleNavClick = (href: string) => {
     const element = document.getElementById(href);
     if (element) {
@@ -37,8 +36,6 @@ const Navbar = () => {
     }
   };
 
-=======
->>>>>>> da88734f801991c99e1206c204602be771d65f01
   return (
     <header 
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
@@ -49,7 +46,6 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-<<<<<<< HEAD
             {navigationItems.map((item) => (
               <button 
                 key={item.href} 
@@ -58,16 +54,6 @@ const Navbar = () => {
               >
                 {item.label}
               </button>
-=======
-            {['Home', 'Our Method', 'About', 'Services', 'Fees', 'Team', 'Contact'].map((item) => (
-              <a 
-                key={item} 
-                href={`#${item.toLowerCase().replace(' ', '-')}`}
-                className="text-white font-lato font-thin text-sm tracking-wide hover:text-gray-300 transition-colors"
-              >
-                {item.toUpperCase()}
-              </a>
->>>>>>> da88734f801991c99e1206c204602be771d65f01
             ))}
           </nav>
 
@@ -85,7 +71,6 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="md:hidden bg-black/95 absolute w-full">
           <nav className="flex flex-col items-center py-8">
-<<<<<<< HEAD
             {navigationItems.map((item) => (
               <button 
                 key={item.href} 
@@ -94,17 +79,6 @@ const Navbar = () => {
               >
                 {item.label}
               </button>
-=======
-            {['Home', 'Our Method', 'About', 'Services', 'Fees', 'Team', 'Contact'].map((item) => (
-              <a 
-                key={item} 
-                href={`#${item.toLowerCase()}`}
-                className="text-white font-lato font-thin text-sm tracking-wide py-4 hover:text-gray-300 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {item.toUpperCase()}
-              </a>
->>>>>>> da88734f801991c99e1206c204602be771d65f01
             ))}
           </nav>
         </div>
