@@ -92,7 +92,7 @@ const ServicesSection = () => {
         <div className="text-center mb-16">
           <h2 className="font-playfair text-3xl md:text-4xl text-black mb-4">OUR SERVICES</h2>
           <div className="w-16 h-px bg-black mx-auto my-6"></div>
-          <h3 className="font-playfair text-xl md:text-xl text-black mb-4 text-center mb-16">Comprehensive restaurant consulting services tailored for high-end establishments, 
+          <h3 className="font-playfair text-xl md:text-xl text-black mb-4 text-center mb-16"style={{ fontWeight: '300' }}>Comprehensive restaurant consulting services tailored for high-end establishments, 
             from concept development to operational excellence.</h3>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ">

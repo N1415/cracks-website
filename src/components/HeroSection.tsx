@@ -85,7 +85,7 @@ const HeroSection = () => {
         
         <button 
           onClick={scrollToServices}
-          className="bg-white text-black font-lato font-thin py-3 px-8 tracking-wide hover:bg-gray-200 transition-colors"
+          className="bg-white text-black font-lato py-3 px-8 tracking-wide hover:bg-gray-200 transition-colors"style={{ fontWeight: '300' }}
         >
           DISCOVER OUR SERVICES
         </button>

@@ -142,7 +142,7 @@ Project Details:
 
 Please send me more information about this project.
       `);
-      window.open(`mailto:info@crackshospitality.com?subject=${subject}&body=${body}`);
+      window.open(`mailto:nacho@cracks-studio.com?subject=${subject}&body=${body}`);
     }
   };
 
@@ -221,7 +221,7 @@ Please send me more information about this project.
         <div className="text-center mb-16">
           <h2 className="font-playfair text-3xl md:text-4xl mb-4">OUR FEES</h2>
           <div className="w-16 h-px bg-white mx-auto my-8"></div>
-            <p className="font-lato font-thin text-lg text-gray-300 max-w-3xl mx-auto">Our fees are earned across three phases — each one designed to create tangible return before, during, and after your venue opens.
+            <p className="font-lato font-thin text-lg text-gray-300 max-w-3xl mx-auto"style={{ fontWeight: '300' }}>Our fees are earned across three phases — each one designed to create tangible return before, during, and after your venue opens.
           </p>
           </div>
         <div>
