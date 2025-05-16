@@ -222,6 +222,15 @@ const currencies = {
   USD: { rate: 0.028, symbol: '$' }
 };
 
+// Travel supplement fees by region
+const travelSupplements = {
+  'Thailand': 0, // No additional fee
+  'Southeast Asia': 0.05, // +5% of base fee
+  'Asia-Pacific': 0.10, // +10% of base fee
+  'Europe/Middle East': 0.15, // +15% of base fee
+  'Americas': 0.20, // +20% of base fee
+};
+
 const FeesSection = () => {
   const [sqm, setSqm] = useState('');
   const [email, setEmail] = useState('');
@@ -269,7 +278,15 @@ const FeesSection = () => {
       const calculatePrice = (basePrice: number, minPrice: number, ratePerSqm: number) => {
         const initialPrice = Math.max(minPrice, basePrice + (squareMeters * ratePerSqm));
         const discountAmount = initialPrice * (discount / 100);
-        return initialPrice - discountAmount;
+        let finalPrice = initialPrice - discountAmount;
+        
+        // Apply region-based travel supplement
+        const supplement = travelSupplements[country as keyof typeof travelSupplements] || 0;
+        if (supplement > 0) {
+          finalPrice += (finalPrice * supplement);
+        }
+        
+        return finalPrice;
       };
       
       const newPrices = {
@@ -282,7 +299,7 @@ const FeesSection = () => {
     } else {
       setPrices({ bronze: 0, silver: 0, gold: 0 });
     }
-  }, [sqm]);
+  }, [sqm, country]);
 
   const getEstimatedTimeline = (sqm: number) => {
     if (sqm <= 250) return '6-8 months';
@@ -329,6 +346,7 @@ const FeesSection = () => {
           currency
         },
         discountApplied: discountPercent,
+        travelSupplement: travelSupplements[country as keyof typeof travelSupplements] * 100, // Convert to percentage
         timeline: getEstimatedTimeline(squareMeters)
       };
 
@@ -419,12 +437,15 @@ const FeesSection = () => {
                 className="w-full bg-[#0a0f1a] border border-gray-800 rounded px-4 py-3 text-white"
               >
                 <option value="Thailand">Thailand</option>
-                <option value="International">International</option>
+                <option value="Southeast Asia">Southeast Asia</option>
+                <option value="Asia-Pacific">Asia-Pacific</option>
+                <option value="Europe/Middle East">Europe/Middle East</option>
+                <option value="Americas">Americas</option>
               </select>
             </div>
             
             <div className="flex flex-col">
-              <label className="block text-base mb-3">City</label>
+              <label className="block text-base mb-3">City / Country</label>
               <input
                 type="text"
                 value={city}
@@ -523,14 +544,21 @@ const FeesSection = () => {
                       </div>
                     );
                   })}
-                  {sqm && (
-            <div className="mt-10 text-center">
-              <div>
-                <p className="text-base text-gray-400">Estimated Timeline:</p>
-                <p className="text-xl font-semibold mt-1">{getEstimatedTimeline(parseInt(sqm))}</p>
-              </div>
-            </div>
-          )}
+                </div>
+                
+                {/* Timeline Section - Fixed Position */}
+                <div className="border-t border-gray-800 py-6 px-4 text-center h-24 flex flex-col justify-center">
+                  {sqm ? (
+                    <>
+                      <p className="text-base text-gray-400">Estimated Timeline:</p>
+                      <p className="text-xl font-semibold mt-1">{getEstimatedTimeline(parseInt(sqm))}</p>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-base text-gray-400">Estimated Timeline:</p>
+                      <p className="text-xl font-semibold mt-1">Enter square meters</p>
+                    </>
+                  )}
                 </div>
                 
                 <div className="p-4 mt-auto">
@@ -556,49 +584,49 @@ const FeesSection = () => {
             {/* Feasibility Study */}
             <div className="border-t border-gray-800 pt-4">
               <h4 className="font-lato font-medium mb-1">Feasibility Study</h4>
-              <p className="font-lato font-light text-gray-400 text-sm mb-8">(standalone)</p>
+              <p className="font-lato font-light text-white text-sm mb-8">(standalone)</p>
               <p className="font-lato font-medium text-lg">500,000 THB</p>
-              <p className="font-lato font-light text-gray-400 text-sm">14,286 USD</p>
+              <p className="font-lato font-light text-white text-sm">14,286 USD</p>
             </div>
             
             {/* Concept Review */}
             <div className="border-t border-gray-800 pt-4">
               <h4 className="font-lato font-medium mb-1">Concept Review</h4>
-              <p className="font-lato font-light text-gray-400 text-sm mb-8">(standalone)</p>
+              <p className="font-lato font-light text-white text-sm mb-8">(standalone)</p>
               <p className="font-lato font-medium text-lg">300,000 THB</p>
-              <p className="font-lato font-light text-gray-400 text-sm">8,571 USD</p>
+              <p className="font-lato font-light text-white text-sm">8,571 USD</p>
             </div>
             
             {/* Menu Development */}
             <div className="border-t border-gray-800 pt-4">
               <h4 className="font-lato font-medium mb-1">Menu Development</h4>
-              <p className="font-lato font-light text-gray-400 text-sm mb-8">(standalone)</p>
+              <p className="font-lato font-light text-white text-sm mb-8">(standalone)</p>
               <p className="font-lato font-medium text-lg">250,000 THB</p>
-              <p className="font-lato font-light text-gray-400 text-sm">7,143 USD</p>
+              <p className="font-lato font-light text-white text-sm">7,143 USD</p>
             </div>
             
             {/* Operational Audit */}
             <div className="border-t border-gray-800 pt-4">
               <h4 className="font-lato font-medium mb-1">Operational Audit</h4>
-              <p className="font-lato font-light text-gray-400 text-sm mb-8">&nbsp;</p>
+              <p className="font-lato font-light text-white text-sm mb-8">&nbsp;</p>
               <p className="font-lato font-medium text-lg">350,000 THB</p>
-              <p className="font-lato font-light text-gray-400 text-sm">10,000 USD</p>
+              <p className="font-lato font-light text-white text-sm">10,000 USD</p>
             </div>
             
             {/* Partner Service Coordination */}
             <div className="border-t border-gray-800 pt-4">
               <h4 className="font-lato font-medium mb-1">Partner Service</h4>
-              <p className="font-lato font-light text-gray-400 text-sm mb-8">Coordination</p>
+              <p className="font-lato font-light text-white text-sm mb-8">Coordination</p>
               <p className="font-lato font-medium text-lg">15% management fee</p>
-              <p className="font-lato font-light text-gray-400 text-sm">on partner services</p>
+              <p className="font-lato font-light text-white text-sm">on partner services</p>
             </div>
             
             {/* Additional On-Site Days */}
             <div className="border-t border-gray-800 pt-4">
               <h4 className="font-lato font-medium mb-1">Additional On-Site Days</h4>
-              <p className="font-lato font-light text-gray-400 text-sm mb-8">&nbsp;</p>
+              <p className="font-lato font-light text-white text-sm mb-8">&nbsp;</p>
               <p className="font-lato font-medium text-lg">45,000 THB per day</p>
-              <p className="font-lato font-light text-gray-400 text-sm">1,286 USD per day</p>
+              <p className="font-lato font-light text-white text-sm">1,286 USD per day</p>
             </div>
           </div>
         </div>
@@ -614,6 +642,7 @@ const FeesSection = () => {
         </div>
         <div className="mt-auto">
           <p className="font-lato font-light text-sm text-gray-300">* All fees are subject to applicable taxes. Fees are valid for contracts signed in 2025 and subject to annual review. For detailed terms and conditions, please refer to your consulting agreement.</p>
+          <p className="font-lato font-light text-sm text-gray-300">* Travel expenses are billed separately according to our International Consulting Engagement Policy.</p>
           <p className="font-lato font-light text-sm text-gray-300">* For custom projects or special requirements, please contact us for personalized pricing.</p>
         </div>
         </div>
