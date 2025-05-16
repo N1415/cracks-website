@@ -649,5 +649,4 @@ const FeesSection = () => {
     </section>
   );
 };
-
 export default FeesSection;
