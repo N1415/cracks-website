@@ -1,27 +1,11 @@
 import { useState, useEffect } from 'react';
-import {  Mail, ChevronDown, ChevronUp } from 'lucide-react';
+import {  Mail, ChevronDown, ChevronUp, Download } from 'lucide-react';
 
-const phases = [
-  {
-    number: "01",
-    title: "Smart Start — Capital Efficiency from Day Zero",
-    description: "With over 50 openings across 3 continents, we help you avoid costly mistakes and make high-impact decisions early. From location choice to layout and budgeting, we protect your investment before the first guest walks in."
-  },
-  {
-    number: "02",
-    title: "Revenue Activation — Maximising the Top Line",
-    description: "We engineer multiple revenue streams, from brand partnerships to service design. Our strategies are built into your operations, marketing, and menu — ensuring momentum from opening day."
-  },
-  {
-    number: "03",
-    title: "Sustained Profitability — Long-Term Performance",
-    description: "We stay involved beyond the launch. From systems to leadership tools, we ensure your business is resilient, scalable, and tuned for consistent financial performance."
-  }
-];
+
 
 const packages = {
   bronze: {
-    name: "Bronze",
+    name: "BLUEPRINT",
     basePrice: 0,
     minPrice: 1250000,
     ratePerSqm: 5000,
@@ -29,126 +13,179 @@ const packages = {
     subtitle: "Our starting point",
     features: [
       "MARKET & COMPETITIVE ANALYSIS",
-      " - In-depth market research and competitive landscape evaluation",
-      " - Target demographic profiling and guest behavior analysis",
-      " - Identification of underserved cuisine types and dining experiences",
-      " - Competitive positioning relative to local restaurant ecosystem",
-      " - Assessment of hotel guest preferences and dining patterns",
-      "CONCEPT DEVELOPMENT",
-      " - Creation of distinctive restaurant concepts aligned with hotel brand identity",
-      " - Cuisine direction and menu philosophy development",
-      " - Service style and guest journey mapping",
-      " - Unique selling proposition definition",
-      " - Revenue stream identification and optimization strategies",
-      " - Concept testing and validation with stakeholders",
-      "FINANCIAL FEASIBILITY & INVESTMENT PLANNING",
-      " - Comprehensive investment requirement analysis",
-      " - Detailed profit and loss projections (5-year horizon)",
-      " - Break-even analysis and ROI forecasting",
-      " - Capital expenditure budgeting and phasing",
-      " - Working capital requirements assessment",
-      " - Funding structure recommendations",
-      " - Risk assessment and mitigation strategies",
+" - Comprehensive market opportunity assessment",
+" - Site location evaluation and recommendations",
+" - Identification of market gaps and opportunities",
+" - Customer persona development",
+" - Spending pattern analysis",
+" - Lifestyle and preference mapping",
+" - Suggested pricing models",
+" - Detailed competitor analysis (up to 5 direct competitors)",
+" - SWOT analysis",
+" - Unique selling proposition development",
+
+"CONCEPT DEVELOPMENT",
+" - Brand story and concept articulation",
+" - Menu direction and pricing strategy (includes sample menus)",
+" - Service style recommendations",
+" - Basic design brief",
+" - Space planning support",
+" - Manuals to guide venue design",
+
+"FINANCIAL FEASIBILITY & INVESTMENT PLANNING",
+" - Initial investment estimation",
+" - Projected profit and loss statements (3-year outlook)",
+" - Break-even analysis",
+" - Return on investment projections",
+" - Capital requirement assessment",
+" - Funding option recommendations",
+
+"RISK ASSESSMENT & MITIGATION",
+" - Identification of potential operational risks",
+" - Market vulnerability analysis",
+" - Contingency planning foundations",
+
+"OPERATIONAL TOOLS & HR TEMPLATES",
+" - HR templates: job descriptions, job advertisements, HR handbooks",
+" - Training templates: cycle of service, wine service, bar training materials",
+
     ]
   },
   silver: {
-    name: "Silver",
+    name: "FRAMEWORK",
     basePrice: 0,
     minPrice: 1625000,
     ratePerSqm: 6500,
     title: "DESIGN & DEVELOPMENT PHASE",
-    subtitle: "Everything in Bronze +",
+    subtitle: "Everything in the Blueprint package, plus:",
     features: [
       "RESTAURANT DESIGN COORDINATION",
-      " - Architect and designer selection assistance",
-      " - Design brief development capturing concept essence and operational requirements",
-      " - Layout optimization for operational efficiency and guest flow",
-      " - FF&E (furniture, fixtures & equipment) specification development",
-      " - Acoustic treatment consultation",
-      " - Lighting design coordination",
-      " - Brand integration into physical space",
-      " - Sustainability considerations and implementation",
-      " - Music development",
-      "KITCHEN & BAR DESIGN",
-      " - Operational kitchen and bar layout planning",
-      " - Equipment specification and sourcing assistance",
-      " - Workflow optimization",
-      " - Utility requirements planning",
-      " - Storage and refrigeration planning",
-      " - Health and safety compliance oversight",
-      " - Energy efficiency implementation",
-      "PROJECTION MANAGEMENT",
-      " - Development timeline creation and milestone tracking",
-      " - Vendor and contractor coordination",
-      " - Construction phase oversight",
-      " - Quality control",
-      " - Budget adherence monitoring",
-      " - Change order management",
-      " - FF&E procurement supervision",
-      " - Installation oversight",
-      " - Punch list development and completion verification"
+" - Designer selection assistance",
+" - Operational flow optimization",
+" - Design brief development",
+" - Guest journey mapping",
+
+"KITCHEN & BAR DESIGN",
+" - Workflow efficiency planning",
+" - Station configuration",
+" - Equipment specification and sizing",
+" - Capacity optimization",
+" - Kitchen consultant assistance",
+
+"LAYOUT OPTIMIZATION",
+" - Space utilization analysis",
+" - Traffic flow planning",
+" - Seating configuration recommendations and planning with the designer",
+" - Operational bottleneck prevention",
+
+"EQUIPMENT SPECIFICATION",
+" - Detailed equipment lists with specifications",
+" - Vendor recommendations",
+" - Budget-conscious alternatives",
+" - Long-term cost analysis",
+
+"PROJECT MANAGEMENT",
+" - Timeline development and tracking",
+" - Milestone establishment",
+" - Coordination between stakeholders",
+" - Once-a-week progress reporting",
+
+"VENDOR COORDINATION",
+" - Preferred supplier network access",
+" - Contract negotiation assistance",
+" - Quality and price evaluation",
+" - Order tracking and delivery coordination",
+
+"QUALITY CONTROL",
+" - Design integrity verification",
+" - Construction milestone inspections",
+" - Equipment installation oversight",
+" - Systems testing and validation",
+
+"BUDGET MONITORING",
+" - Cost tracking against projections",
+" - Variance analysis",
+" - Budget adjustment recommendations",
+" - Value engineering when necessary",
+
+"TEAM PROFILING",
+" - Full development of key stakeholders' job descriptions",
+" - 3 final interviews for key leaders (kitchen, wine, floor, and bar)",
+
     ]
   },
   gold: {
-    name: "Gold",
+    name: "LAUNCH",
     basePrice: 0,
     minPrice: 2000000,
     ratePerSqm: 8000,
     title: "PRE-OPENING IMPLEMENTATION",
-    subtitle: "Everything in Silver +",
+    subtitle: "Everything in the Blueprint and Framework packages, plus:",
     features: [
-      "PRE-OPENING LOGISTICS",
-      " - Standard Operating Procedures (SOPs) creation",
-      " - Service standards documentation",
-      " - Point of Sale (POS) system specification and implementation",
-      " - Inventory management system setup",
-      " - Reservation and table management system implementation",
-      " - Quality assurance protocols establishment",
-      " - Back-office systems integration",
-      " - Health and safety compliance program development",
-      "PRE-LAUNCH DETAILS F&B",
-      " - Menu concept refinement",
-      " - Recipe development and standardization",
-      " - Food cost analysis and pricing strategy",
-      " - Beverage program development",
-      " - Wine list curation",
-      " - Cocktail program creation",
-      " - Menu design and production",
-      " - Seasonal menu planning framework",
-      " - Local supplier identification and relationship establishment",
-      " - Procurement system development",
-      "TALENT ACQUISITION & TRAINING",
-      " - Organizational structure design",
-      " - Job description development",
-      " - Recruitment strategy formulation",
-      " - Key personnel selection assistance",
-      " - Pre-opening training program development",
-      " - Brand standards and culture training",
-      " - Technical skills training",
-      " - Service excellence training",
-      " - Management training and development",
-      " - Performance evaluation system implementation",
-      "PRE-LAUNCH MARKETING & PR",
-      " - Brand identity development",
-      " - Positioning strategy formulation",
-      " - Digital presence establishment",
-      " - Social media strategy creation",
-      " - Content development",
-      " - Launch campaign planning",
-      " - Media relationship building",
-      " - Influencer strategy development",
-      " - Hotel integration marketing",
-      " - Internal marketing to hotel staff",
-      "PRE-OPENING EXECUTION",
-      " - Pre-Opening execution",
-      " - Opening inventory procurement",
-      " - Equipment testing and calibration",
-      " - Dry run planning and execution",
-      " - Friends and family event organization",
-      " - Media preview coordination",
-      " - VIP event planning",
-      " - Soft opening strategy development",
-      " - Grand opening orchestration"
+      "COMPLETE OPERATIONAL SETUP",
+" - Customized standard operating procedures development",
+" - POS system setup and configuration",
+" - Reservation system implementation",
+" - Inventory management system installation",
+" - Back-office systems integration",
+
+"STAFF TRAINING & DEVELOPMENT",
+" - Recruitment assistance",
+" - Comprehensive training program development",
+" - Management team coaching",
+" - Service standards implementation",
+" - Team building and culture development",
+
+"MARKETING & PR STRATEGY",
+" - Brand launch plan in coordination with your Public Relations team",
+" - Digital presence development planning",
+" - Public relations campaign guidance",
+" - Opening event planning",
+" - Media relations management",
+" - Marketing plan collaboration with your media company",
+
+"LAUNCH SUPPORT",
+" - Opening timeline creation",
+" - Soft opening coordination",
+" - Grand opening execution",
+" - Initial guest feedback collection",
+" - First 2 weeks of hands-on operational monitoring",
+
+"QUALITY CONTROL SYSTEMS",
+" - Quality assurance protocols",
+" - Customer service standards",
+" - Product consistency measures",
+" - Cleanliness and maintenance routines",
+
+"REVENUE OPTIMIZATION",
+" - Pricing strategy implementation",
+" - Upselling techniques",
+" - Menu engineering and costing",
+" - Promotion planning",
+" - Reservation/table management optimization",
+
+"ONGOING SUPPORT",
+" - Weekly operations review (first month)",
+" - Monthly performance assessment (first three months)",
+" - Course correction recommendations",
+" - 24/7 emergency consultation",
+" - Management mentoring",
+" - Full tastings: food, drinks, and wine — menu development with owners and key stakeholders",
+
+"PERFORMANCE MONITORING",
+" - KPI setup and tracking",
+" - Customer satisfaction measurement",
+" - Staff performance evaluation",
+" - Financial target monitoring",
+
+"TEAM",
+" - Full management training",
+" - Smart rostering systems",
+" - Key stakeholder recruitment in collaboration with your HR team and external recruiters",
+" - Job descriptions and job ads for all team members",
+" - RASCI Matrix for each team member outlining responsibilities",
+" - Full onboarding support with the management team",
+" - Compensation and benefits table",
     ]
   }
 };
@@ -213,6 +250,14 @@ const FeesSection = () => {
     }
     
     return 0;
+  };
+
+  const handleDownloadPDF = () => {
+    // PDF URL
+    const pdfUrl = "https://banpdomqwvebesayycpm.supabase.co/storage/v1/object/public/pdf/Cracks%20Pitchs/Restaurant-Development-Services.pdf";
+    
+    // Open PDF in a new tab
+    window.open(pdfUrl, '_blank', 'noopener,noreferrer');
   };
 
   useEffect(() => {
@@ -357,116 +402,100 @@ const FeesSection = () => {
           <h2 className="font-playfair text-3xl md:text-4xl mb-4">OUR FEES</h2>
           <div className="w-16 h-px bg-white mx-auto my-8"></div>
           <p className="font-lato font-thin text-lg text-gray-300 max-w-3xl mx-auto">
-            Our fees are earned across three phases — each one designed to create tangible return before, during, and after your venue opens.
+           Cracks Hospitality Studio utilizes a transparent square meter-based pricing model that scales with your project size. This approach ensures our fees directly correspond to the complexity and scope of your hospitality establishment while providing predictability for your consulting budget.
           </p>
         </div>
 
-        {/* Phases Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
-          {phases.map((phase) => (
-            <div 
-              key={phase.number}
-              className="bg-gray-900/50 border border-white/10 p-8 hover:border-white/30 transition-all duration-300 backdrop-blur-sm"
-            >
-              <div className="font-playfair text-4xl text-white p-8 mb-6">{phase.number}</div>
-              <div className="w-12 h-px bg-white/30 mb-6"></div>
-              <h3 className="font-playfair text-xl mb-4">{phase.title}</h3>
-              <p className="font-lato text-white" style={{ fontWeight: '300' }}>{phase.description}</p>
+        {/* Calculator Section - Long Landscape Box */}
+        <div className="bg-[#0f1420] border border-gray-800 rounded-lg p-12 mb-12">
+          <h2 className="font-playfair text-3xl mb-10 text-center">Calculate Your Fees</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
+            <div className="flex flex-col">
+              <label className="block text-base mb-3">Region</label>
+              <select
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
+                className="w-full bg-[#0a0f1a] border border-gray-800 rounded px-4 py-3 text-white"
+              >
+                <option value="Thailand">Thailand</option>
+                <option value="International">International</option>
+              </select>
             </div>
-          ))}
-        </div>
-
-        {/* Packages Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
-          {/* Calculator Column */}
-          <div className="bg-gray-900/50 border border-white/10 p-6 rounded-lg">
-            <h3 className="font-playfair text-xl mb-6">Calculate Your Investment</h3>
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-2">Country</label>
-                <select
-                  value={country}
-                  onChange={(e) => setCountry(e.target.value)}
-                  className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-white"
-                >
-                  <option value="Thailand">Thailand</option>
-                  <option value="International">International</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-2">City</label>
-                <input
-                  type="text"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-white"
-                  placeholder="Enter city name"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-2">Square Meters</label>
-                <input
-                  type="number"
-                  value={sqm}
-                  onChange={(e) => setSqm(e.target.value)}
-                  className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-white"
-                  placeholder="Enter square meters"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-2">Currency</label>
-                <select
-                  value={currency}
-                  onChange={(e) => setCurrency(e.target.value)}
-                  className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-white"
-                >
-                  {Object.keys(currencies).map(curr => (
-                    <option key={curr} value={curr}>{curr}</option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-2">Email</label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-white"
-                  placeholder="Your email"
-                />
-              </div>
-              {sqm && (
-                <div className="mt-4 text-sm text-gray-300">
-                  <p>Estimated Timeline:</p>
-                  <p className="font-semibold">{getEstimatedTimeline(parseInt(sqm))}</p>
-                </div>
-              )}
+            
+            <div className="flex flex-col">
+              <label className="block text-base mb-3">City</label>
+              <input
+                type="text"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                className="w-full bg-[#0a0f1a] border border-gray-800 rounded px-4 py-3 text-white"
+                placeholder="Enter city name"
+              />
+            </div>
+            
+            <div className="flex flex-col">
+              <label className="block text-base mb-3">Square Meters</label>
+              <input
+                type="number"
+                value={sqm}
+                onChange={(e) => setSqm(e.target.value)}
+                className="w-full bg-[#0a0f1a] border border-gray-800 rounded px-4 py-3 text-white"
+                placeholder="Enter square meters"
+              />
+            </div>
+            
+            <div className="flex flex-col">
+              <label className="block text-base mb-3">Currency</label>
+              <select
+                value={currency}
+                onChange={(e) => setCurrency(e.target.value)}
+                className="w-full bg-[#0a0f1a] border border-gray-800 rounded px-4 py-3 text-white"
+              >
+                {Object.keys(currencies).map(curr => (
+                  <option key={curr} value={curr}>{curr}</option>
+                ))}
+              </select>
+            </div>
+            
+            <div className="flex flex-col">
+              <label className="block text-base mb-3">Email</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full bg-[#0a0f1a] border border-gray-800 rounded px-4 py-3 text-white"
+                placeholder="Your email"
+              />
             </div>
           </div>
+        </div>
 
+        {/* Package Boxes - 5 in a row */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
           {/* Package Columns */}
           {Object.entries(packages).map(([key, pack]) => {
             const processedFeatures = processFeatures(pack.features);
             
             return (
               <div key={key} className="bg-[#0f1420] border border-gray-800 rounded-lg flex flex-col h-full">
-                <h3 className="font-playfair text-2xl py-6 border-b border-gray-800 text-center">{pack.name}</h3>
+                <h3 className="font-playfair text-xl py-4 border-b border-gray-800 text-center">{pack.name}</h3>
                 
                 {prices[key as keyof typeof prices] > 0 && (
-                  <div className="text-2xl font-playfair py-4 text-center border-b border-gray-800">
+                  <div className="text-xl font-playfair py-3 text-center border-b border-gray-800">
                     {formatPrice(prices[key as keyof typeof prices])}
                   </div>
                 )}
 
                 {pack.title && (
-                  <h4 className="font-lato text-base font-medium py-6 px-6 text-center border-b border-gray-800">{pack.title}</h4>
+                  <h4 className="font-lato text-sm font-light py-3 px-4 text-center border-b border-gray-800">{pack.title}</h4>
                 )}
                 
                 {pack.subtitle && (
-                  <h4 className="font-lato text-base py-6 px-6 text-center text-gray-300 border-b border-gray-800">{pack.subtitle}</h4>
+                  <h4 className="font-lato text-m font-light py-3 px-4 text-center text-gray-300 border-b border-gray-800">{pack.subtitle}</h4>
                 )}
                 
-                <div className="flex-grow">
+                <div className="flex-grow overflow-auto mix-h-100">
                   {processedFeatures.map((section, index) => {
                     const sectionKey = `${key}-${index}`;
                     const isExpanded = expandedSections[sectionKey];
@@ -475,41 +504,119 @@ const FeesSection = () => {
                       <div key={sectionKey} className="border-b border-gray-800">
                         <div 
                           onClick={() => toggleSection(sectionKey)}
-                          className="flex items-center justify-between cursor-pointer py-4 px-6"
+                          className="flex items-center justify-between cursor-pointer py-3 px-4"
                         >
-                          <h4 className="font-medium text-sm">{section.title}</h4>
+                          <h4 className="font-light text-xs">{section.title}</h4>
                           {isExpanded 
-                            ? <ChevronUp size={18} className="text-gray-400" /> 
-                            : <ChevronDown size={18} className="text-gray-400" />
+                            ? <ChevronUp size={16} className="text-gray-400" /> 
+                            : <ChevronDown size={16} className="text-gray-400" />
                           }
                         </div>
                         
                         {isExpanded && (
-                          <div className="px-6 pb-4 space-y-2">
+                          <div className="px-4 pb-3 space-y-2">
                             {section.items.map((item, idx) => (
-                              <p key={idx} className="text-xs text-gray-400 pl-3">{item}</p>
+                              <p key={idx} className="text-xs font-thin text-white pl-2">{item}</p>
                             ))}
                           </div>
                         )}
                       </div>
                     );
                   })}
+                  {sqm && (
+            <div className="mt-10 text-center">
+              <div>
+                <p className="text-base text-gray-400">Estimated Timeline:</p>
+                <p className="text-xl font-semibold mt-1">{getEstimatedTimeline(parseInt(sqm))}</p>
+              </div>
+            </div>
+          )}
                 </div>
                 
-                <div className="p-6 mt-auto">
+                <div className="p-4 mt-auto">
                   <button
                     onClick={() => handleSubmit(key as 'bronze' | 'silver' | 'gold')}
-                    className="w-full bg-white text-black px-4 py-3 rounded flex items-center justify-center gap-2 hover:bg-gray-200 transition-colors"
+                    className="w-full bg-white text-black px-3 py-2 rounded flex items-center justify-center gap-1 hover:bg-gray-200 transition-colors text-sm"
                   >
-                    <Mail size={18} />
+                    <Mail size={14} />
                     Get Quote
                   </button>
                 </div>
               </div>
             );
           })}
+          
         </div>
-      </div>
+        
+        {/* Additional Services Box */}
+        <div className="bg-[#0f1420] border border-gray-800 rounded-lg p-8 mb-8">
+          <h3 className="font-playfair text-2xl mb-10 text-center">ADDITIONAL SERVICES</h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
+            {/* Feasibility Study */}
+            <div className="border-t border-gray-800 pt-4">
+              <h4 className="font-lato font-medium mb-1">Feasibility Study</h4>
+              <p className="font-lato font-light text-gray-400 text-sm mb-8">(standalone)</p>
+              <p className="font-lato font-medium text-lg">500,000 THB</p>
+              <p className="font-lato font-light text-gray-400 text-sm">14,286 USD</p>
+            </div>
+            
+            {/* Concept Review */}
+            <div className="border-t border-gray-800 pt-4">
+              <h4 className="font-lato font-medium mb-1">Concept Review</h4>
+              <p className="font-lato font-light text-gray-400 text-sm mb-8">(standalone)</p>
+              <p className="font-lato font-medium text-lg">300,000 THB</p>
+              <p className="font-lato font-light text-gray-400 text-sm">8,571 USD</p>
+            </div>
+            
+            {/* Menu Development */}
+            <div className="border-t border-gray-800 pt-4">
+              <h4 className="font-lato font-medium mb-1">Menu Development</h4>
+              <p className="font-lato font-light text-gray-400 text-sm mb-8">(standalone)</p>
+              <p className="font-lato font-medium text-lg">250,000 THB</p>
+              <p className="font-lato font-light text-gray-400 text-sm">7,143 USD</p>
+            </div>
+            
+            {/* Operational Audit */}
+            <div className="border-t border-gray-800 pt-4">
+              <h4 className="font-lato font-medium mb-1">Operational Audit</h4>
+              <p className="font-lato font-light text-gray-400 text-sm mb-8">&nbsp;</p>
+              <p className="font-lato font-medium text-lg">350,000 THB</p>
+              <p className="font-lato font-light text-gray-400 text-sm">10,000 USD</p>
+            </div>
+            
+            {/* Partner Service Coordination */}
+            <div className="border-t border-gray-800 pt-4">
+              <h4 className="font-lato font-medium mb-1">Partner Service</h4>
+              <p className="font-lato font-light text-gray-400 text-sm mb-8">Coordination</p>
+              <p className="font-lato font-medium text-lg">15% management fee</p>
+              <p className="font-lato font-light text-gray-400 text-sm">on partner services</p>
+            </div>
+            
+            {/* Additional On-Site Days */}
+            <div className="border-t border-gray-800 pt-4">
+              <h4 className="font-lato font-medium mb-1">Additional On-Site Days</h4>
+              <p className="font-lato font-light text-gray-400 text-sm mb-8">&nbsp;</p>
+              <p className="font-lato font-medium text-lg">45,000 THB per day</p>
+              <p className="font-lato font-light text-gray-400 text-sm">1,286 USD per day</p>
+            </div>
+          </div>
+        </div>
+        {/* Download Button */}
+        <div className="text-center">
+          <button 
+            className="bg-white border-black text-black mb-8 font-lato font-light py-4 px-8 flex items-center justify-center mx-auto hover:bg-gray-200 transition-colors group cursor-pointer"
+            onClick={handleDownloadPDF}
+          >
+            <Download size={20} className="mr-2 group-hover:transform group-hover:-translate-y-1 transition-transform" />
+            DOWNLOAD FULL DEVELOPMENT SERVICES PITCH
+          </button>
+        </div>
+        <div className="mt-auto">
+          <p className="font-lato font-light text-sm text-gray-300">* All fees are subject to applicable taxes. Fees are valid for contracts signed in 2025 and subject to annual review. For detailed terms and conditions, please refer to your consulting agreement.</p>
+          <p className="font-lato font-light text-sm text-gray-300">* For custom projects or special requirements, please contact us for personalized pricing.</p>
+        </div>
+        </div>
     </section>
   );
 };
