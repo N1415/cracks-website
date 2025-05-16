@@ -452,18 +452,18 @@ const FeesSection = () => {
               <div key={key} className="bg-[#0f1420] border border-gray-800 rounded-lg flex flex-col h-full">
                 <h3 className="font-playfair text-2xl py-6 border-b border-gray-800 text-center">{pack.name}</h3>
                 
+                {prices[key as keyof typeof prices] > 0 && (
+                  <div className="text-2xl font-playfair py-4 text-center border-b border-gray-800">
+                    {formatPrice(prices[key as keyof typeof prices])}
+                  </div>
+                )}
+
                 {pack.title && (
                   <h4 className="font-lato text-base font-medium py-6 px-6 text-center border-b border-gray-800">{pack.title}</h4>
                 )}
                 
                 {pack.subtitle && (
                   <h4 className="font-lato text-base py-6 px-6 text-center text-gray-300 border-b border-gray-800">{pack.subtitle}</h4>
-                )}
-                
-                {prices[key as keyof typeof prices] > 0 && (
-                  <div className="text-2xl font-playfair py-4 text-center border-b border-gray-800">
-                    {formatPrice(prices[key as keyof typeof prices])}
-                  </div>
                 )}
                 
                 <div className="flex-grow">
