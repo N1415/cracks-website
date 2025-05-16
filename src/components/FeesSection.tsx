@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Mail } from 'lucide-react';
+import {  Mail, ChevronDown, ChevronUp } from 'lucide-react';
 
 const phases = [
   {
@@ -25,17 +25,30 @@ const packages = {
     basePrice: 0,
     minPrice: 1250000,
     ratePerSqm: 5000,
+    title: "STRATEGIC PLANNING & CONCEPT DEVELOPMENT",
+    subtitle: "Our starting point",
     features: [
-      "STRATEGIC PLANNING & CONCEPT DEVELOPMENT",
-      "Market & Competitive Analysis",
-      "In-depth market research",
-      "Target demographic profiling",
-      "Competitive positioning",
-      "Concept development",
-      "Financial feasibility",
-      "Investment planning",
-      "ROI forecasting",
-      "Risk assessment"
+      "MARKET & COMPETITIVE ANALYSIS",
+      " - In-depth market research and competitive landscape evaluation",
+      " - Target demographic profiling and guest behavior analysis",
+      " - Identification of underserved cuisine types and dining experiences",
+      " - Competitive positioning relative to local restaurant ecosystem",
+      " - Assessment of hotel guest preferences and dining patterns",
+      "CONCEPT DEVELOPMENT",
+      " - Creation of distinctive restaurant concepts aligned with hotel brand identity",
+      " - Cuisine direction and menu philosophy development",
+      " - Service style and guest journey mapping",
+      " - Unique selling proposition definition",
+      " - Revenue stream identification and optimization strategies",
+      " - Concept testing and validation with stakeholders",
+      "FINANCIAL FEASIBILITY & INVESTMENT PLANNING",
+      " - Comprehensive investment requirement analysis",
+      " - Detailed profit and loss projections (5-year horizon)",
+      " - Break-even analysis and ROI forecasting",
+      " - Capital expenditure budgeting and phasing",
+      " - Working capital requirements assessment",
+      " - Funding structure recommendations",
+      " - Risk assessment and mitigation strategies",
     ]
   },
   silver: {
@@ -43,17 +56,37 @@ const packages = {
     basePrice: 0,
     minPrice: 1625000,
     ratePerSqm: 6500,
+    title: "DESIGN & DEVELOPMENT PHASE",
+    subtitle: "Everything in Bronze +",
     features: [
-      "DESIGN & DEVELOPMENT PHASE",
-      "Everything in Bronze +",
-      "Restaurant design coordination",
-      "Kitchen & bar design",
-      "Layout optimization",
-      "Equipment specification",
-      "Project management",
-      "Vendor coordination",
-      "Quality control",
-      "Budget monitoring"
+      "RESTAURANT DESIGN COORDINATION",
+      " - Architect and designer selection assistance",
+      " - Design brief development capturing concept essence and operational requirements",
+      " - Layout optimization for operational efficiency and guest flow",
+      " - FF&E (furniture, fixtures & equipment) specification development",
+      " - Acoustic treatment consultation",
+      " - Lighting design coordination",
+      " - Brand integration into physical space",
+      " - Sustainability considerations and implementation",
+      " - Music development",
+      "KITCHEN & BAR DESIGN",
+      " - Operational kitchen and bar layout planning",
+      " - Equipment specification and sourcing assistance",
+      " - Workflow optimization",
+      " - Utility requirements planning",
+      " - Storage and refrigeration planning",
+      " - Health and safety compliance oversight",
+      " - Energy efficiency implementation",
+      "PROJECTION MANAGEMENT",
+      " - Development timeline creation and milestone tracking",
+      " - Vendor and contractor coordination",
+      " - Construction phase oversight",
+      " - Quality control",
+      " - Budget adherence monitoring",
+      " - Change order management",
+      " - FF&E procurement supervision",
+      " - Installation oversight",
+      " - Punch list development and completion verification"
     ]
   },
   gold: {
@@ -61,17 +94,61 @@ const packages = {
     basePrice: 0,
     minPrice: 2000000,
     ratePerSqm: 8000,
+    title: "PRE-OPENING IMPLEMENTATION",
+    subtitle: "Everything in Silver +",
     features: [
-      "PRE-OPENING IMPLEMENTATION",
-      "Everything in Silver +",
-      "Complete operational setup",
-      "Staff training & development",
-      "Marketing & PR strategy",
-      "Launch support",
-      "Quality control systems",
-      "Revenue optimization",
-      "Ongoing support",
-      "Performance monitoring"
+      "PRE-OPENING LOGISTICS",
+      " - Standard Operating Procedures (SOPs) creation",
+      " - Service standards documentation",
+      " - Point of Sale (POS) system specification and implementation",
+      " - Inventory management system setup",
+      " - Reservation and table management system implementation",
+      " - Quality assurance protocols establishment",
+      " - Back-office systems integration",
+      " - Health and safety compliance program development",
+      "PRE-LAUNCH DETAILS F&B",
+      " - Menu concept refinement",
+      " - Recipe development and standardization",
+      " - Food cost analysis and pricing strategy",
+      " - Beverage program development",
+      " - Wine list curation",
+      " - Cocktail program creation",
+      " - Menu design and production",
+      " - Seasonal menu planning framework",
+      " - Local supplier identification and relationship establishment",
+      " - Procurement system development",
+      "TALENT ACQUISITION & TRAINING",
+      " - Organizational structure design",
+      " - Job description development",
+      " - Recruitment strategy formulation",
+      " - Key personnel selection assistance",
+      " - Pre-opening training program development",
+      " - Brand standards and culture training",
+      " - Technical skills training",
+      " - Service excellence training",
+      " - Management training and development",
+      " - Performance evaluation system implementation",
+      "PRE-LAUNCH MARKETING & PR",
+      " - Brand identity development",
+      " - Positioning strategy formulation",
+      " - Digital presence establishment",
+      " - Social media strategy creation",
+      " - Content development",
+      " - Launch campaign planning",
+      " - Media relationship building",
+      " - Influencer strategy development",
+      " - Hotel integration marketing",
+      " - Internal marketing to hotel staff",
+      "PRE-OPENING EXECUTION",
+      " - Pre-Opening execution",
+      " - Opening inventory procurement",
+      " - Equipment testing and calibration",
+      " - Dry run planning and execution",
+      " - Friends and family event organization",
+      " - Media preview coordination",
+      " - VIP event planning",
+      " - Soft opening strategy development",
+      " - Grand opening orchestration"
     ]
   }
 };
@@ -120,6 +197,7 @@ const FeesSection = () => {
     gold: 0
   });
   const [discountPercent, setDiscountPercent] = useState(0);
+  const [expandedSections, setExpandedSections] = useState<{[key: string]: boolean}>({});
 
   const getDiscountRate = (squareMeters: number) => {
     // Apply 10% flat discount for areas over 1400 sqm
@@ -229,6 +307,48 @@ const FeesSection = () => {
     }
   };
 
+  const toggleSection = (sectionKey: string) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [sectionKey]: !prev[sectionKey]
+    }));
+  };
+
+  // Function to check if a feature is a section header
+  const isSectionHeader = (feature: string) => !feature.startsWith(' -');
+
+  // Function to process features for a package
+  const processFeatures = (features: string[]) => {
+    const sections: {title: string, items: string[]}[] = [];
+    let currentItems: string[] = [];
+    let currentTitle = '';
+
+    features.forEach(feature => {
+      if (isSectionHeader(feature)) {
+        if (currentTitle) {
+          sections.push({
+            title: currentTitle,
+            items: [...currentItems]
+          });
+          currentItems = [];
+        }
+        currentTitle = feature;
+      } else {
+        currentItems.push(feature);
+      }
+    });
+
+    // Add the last section
+    if (currentTitle && currentItems.length > 0) {
+      sections.push({
+        title: currentTitle,
+        items: [...currentItems]
+      });
+    }
+
+    return sections;
+  };
+
   return (
     <section id="fees" className="py-24 bg-black text-white">
       <div className="container mx-auto px-4 max-w-7xl">
@@ -325,30 +445,69 @@ const FeesSection = () => {
           </div>
 
           {/* Package Columns */}
-          {Object.entries(packages).map(([key, pack]) => (
-            <div key={key} className="bg-gray-900/50 border border-white/10 p-6 rounded-lg">
-              <h3 className="font-playfair text-xl mb-4">{pack.name}</h3>
-              {prices[key as keyof typeof prices] > 0 && (
-                <div className="text-2xl font-playfair mb-6">
-                  {formatPrice(prices[key as keyof typeof prices])}
+          {Object.entries(packages).map(([key, pack]) => {
+            const processedFeatures = processFeatures(pack.features);
+            
+            return (
+              <div key={key} className="bg-[#0f1420] border border-gray-800 rounded-lg flex flex-col h-full">
+                <h3 className="font-playfair text-2xl py-6 border-b border-gray-800 text-center">{pack.name}</h3>
+                
+                {pack.title && (
+                  <h4 className="font-lato text-base font-medium py-6 px-6 text-center border-b border-gray-800">{pack.title}</h4>
+                )}
+                
+                {pack.subtitle && (
+                  <h4 className="font-lato text-base py-6 px-6 text-center text-gray-300 border-b border-gray-800">{pack.subtitle}</h4>
+                )}
+                
+                {prices[key as keyof typeof prices] > 0 && (
+                  <div className="text-2xl font-playfair py-4 text-center border-b border-gray-800">
+                    {formatPrice(prices[key as keyof typeof prices])}
+                  </div>
+                )}
+                
+                <div className="flex-grow">
+                  {processedFeatures.map((section, index) => {
+                    const sectionKey = `${key}-${index}`;
+                    const isExpanded = expandedSections[sectionKey];
+                    
+                    return (
+                      <div key={sectionKey} className="border-b border-gray-800">
+                        <div 
+                          onClick={() => toggleSection(sectionKey)}
+                          className="flex items-center justify-between cursor-pointer py-4 px-6"
+                        >
+                          <h4 className="font-medium text-sm">{section.title}</h4>
+                          {isExpanded 
+                            ? <ChevronUp size={18} className="text-gray-400" /> 
+                            : <ChevronDown size={18} className="text-gray-400" />
+                          }
+                        </div>
+                        
+                        {isExpanded && (
+                          <div className="px-6 pb-4 space-y-2">
+                            {section.items.map((item, idx) => (
+                              <p key={idx} className="text-xs text-gray-400 pl-3">{item}</p>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
-              )}
-              <ul className="space-y-3 mb-6">
-                {pack.features.map((feature, index) => (
-                  <li key={index} className="text-sm text-gray-300">
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              <button
-                onClick={() => handleSubmit(key as 'bronze' | 'silver' | 'gold')}
-                className="w-full bg-white text-black px-4 py-2 rounded flex items-center justify-center gap-2 hover:bg-gray-200 transition-colors"
-              >
-                <Mail size={18} />
-                Get Quote
-              </button>
-            </div>
-          ))}
+                
+                <div className="p-6 mt-auto">
+                  <button
+                    onClick={() => handleSubmit(key as 'bronze' | 'silver' | 'gold')}
+                    className="w-full bg-white text-black px-4 py-3 rounded flex items-center justify-center gap-2 hover:bg-gray-200 transition-colors"
+                  >
+                    <Mail size={18} />
+                    Get Quote
+                  </button>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
