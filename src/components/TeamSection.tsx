@@ -51,7 +51,7 @@ const TeamSection = () => {
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="font-playfair text-3xl md:text-4xl mb-4">OUR TEAM</h2>
+          <h2 className="font-playfair text-3xl md:text-4xl mb-4">THE TEAM</h2>
           <div className="w-16 h-0.5 bg-black mx-auto my-8"></div>
           <p className="font-lato text-lg text-black-700 max-w-3xl mx-auto"style={{ fontWeight: '300' }}>
             Meet the visionaries behind our success — hospitality experts with proven track records of creating and scaling successful F&B concepts.

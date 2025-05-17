@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import {  Mail, ChevronDown, ChevronUp, Download } from 'lucide-react';
+import {  Mail, ChevronDown, ChevronUp } from 'lucide-react';
 
 
 
@@ -7,10 +7,11 @@ const packages = {
   bronze: {
     name: "BLUEPRINT",
     basePrice: 0,
-    minPrice: 1250000,
-    ratePerSqm: 5000,
+    minPrice: 25000,
+    ratePerSqm: 100,
     title: "STRATEGIC PLANNING & CONCEPT DEVELOPMENT",
-    subtitle: "Our starting point",
+    subtitle: "The starting point, providing the essential groundwork for a successful hospitality concept. We validate your vision through market analysis, concept refinement, and financial modeling to ensure your project stands on solid ground before significant investments are made. We provide you with tools to develop a successful concept.",
+    includes: "VALIDATING YOUR IDEA:",
     features: [
       "MARKET & COMPETITIVE ANALYSIS",
 " - Comprehensive market opportunity assessment",
@@ -54,10 +55,11 @@ const packages = {
   silver: {
     name: "FRAMEWORK",
     basePrice: 0,
-    minPrice: 1625000,
-    ratePerSqm: 6500,
-    title: "DESIGN & DEVELOPMENT PHASE",
-    subtitle: "Everything in the Blueprint package, plus:",
+    minPrice: 42500,
+    ratePerSqm: 170,
+    title: "DESIGN & DEVELOPMENT",
+    subtitle: "Building upon your validated concept, this option guides you through transforming your vision into a physical space. We work with your design and construction teams to ensure the operational efficiency and aesthetic appeal of your establishment.",
+    includes: "EVERYTHING IN THE BLUEPRINT PACKAGE, PLUS:",
     features: [
       "RESTAURANT DESIGN COORDINATION",
 " - Designer selection assistance",
@@ -117,10 +119,11 @@ const packages = {
   gold: {
     name: "LAUNCH",
     basePrice: 0,
-    minPrice: 2000000,
-    ratePerSqm: 8000,
+    minPrice: 57500,
+    ratePerSqm: 230,
     title: "PRE-OPENING IMPLEMENTATION",
-    subtitle: "Everything in the Blueprint and Framework packages, plus:",
+    subtitle: "Designed for owners who wants to delegate their project and be hands off. The Launch package delivers comprehensive support from kick off meeting to construction through grand opening. We handle the critical operational setup, staff training, and launch preparations that will define your establishment's early success and long-term sustainability.",
+    includes: "EVERYTHING IN BLUEPRINT AND FRAMEWORK PACKAGES, PLUS:",
     features: [
       "COMPLETE OPERATIONAL SETUP",
 " - Customized standard operating procedures development",
@@ -217,9 +220,9 @@ const discountRates = [
 ];
 
 const currencies = {
-  THB: { rate: 1, symbol: '฿' },
-  EUR: { rate: 0.026, symbol: '€' },
-  USD: { rate: 0.028, symbol: '$' }
+  USD: { rate: 1, symbol: '$' },
+  THB: { rate: 35, symbol: '฿' },
+  EUR: { rate: 0.9, symbol: '€' }
 };
 
 // Travel supplement fees by region
@@ -234,9 +237,14 @@ const travelSupplements = {
 const FeesSection = () => {
   const [sqm, setSqm] = useState('');
   const [email, setEmail] = useState('');
+  const [packageEmails, setPackageEmails] = useState({
+    bronze: '',
+    silver: '',
+    gold: ''
+  });
   const [country, setCountry] = useState('Thailand');
   const [city, setCity] = useState('');
-  const [currency, setCurrency] = useState('THB');
+  const [currency, setCurrency] = useState('USD');
   const [prices, setPrices] = useState({
     bronze: 0,
     silver: 0,
@@ -261,13 +269,13 @@ const FeesSection = () => {
     return 0;
   };
 
-  const handleDownloadPDF = () => {
-    // PDF URL
-    const pdfUrl = "https://banpdomqwvebesayycpm.supabase.co/storage/v1/object/public/pdf/Cracks%20Pitchs/Restaurant-Development-Services.pdf";
-    
-    // Open PDF in a new tab
-    window.open(pdfUrl, '_blank', 'noopener,noreferrer');
-  };
+//  const handleDownloadPDF = () => {
+//    // PDF URL
+//    const pdfUrl = "";
+//    
+//    // Open PDF in a new tab
+//    window.open(pdfUrl, '_blank', 'noopener,noreferrer');
+//  };
 
   useEffect(() => {
     if (sqm) {
@@ -277,8 +285,9 @@ const FeesSection = () => {
       
       const calculatePrice = (basePrice: number, minPrice: number, ratePerSqm: number) => {
         const initialPrice = Math.max(minPrice, basePrice + (squareMeters * ratePerSqm));
-        const discountAmount = initialPrice * (discount / 100);
-        let finalPrice = initialPrice - discountAmount;
+        // Add this if you want to apply a discount
+        // const discountAmount = initialPrice * (discount / 100);
+        let finalPrice = initialPrice;
         
         // Apply region-based travel supplement
         const supplement = travelSupplements[country as keyof typeof travelSupplements] || 0;
@@ -301,12 +310,17 @@ const FeesSection = () => {
     }
   }, [sqm, country]);
 
-  const getEstimatedTimeline = (sqm: number) => {
-    if (sqm <= 250) return '6-8 months';
-    if (sqm <= 500) return '7-9 months';
-    if (sqm <= 700) return '8-12 months';
-    if (sqm <= 900) return '9-15 months';
-    return '15+ months';
+  const getEstimatedTimeline = (packageType: string, squareMeters: number = 0) => {
+    switch (packageType) {
+      case 'bronze':
+        return '6-8 weeks';
+      case 'silver':
+        return squareMeters > 700 ? '19-28 weeks' : '12-18 weeks';
+      case 'gold':
+        return squareMeters > 700 ? '29-48 weeks' : '20-28 weeks';
+      default:
+        return '6-28 weeks';
+    }
   };
 
   const formatPrice = (price: number) => {
@@ -320,8 +334,18 @@ const FeesSection = () => {
     }).format(convertedPrice);
   };
 
+  const handlePackageEmailChange = (packageType: string, value: string) => {
+    setPackageEmails(prev => ({
+      ...prev,
+      [packageType]: value
+    }));
+  };
+
   const handleSubmit = async (packageType: 'bronze' | 'silver' | 'gold') => {
-    if (!email) {
+    // Use package-specific email if provided, otherwise fall back to the global email
+    const emailToUse = packageEmails[packageType] || email;
+    
+    if (!emailToUse) {
       alert('Please enter your email address');
       return;
     }
@@ -339,7 +363,7 @@ const FeesSection = () => {
         country,
         city,
         currency,
-        email,
+        email: emailToUse,
         calculatedPrice: {
           thb: prices[packageType],
           selected: prices[packageType] * currencies[currency as keyof typeof currencies].rate,
@@ -347,7 +371,7 @@ const FeesSection = () => {
         },
         discountApplied: discountPercent,
         travelSupplement: travelSupplements[country as keyof typeof travelSupplements] * 100, // Convert to percentage
-        timeline: getEstimatedTimeline(squareMeters)
+        timeline: getEstimatedTimeline(packageType, squareMeters)
       };
 
       const response = await fetch('https://n8n-cracks-u43278.vm.elestio.app/webhook/321f6d73-288c-48f4-aa15-9b24cba76166', {
@@ -417,7 +441,7 @@ const FeesSection = () => {
       <div className="container mx-auto px-4 max-w-7xl">
         {/* Phases Section */}
         <div className="text-center mb-16">
-          <h2 className="font-playfair text-3xl md:text-4xl mb-4">OUR FEES</h2>
+          <h2 className="font-playfair text-3xl md:text-4xl mb-4">FEES</h2>
           <div className="w-16 h-px bg-white mx-auto my-8"></div>
           <p className="font-lato font-thin text-lg text-gray-300 max-w-3xl mx-auto">
            Cracks Hospitality Studio utilizes a transparent square meter-based pricing model that scales with your project size. This approach ensures our fees directly correspond to the complexity and scope of your hospitality establishment while providing predictability for your consulting budget.
@@ -428,7 +452,7 @@ const FeesSection = () => {
         <div className="bg-[#0f1420] border border-gray-800 rounded-lg p-12 mb-12">
           <h2 className="font-playfair text-3xl mb-10 text-center">Calculate Your Fees</h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
             <div className="flex flex-col">
               <label className="block text-base mb-3">Region</label>
               <select
@@ -479,20 +503,10 @@ const FeesSection = () => {
               </select>
             </div>
             
-            <div className="flex flex-col">
-              <label className="block text-base mb-3">Email</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-[#0a0f1a] border border-gray-800 rounded px-4 py-3 text-white"
-                placeholder="Your email"
-              />
-            </div>
           </div>
         </div>
 
-        {/* Package Boxes - 5 in a row */}
+        {/* Package Boxes - 3 in a row */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
           {/* Package Columns */}
           {Object.entries(packages).map(([key, pack]) => {
@@ -509,12 +523,19 @@ const FeesSection = () => {
                 )}
 
                 {pack.title && (
-                  <h4 className="font-lato text-sm font-light py-3 px-4 text-center border-b border-gray-800">{pack.title}</h4>
+                  <h4 className="font-lato text-sm font-light py-3 px-4 text-center border-b border-gray-800 h-16 flex items-center justify-center">{pack.title}</h4>
                 )}
                 
                 {pack.subtitle && (
-                  <h4 className="font-lato text-m font-light py-3 px-4 text-center text-gray-300 border-b border-gray-800">{pack.subtitle}</h4>
+                  <div className="border-b border-gray-800 h-48 overflow-auto px-4 py-3">
+                    <h4 className="font-lato text-m font-light text-left text-gray-300">{pack.subtitle}</h4>
+                  </div>
                 )}
+                
+                {/* Includes section with fixed height */}
+                <div className="border-b border-gray-800 h-10 flex items-center">
+                  <h4 className="font-lato text-xs  px-4 text-left text-white">{pack.includes || ""}</h4>
+                </div>
                 
                 <div className="flex-grow overflow-auto mix-h-100">
                   {processedFeatures.map((section, index) => {
@@ -529,8 +550,8 @@ const FeesSection = () => {
                         >
                           <h4 className="font-light text-xs">{section.title}</h4>
                           {isExpanded 
-                            ? <ChevronUp size={16} className="text-gray-400" /> 
-                            : <ChevronDown size={16} className="text-gray-400" />
+                            ? <ChevronUp size={16} className="text-white" /> 
+                            : <ChevronDown size={16} className="text-white" />
                           }
                         </div>
                         
@@ -546,29 +567,31 @@ const FeesSection = () => {
                   })}
                 </div>
                 
-                {/* Timeline Section - Fixed Position */}
-                <div className="border-t border-gray-800 py-6 px-4 text-center h-24 flex flex-col justify-center">
-                  {sqm ? (
-                    <>
-                      <p className="text-base text-gray-400">Estimated Timeline:</p>
-                      <p className="text-xl font-semibold mt-1">{getEstimatedTimeline(parseInt(sqm))}</p>
-                    </>
-                  ) : (
-                    <>
-                      <p className="text-base text-gray-400">Estimated Timeline:</p>
-                      <p className="text-xl font-semibold mt-1">Enter square meters</p>
-                    </>
-                  )}
+                {/* Timeline Section - Based on package type and sqm */}
+                <div className="border-t border-gray-800 py-6 px-4 text-center">
+                  <p className="text-base text-gray-400">Estimated Timeline:</p>
+                  <p className="text-xl font-semibold mt-1">
+                    {getEstimatedTimeline(key as string, sqm ? parseInt(sqm) : 0)}
+                  </p>
                 </div>
                 
                 <div className="p-4 mt-auto">
-                  <button
-                    onClick={() => handleSubmit(key as 'bronze' | 'silver' | 'gold')}
-                    className="w-full bg-white text-black px-3 py-2 rounded flex items-center justify-center gap-1 hover:bg-gray-200 transition-colors text-sm"
-                  >
-                    <Mail size={14} />
-                    Get Quote
-                  </button>
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="email"
+                      value={packageEmails[key as keyof typeof packageEmails]}
+                      onChange={(e) => handlePackageEmailChange(key, e.target.value)}
+                      className="flex-grow bg-[#0a0f1a] border border-gray-800 rounded px-4 py-3 text-white"
+                      placeholder="Your email"
+                    />
+                    <button
+                      onClick={() => handleSubmit(key as 'bronze' | 'silver' | 'gold')}
+                      className="bg-white text-black px-3 py-3 rounded flex items-center justify-center gap-1 hover:bg-gray-200 transition-colors text-sm whitespace-nowrap"
+                    >
+                      <Mail size={14} />
+                      Get Quote
+                    </button>
+                  </div>
                 </div>
               </div>
             );
@@ -576,52 +599,52 @@ const FeesSection = () => {
           
         </div>
         
-        {/* Additional Services Box */}
+        {/* Additional Services Box 
         <div className="bg-[#0f1420] border border-gray-800 rounded-lg p-8 mb-8">
           <h3 className="font-playfair text-2xl mb-10 text-center">ADDITIONAL SERVICES</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
-            {/* Feasibility Study */}
+            {/* Feasibility Study 
             <div className="border-t border-gray-800 pt-4">
               <h4 className="font-lato font-medium mb-1">Feasibility Study</h4>
               <p className="font-lato font-light text-white text-sm mb-8">(standalone)</p>
               <p className="font-lato font-medium text-lg">500,000 THB</p>
               <p className="font-lato font-light text-white text-sm">14,286 USD</p>
             </div>
-            
-            {/* Concept Review */}
+            */}
+            {/* Concept Review 
             <div className="border-t border-gray-800 pt-4">
               <h4 className="font-lato font-medium mb-1">Concept Review</h4>
               <p className="font-lato font-light text-white text-sm mb-8">(standalone)</p>
               <p className="font-lato font-medium text-lg">300,000 THB</p>
               <p className="font-lato font-light text-white text-sm">8,571 USD</p>
             </div>
-            
-            {/* Menu Development */}
+            */}
+            {/* Menu Development 
             <div className="border-t border-gray-800 pt-4">
               <h4 className="font-lato font-medium mb-1">Menu Development</h4>
               <p className="font-lato font-light text-white text-sm mb-8">(standalone)</p>
               <p className="font-lato font-medium text-lg">250,000 THB</p>
               <p className="font-lato font-light text-white text-sm">7,143 USD</p>
             </div>
-            
-            {/* Operational Audit */}
+            */}
+            {/* Operational Audit 
             <div className="border-t border-gray-800 pt-4">
               <h4 className="font-lato font-medium mb-1">Operational Audit</h4>
               <p className="font-lato font-light text-white text-sm mb-8">&nbsp;</p>
               <p className="font-lato font-medium text-lg">350,000 THB</p>
               <p className="font-lato font-light text-white text-sm">10,000 USD</p>
             </div>
-            
-            {/* Partner Service Coordination */}
+            */}
+            {/* Partner Service Coordination 
             <div className="border-t border-gray-800 pt-4">
               <h4 className="font-lato font-medium mb-1">Partner Service</h4>
               <p className="font-lato font-light text-white text-sm mb-8">Coordination</p>
               <p className="font-lato font-medium text-lg">15% management fee</p>
               <p className="font-lato font-light text-white text-sm">on partner services</p>
             </div>
-            
-            {/* Additional On-Site Days */}
+            */}
+            {/* Additional On-Site Days
             <div className="border-t border-gray-800 pt-4">
               <h4 className="font-lato font-medium mb-1">Additional On-Site Days</h4>
               <p className="font-lato font-light text-white text-sm mb-8">&nbsp;</p>
@@ -630,7 +653,7 @@ const FeesSection = () => {
             </div>
           </div>
         </div>
-        {/* Download Button */}
+        {/* Download Button 
         <div className="text-center">
           <button 
             className="bg-white border-black text-black mb-8 font-lato font-light py-4 px-8 flex items-center justify-center mx-auto hover:bg-gray-200 transition-colors group cursor-pointer"
@@ -640,9 +663,11 @@ const FeesSection = () => {
             DOWNLOAD FULL DEVELOPMENT SERVICES PITCH
           </button>
         </div>
+        */}
         <div className="mt-auto">
-          <p className="font-lato font-light text-sm text-gray-300">* All fees are subject to applicable taxes. Fees are valid for contracts signed in 2025 and subject to annual review. For detailed terms and conditions, please refer to your consulting agreement.</p>
+          <p className="font-lato font-light text-sm text-gray-300">* Minimum project size is 250 SQM. Projects smaller than 250 SQM will be billed at the 250 SQM rate.</p>
           <p className="font-lato font-light text-sm text-gray-300">* Travel expenses are billed separately according to our International Consulting Engagement Policy.</p>
+          <p className="font-lato font-light text-sm text-gray-300">* All fees are subject to applicable taxes. Fees are valid for contracts signed in 2025 and subject to annual review. For detailed terms and conditions, please refer to your consulting agreement.</p>
           <p className="font-lato font-light text-sm text-gray-300">* For custom projects or special requirements, please contact us for personalized pricing.</p>
         </div>
         </div>

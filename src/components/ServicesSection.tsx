@@ -91,7 +91,7 @@ const ServicesSection = () => {
 
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="font-playfair text-3xl md:text-4xl text-black mb-4">OUR SERVICES</h2>
+          <h2 className="font-playfair text-3xl md:text-4xl text-black mb-4">SERVICES</h2>
           <div className="w-16 h-px bg-black mx-auto my-6"></div>
           <h3 className="font-playfair text-xl md:text-2xl text-black mb-4">STEP BY STEP</h3>
           {/* Phases Grid */}

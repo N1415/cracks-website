@@ -82,13 +82,14 @@ const HeroSection = () => {
         >
           BUILDING HOSPITALITY ICONS, ONE CONCEPT AT A TIME
         </h2>
-        
+        {/*
         <button 
           onClick={scrollToServices}
           className="bg-white text-black font-lato py-3 px-8 tracking-wide hover:bg-gray-200 transition-colors"style={{ fontWeight: '300' }}
         >
           DISCOVER OUR SERVICES
         </button>
+        */}
       </div>
       
       {/* Scroll Down Indicator */}
