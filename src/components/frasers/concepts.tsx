@@ -11,6 +11,7 @@ const FrasersConcepts = () => {
         title="Fraser Suites Concepts"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
+        referrerPolicy="no-referrer-when-downgrade"
       />
     </div>
   );
