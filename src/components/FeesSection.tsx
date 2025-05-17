@@ -57,7 +57,7 @@ const packages = {
     basePrice: 0,
     minPrice: 42500,
     ratePerSqm: 170,
-    title: "DESIGN & DEVELOPMENT",
+    title: "STRATEGIC PLANNING, DESIGN & DEVELOPMENT",
     subtitle: "Building upon your validated concept, this option guides you through transforming your vision into a physical space. We work with your design and construction teams to ensure the operational efficiency and aesthetic appeal of your establishment.",
     includes: "EVERYTHING IN THE BLUEPRINT PACKAGE, PLUS:",
     features: [
