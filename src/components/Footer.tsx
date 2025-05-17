@@ -21,22 +21,12 @@ const Footer = () => {
               <ul className="space-y-2 font-lato font-thin text-white">
                 <li><a href="#home" className="hover:text-white transition-colors">Home</a></li>
                 <li><a href="#services" className="hover:text-white transition-colors">Services</a></li>
-                <li><a href="#projects" className="hover:text-white transition-colors">Projects</a></li>
+                <li><a href="#method" className="hover:text-white transition-colors">Our Method</a></li>
                 <li><a href="#about" className="hover:text-white transition-colors">About</a></li>
                 <li><a href="#contact" className="hover:text-white transition-colors">Contact</a></li>
               </ul>
             </div>
             
-            <div>
-              <h4 className="font-lato font-semibold text-lg mb-4"style={{ fontWeight: '300' }}>Services</h4>
-              <ul className="space-y-2 font-lato font-thin text-white">
-                <li><a href="#" className="hover:text-white transition-colors">Concept Development</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Menu Engineering</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Operational Strategy</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Staff Training</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Business Planning</a></li>
-              </ul>
-            </div>
            
           </div>
         </div>

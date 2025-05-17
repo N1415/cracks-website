@@ -80,7 +80,7 @@ const HeroSection = () => {
             fontSize: '85%' 
           }}
         >
-          BUILDING HOSPITALITY ICONS, ONE CONCEPT AT A TIME
+          BUILDING HOSPITALITY ICONS, ONE RESTAURANT AT A TIME
         </h2>
         {/*
         <button 
