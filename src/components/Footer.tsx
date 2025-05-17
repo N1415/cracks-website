@@ -8,10 +8,10 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between mb-12">
           <div className="mb-8 md:mb-0">
-            <h3 className="font-playfair text-2xl mb-4">CRACKS STUDIO</h3>
-            <p className="font-lato font-thin text-white max-w-md">
-              Elevating restaurant concepts with end-to-end development and operational consulting services
-              tailored for high-end establishments in Bangkok.
+            <h2 className="text-3xl font-playfair font-thin text-white mb-4">Cracks Hospitality Studio</h2>
+            <p className="font-lato font-thin text-white max-w-md" style={{ fontWeight: '300' }}>
+            Cracks Hospitality Studio exists to design, operationalize, and scale high-performance hospitality businesses by combining expert consulting, advanced technology, and education-driven media.
+	          We create pragmatic, profit-focused solutions that bridge the gap between operational excellence, guest experience, and brand scalability.
             </p>
           </div>
           

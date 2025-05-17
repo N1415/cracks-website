@@ -121,7 +121,7 @@ const packages = {
     basePrice: 0,
     minPrice: 57500,
     ratePerSqm: 230,
-    title: "FROM 0 TO CASHFLOW",
+    title: "FROM ZERO TO CASHFLOW",
     subtitle: "Designed for owners who wants to delegate their project and be hands off. The Launch package delivers comprehensive support from kick off meeting to construction through grand opening. We handle the critical operational setup, staff training, and launch preparations that will define your establishment's early success and long-term sustainability.",
     includes: "EVERYTHING IN BLUEPRINT AND FRAMEWORK PACKAGES, PLUS:",
     features: [
