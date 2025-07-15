@@ -7,6 +7,7 @@ const navigationItems = [
   { label: 'ABOUT', href: 'about' },
   { label: 'SERVICES', href: 'services' },
   { label: 'FEES', href: 'fees' },
+  { label: 'PROJECTS', href: 'projects' },
   { label: 'TEAM', href: 'team' },
   { label: 'CONTACT', href: 'contact' }
 ];
