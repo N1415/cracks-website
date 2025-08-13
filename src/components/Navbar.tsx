@@ -53,7 +53,7 @@ const Navbar = () => {
               <button 
                 key={item.href} 
                 onClick={() => handleNavClick(item.href)}
-                className="text-white font-lato font-thin text-sm tracking-wide hover:text-gray-300 transition-colors focus:outline-none"
+                className="text-white font-lato font-light text-sm tracking-wide hover:text-gray-300 transition-colors focus:outline-none"
                 aria-label={`Navigate to ${item.label} section`}
               >
                 {item.label}

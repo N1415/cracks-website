@@ -6,8 +6,9 @@ import ErrorBoundary from './components/common/ErrorBoundary';
 import LoadingSpinner from './components/common/LoadingSpinner';
 import './index.css';
 
-// Lazy load the Frasers page for better performance
+// Lazy load pages for better performance
 const FrasersPage = lazy(() => import('./frasers.tsx'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy.tsx'));
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -26,6 +27,20 @@ createRoot(document.getElementById('root')!).render(
                 }
               >
                 <FrasersPage />
+              </Suspense>
+            } 
+          />
+          <Route 
+            path="/privacy-policy" 
+            element={
+              <Suspense 
+                fallback={
+                  <div className="min-h-screen flex items-center justify-center bg-gray-50">
+                    <LoadingSpinner size="lg" text="Loading Privacy Policy..." />
+                  </div>
+                }
+              >
+                <PrivacyPolicy />
               </Suspense>
             } 
           />

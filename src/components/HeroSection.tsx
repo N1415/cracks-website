@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-import { ChevronDown } from 'lucide-react';
 import LazyImage from './common/LazyImage';
 import { ASSETS_CONFIG } from '../config/constants';
 
@@ -41,7 +40,7 @@ const HeroSection = () => {
   }, []);
 
   const scrollToServices = () => {
-    const servicesSection = document.getElementById('services');
+    const servicesSection = document.getElementById('fees');
     if (servicesSection) {
       servicesSection.scrollIntoView({ behavior: 'smooth' });
     }
@@ -94,24 +93,32 @@ const HeroSection = () => {
         <div id="hero-description" className="sr-only">
           Cracks Hospitality Studio specializes in restaurant concept development, design coordination, and comprehensive launch support for hospitality businesses.
         </div>
-                 <button 
-           onClick={scrollToServices}
-           className="bg-white text-black font-lato py-3 px-8 tracking-wide hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black rounded"
-           style={{ fontWeight: '300' }}
-           aria-label="Discover our services"
-         >
-           DISCOVER OUR SERVICES
-         </button>
+                         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          
+          <button 
+            onClick={() => {
+              if (window.Calendly) {
+                window.Calendly.initPopupWidget({url: 'https://calendly.com/nacho-cracks-studio/60min?primary_color=1a1a1a'});
+              }
+            }}
+            className="bg-transparent border-2 border-white text-white font-lato py-3 px-8 tracking-wide hover:bg-white hover:text-black transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black rounded"
+            style={{ fontWeight: '300' }}
+            aria-label="Book a first consultation"
+          >
+            BOOK A FIRST CALL
+          </button>
+
+          <button 
+            onClick={scrollToServices}
+            className="bg-transparent border-2 border-white text-white font-lato py-3 px-8 tracking-wide hover:bg-white hover:text-black transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black rounded"
+            style={{ fontWeight: '300' }}
+          >
+            GET A TAILORED QUOTE
+          </button>
+          
+        </div>
       </div>
       
-      {/* Scroll Down Indicator */}
-      <button 
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 cursor-pointer animate-bounce p-3 rounded-full hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black"
-        onClick={scrollToServices}
-        aria-label="Scroll down to services section"
-      >
-        <ChevronDown size={32} className="text-white" aria-hidden="true" />
-      </button>
     </section>
   );
 };

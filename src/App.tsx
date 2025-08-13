@@ -13,6 +13,7 @@ import FeesSection from './components/FeesSection';
 import ErrorBoundary from './components/common/ErrorBoundary';
 import SEO from './components/common/SEO';
 import StructuredData from './components/common/StructuredData';
+import CookieBanner from './components/common/CookieBanner';
 
 function App() {
   return (
@@ -43,6 +44,8 @@ function App() {
         
         <Footer />
       </div>
+      
+      <CookieBanner />
     </ErrorBoundary>
   );
 }

@@ -8,14 +8,6 @@
     <priority>1.0</priority>
   </url>
   
-  <!-- Fraser Suites Concepts -->
-  <url>
-    <loc>https://www.cracks-studio.com/frasers</loc>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
   <!-- Main sections (these are anchor links but good for SEO) -->
   <url>
     <loc>https://www.cracks-studio.com/#services</loc>
