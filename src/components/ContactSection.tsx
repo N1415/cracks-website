@@ -1,65 +1,65 @@
-import { Mail, MapPin, Phone, Send } from 'lucide-react';
-import { useState } from 'react';
-import axios from 'axios';
+import { Mail, MapPin, Phone, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import React from 'react';
+import { ApiService, ContactFormData } from '../services/api';
+import { useFormValidation } from '../hooks/useFormValidation';
+import { useRateLimit } from '../hooks/useRateLimit';
+import { VALIDATION_RULES } from '../utils/validation';
+import { SITE_CONFIG } from '../config/constants';
+import LoadingSpinner from './common/LoadingSpinner';
 
 const ContactSection = () => {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    company: '',
-    telephone: '',
-    email: '',
-    subject: 'Quotation',
-    message: ''
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [submitError, setSubmitError] = useState('');
+  const { checkRateLimit, remainingAttempts } = useRateLimit({ limit: 3, windowMs: 300000 }); // 5 minutes
+  const [submitSuccess, setSubmitSuccess] = React.useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitError('');
-    
-    try {
-      // Send data to n8n webhook
-      const response = await axios.post(
-        'https://n8n-cracks-u43278.vm.elestio.app/webhook/c3d103a5-6075-42e7-9b45-2b2a4e0ccca9',
-        formData
-      );
-      
-      if (response.status === 200) {
-        setSubmitSuccess(true);
-        setFormData({
-          fullName: '',
-          company: '',
-          telephone: '',
-          email: '',
-          subject: 'Quotation',
-          message: ''
-        });
-      } else {
-        throw new Error('Failed to submit form');
+  const {
+    data: formData,
+    errors,
+    isSubmitting,
+    submitError,
+    handleChange,
+    handleSubmit,
+    reset
+  } = useFormValidation({
+    initialData: {
+      fullName: '',
+      company: '',
+      telephone: '',
+      email: '',
+      subject: 'Quotation',
+      message: ''
+    },
+    validationRules: {
+      fullName: VALIDATION_RULES.name,
+      company: VALIDATION_RULES.company,
+      telephone: VALIDATION_RULES.phone,
+      email: VALIDATION_RULES.email,
+      message: VALIDATION_RULES.message
+    },
+    onSubmit: async (data) => {
+      if (!checkRateLimit()) {
+        throw new Error('Too many attempts. Please wait before trying again.');
       }
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      setSubmitError('There was an error submitting your form. Please try again later.');
-    } finally {
-      setIsSubmitting(false);
+      
+      await ApiService.submitContactForm(data as ContactFormData);
+      setSubmitSuccess(true);
+      reset();
     }
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    handleChange(name, value);
   };
+
+
 
   return (
-    <section id="contact" className="py-24 bg-black text-white">
+    <section id="contact" className="py-24 bg-black text-white" role="region" aria-labelledby="contact-heading">
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="text-center mb-16">
-          <h2 className="text-4xl mb-4 font-medium">Contact Us</h2>
-          <div className="w-16 h-0.5 bg-white mx-auto my-6"></div>
-          <p className="max-w-2xl mx-auto text-gray-300">
+          <h2 id="contact-heading" className="font-playfair text-3xl md:text-4xl mb-4 font-medium">Contact Us</h2>
+          <div className="w-16 h-0.5 bg-white mx-auto my-6" aria-hidden="true"></div>
+          <p className="max-w-2xl mx-auto text-gray-300 font-lato font-light">
             Ready to elevate your restaurant concept? Get in touch with our team to discuss how 
             we can help bring your vision to life.
           </p>
@@ -68,83 +68,145 @@ const ContactSection = () => {
         {/* Contact Form */}
         <div className="mb-16 max-w-xl mx-auto">
           {submitSuccess ? (
-            <div className="bg-green-900/30 border border-green-700 rounded-lg p-6 text-center">
+            <div className="bg-green-900/30 border border-green-700 rounded-lg p-6 text-center" role="alert">
+              <CheckCircle className="w-8 h-8 text-green-400 mx-auto mb-3" aria-hidden="true" />
               <h3 className="text-xl font-medium text-white mb-2">Thank You!</h3>
               <p className="text-gray-300 text-sm">
-                Your application has been received and we will be contacting you within 24 hours.
+                Your message has been received and we will be contacting you within 24 hours.
               </p>
+              <button
+                onClick={() => setSubmitSuccess(false)}
+                className="mt-4 text-green-400 hover:text-green-300 text-sm underline focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-black"
+              >
+                Send another message
+              </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4" noValidate>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="fullName" className="block mb-1 text-xs font-medium">Full Name</label>
+                  <label htmlFor="fullName" className="block mb-1 text-xs font-medium">
+                    Full Name <span className="text-red-400" aria-label="required">*</span>
+                  </label>
                   <input
                     type="text"
                     id="fullName"
                     name="fullName"
                     value={formData.fullName}
-                    onChange={handleChange}
+                    onChange={handleInputChange}
                     required
-                    className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-white text-sm focus:border-white focus:outline-none transition-colors"
+                    aria-required="true"
+                    aria-describedby={errors.fullName ? "fullName-error" : undefined}
+                    aria-invalid={!!errors.fullName}
+                    className={`w-full bg-black border rounded px-3 py-2 text-white text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black transition-colors ${
+                      errors.fullName ? 'border-red-500' : 'border-gray-700 focus:border-white'
+                    }`}
                     placeholder="Your name"
                   />
+                  {errors.fullName && (
+                    <div id="fullName-error" role="alert" className="flex items-center gap-1 text-red-400 text-xs mt-1">
+                      <AlertCircle size={12} aria-hidden="true" />
+                      {errors.fullName}
+                    </div>
+                  )}
                 </div>
                 
                 <div>
-                  <label htmlFor="company" className="block mb-1 text-xs font-medium">Company</label>
+                  <label htmlFor="company" className="block mb-1 text-xs font-medium">
+                    Company <span className="text-red-400" aria-label="required">*</span>
+                  </label>
                   <input
                     type="text"
                     id="company"
                     name="company"
                     value={formData.company}
-                    onChange={handleChange}
+                    onChange={handleInputChange}
                     required
-                    className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-white text-sm focus:border-white focus:outline-none transition-colors"
+                    aria-required="true"
+                    aria-describedby={errors.company ? "company-error" : undefined}
+                    aria-invalid={!!errors.company}
+                    className={`w-full bg-black border rounded px-3 py-2 text-white text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black transition-colors ${
+                      errors.company ? 'border-red-500' : 'border-gray-700 focus:border-white'
+                    }`}
                     placeholder="Your company"
                   />
+                  {errors.company && (
+                    <div id="company-error" role="alert" className="flex items-center gap-1 text-red-400 text-xs mt-1">
+                      <AlertCircle size={12} aria-hidden="true" />
+                      {errors.company}
+                    </div>
+                  )}
                 </div>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="telephone" className="block mb-1 text-xs font-medium">Telephone Number</label>
+                  <label htmlFor="telephone" className="block mb-1 text-xs font-medium">
+                    Telephone Number <span className="text-red-400" aria-label="required">*</span>
+                  </label>
                   <input
                     type="tel"
                     id="telephone"
                     name="telephone"
                     value={formData.telephone}
-                    onChange={handleChange}
+                    onChange={handleInputChange}
                     required
-                    className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-white text-sm focus:border-white focus:outline-none transition-colors"
+                    aria-required="true"
+                    aria-describedby={errors.telephone ? "telephone-error" : undefined}
+                    aria-invalid={!!errors.telephone}
+                    className={`w-full bg-black border rounded px-3 py-2 text-white text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black transition-colors ${
+                      errors.telephone ? 'border-red-500' : 'border-gray-700 focus:border-white'
+                    }`}
                     placeholder="Your phone number"
                   />
+                  {errors.telephone && (
+                    <div id="telephone-error" role="alert" className="flex items-center gap-1 text-red-400 text-xs mt-1">
+                      <AlertCircle size={12} aria-hidden="true" />
+                      {errors.telephone}
+                    </div>
+                  )}
                 </div>
                 
                 <div>
-                  <label htmlFor="email" className="block mb-1 text-xs font-medium">Email</label>
+                  <label htmlFor="email" className="block mb-1 text-xs font-medium">
+                    Email <span className="text-red-400" aria-label="required">*</span>
+                  </label>
                   <input
                     type="email"
                     id="email"
                     name="email"
                     value={formData.email}
-                    onChange={handleChange}
+                    onChange={handleInputChange}
                     required
-                    className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-white text-sm focus:border-white focus:outline-none transition-colors"
+                    aria-required="true"
+                    aria-describedby={errors.email ? "email-error" : undefined}
+                    aria-invalid={!!errors.email}
+                    className={`w-full bg-black border rounded px-3 py-2 text-white text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black transition-colors ${
+                      errors.email ? 'border-red-500' : 'border-gray-700 focus:border-white'
+                    }`}
                     placeholder="Your email"
                   />
+                  {errors.email && (
+                    <div id="email-error" role="alert" className="flex items-center gap-1 text-red-400 text-xs mt-1">
+                      <AlertCircle size={12} aria-hidden="true" />
+                      {errors.email}
+                    </div>
+                  )}
                 </div>
               </div>
               
               <div>
-                <label htmlFor="subject" className="block mb-1 text-xs font-medium">Subject</label>
+                <label htmlFor="subject" className="block mb-1 text-xs font-medium">
+                  Subject <span className="text-red-400" aria-label="required">*</span>
+                </label>
                 <select
                   id="subject"
                   name="subject"
                   value={formData.subject}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                   required
-                  className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-white text-sm focus:border-white focus:outline-none transition-colors"
+                  aria-required="true"
+                  className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-white text-sm focus:border-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black transition-colors"
                 >
                   <option value="Quotation">Quotation</option>
                   <option value="New Restaurant Concept Creation">New Restaurant Concept Creation</option>
@@ -154,34 +216,69 @@ const ContactSection = () => {
               </div>
               
               <div>
-                <label htmlFor="message" className="block mb-1 text-xs font-medium">Message</label>
+                <label htmlFor="message" className="block mb-1 text-xs font-medium">
+                  Message <span className="text-red-400" aria-label="required">*</span>
+                </label>
                 <textarea
                   id="message"
                   name="message"
                   value={formData.message}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                   required
+                  aria-required="true"
+                  aria-describedby={errors.message ? "message-error" : undefined}
+                  aria-invalid={!!errors.message}
                   rows={3}
-                  className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-white text-sm focus:border-white focus:outline-none transition-colors"
-                  placeholder="Your message"
+                  className={`w-full bg-black border rounded px-3 py-2 text-white text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black transition-colors resize-vertical ${
+                    errors.message ? 'border-red-500' : 'border-gray-700 focus:border-white'
+                  }`}
+                  placeholder="Your message (minimum 10 characters)"
                 ></textarea>
+                {errors.message && (
+                  <div id="message-error" role="alert" className="flex items-center gap-1 text-red-400 text-xs mt-1">
+                    <AlertCircle size={12} aria-hidden="true" />
+                    {errors.message}
+                  </div>
+                )}
               </div>
               
               {submitError && (
-                <div className="bg-red-900/30 border border-red-700 rounded p-2 text-red-200 text-sm">
-                  {submitError}
+                <div className="bg-red-900/30 border border-red-700 rounded p-3 text-red-200 text-sm" role="alert">
+                  <div className="flex items-center gap-2">
+                    <AlertCircle size={16} aria-hidden="true" />
+                    <span>{submitError}</span>
+                  </div>
+                </div>
+              )}
+              
+              {remainingAttempts < 3 && remainingAttempts > 0 && (
+                <div className="bg-yellow-900/30 border border-yellow-700 rounded p-3 text-yellow-200 text-sm" role="status">
+                  <div className="flex items-center gap-2">
+                    <AlertCircle size={16} aria-hidden="true" />
+                    <span>You have {remainingAttempts} attempt{remainingAttempts !== 1 ? 's' : ''} remaining.</span>
+                  </div>
                 </div>
               )}
               
               <div className="text-right">
                 <button
                   type="submit"
-                  disabled={isSubmitting}
-                  className={`inline-flex items-center justify-center gap-1 bg-white text-black px-4 py-2 rounded text-sm font-medium hover:bg-gray-200 transition-colors ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                  disabled={isSubmitting || remainingAttempts === 0}
+                  className={`inline-flex items-center justify-center gap-2 bg-white text-black px-6 py-3 rounded text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black ${
+                    isSubmitting || remainingAttempts === 0
+                      ? 'opacity-50 cursor-not-allowed'
+                      : 'hover:bg-gray-200 hover:scale-105'
+                  }`}
+                  aria-label={isSubmitting ? 'Submitting form' : 'Submit contact form'}
                 >
-                  {isSubmitting ? 'Submitting...' : (
+                  {isSubmitting ? (
                     <>
-                      <Send size={14} />
+                      <LoadingSpinner size="sm" />
+                      Submitting...
+                    </>
+                  ) : (
+                    <>
+                      <Send size={16} aria-hidden="true" />
                       Submit
                     </>
                   )}
@@ -191,50 +288,58 @@ const ContactSection = () => {
           )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 max-w-5xl mx-auto">
-          <div className="flex flex-col items-center text-center p-6 hover:bg-gray-900 transition-colors rounded-lg">
-            <div className="mb-4 text-gray-300">
-              <MapPin size={32} />
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-5xl mx-auto" role="list" aria-label="Contact information">
+          <div className="flex flex-col items-center text-center p-6 hover:bg-gray-900 transition-colors rounded-lg group" role="listitem">
+            <div className="mb-4 text-gray-300 group-hover:text-white transition-colors">
+              <MapPin size={32} aria-hidden="true" />
             </div>
-            <h4 className="font-medium text-lg mb-2">Our Location</h4>
-            <p className="text-gray-300">
-              Bangkok, 10110<br />
-              Thailand
-            </p>
+            <h4 className="font-playfair text-lg mb-2 font-medium">Our Location</h4>
+            <address className="text-gray-300 not-italic">
+              {SITE_CONFIG.contact.location.city}, {SITE_CONFIG.contact.location.postalCode}<br />
+              {SITE_CONFIG.contact.location.country}
+            </address>
           </div>
           
-          <div className="flex flex-col items-center text-center p-6 hover:bg-gray-900 transition-colors rounded-lg">
-            <div className="mb-4 text-gray-300">
-              <Phone size={32} />
+          <div className="flex flex-col items-center text-center p-6 hover:bg-gray-900 transition-colors rounded-lg group" role="listitem">
+            <div className="mb-4 text-gray-300 group-hover:text-white transition-colors">
+              <Phone size={32} aria-hidden="true" />
             </div>
-            <h4 className="font-medium text-lg mb-2">Call Us</h4>
+            <h4 className="font-playfair text-lg mb-2 font-medium">Call Us</h4>
             <a 
-              href="tel:+66800743811" 
-              className="text-gray-300 hover:text-white underline transition-colors"
+              href={`tel:${SITE_CONFIG.contact.phone.replace(/\s+/g, '')}`}
+              className="text-gray-300 hover:text-white underline transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black rounded"
+              aria-label={`Call us at ${SITE_CONFIG.contact.phone}`}
             >
-              +66 80 074 3811
+              {SITE_CONFIG.contact.phone}
             </a>
           </div>
           
-          <div className="flex flex-col items-center text-center p-6 hover:bg-gray-900 transition-colors rounded-lg">
-            <div className="mb-4 text-white-300">
-              <Mail size={32} />
+          <div className="flex flex-col items-center text-center p-6 hover:bg-gray-900 transition-colors rounded-lg group" role="listitem">
+            <div className="mb-4 text-gray-300 group-hover:text-white transition-colors">
+              <Mail size={32} aria-hidden="true" />
             </div>
-            <h4 className="font-medium text-lg mb-2">Email Us</h4>
+            <h4 className="font-playfair text-lg mb-2 font-medium">Email Us</h4>
             <a 
-              href="mailto:nacho@cracks-studio.com" 
-              className="text-gray-300 hover:text-white underline transition-colors"
+              href={`mailto:${SITE_CONFIG.contact.email}`}
+              className="text-gray-300 hover:text-white underline transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black rounded break-all"
+              aria-label={`Send email to ${SITE_CONFIG.contact.email}`}
             >
-              nacho@cracks-studio.com
+              {SITE_CONFIG.contact.email}
             </a>
           </div>
         
-          <div className="flex flex-col items-center text-center p-6 hover:bg-gray-900 transition-colors rounded-lg">
-          <h4 className="text-xl mb-4 font-medium">Business Hours</h4>
-          <div className="text-gray-300">
-            <p className="mb-2">Monday - Friday: 9:00 AM - 8:00 PM</p>
-            <p>Saturday: 10:00 AM - 8:00 PM</p>
-          </div>
+          <div className="flex flex-col items-center text-center p-6 hover:bg-gray-900 transition-colors rounded-lg group" role="listitem">
+            <div className="mb-4 text-gray-300 group-hover:text-white transition-colors">
+              <div className="w-8 h-8 bg-gray-300 group-hover:bg-white transition-colors rounded-full flex items-center justify-center">
+                <div className="w-3 h-3 border-2 border-current rounded-full" aria-hidden="true" />
+              </div>
+            </div>
+            <h4 className="font-playfair text-lg mb-4 font-medium">Business Hours</h4>
+            <div className="text-gray-300 space-y-1">
+              <p>Monday - Friday: 9:00 AM - 8:00 PM</p>
+              <p>Saturday: 10:00 AM - 8:00 PM</p>
+              <p className="text-sm text-gray-400 mt-2">(Thailand Time - ICT)</p>
+            </div>
           </div>
         </div>
       </div>

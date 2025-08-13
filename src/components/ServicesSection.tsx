@@ -1,5 +1,4 @@
-import { useState } from 'react';
-// import { Download } from 'lucide-react';
+import React from 'react';
 
 const services = [
   {
@@ -41,98 +40,56 @@ const phases = [
     description: "We stay involved beyond the launch. From systems to leadership tools, we ensure your business is resilient, scalable, and tuned for consistent financial performance."
   }
 ];
-// const deliverables = [
-//  {
-//    
-//    title: "Concept Creation",
-//    items: ["Brand story", "Design direction", "Naming + visuals", "F&B positioning"],
-//    description: "We craft the creative foundation that defines your venue and makes it stand out."
-//  },
-//  {
-//    
-//    title: "Financial Planning",
-//    items: ["3 budget scenarios", "8-year financial model", "ROI & CAPEX guidance"],
-//    description: "Real numbers, realistic paths — so you can invest smart and plan ahead."
-//  },
-//  {
-//    
-//    title: "Partner Introductions",
-//    items: [
-//      "Designers, kitchen consultants, full contractors suit",
-//      "People who've delivered top restaurants before",
-//      "Teams we trust — and you can rely on"
-//    ],
-//    description: "We bring the A-team. You get peace of mind."
-//  },
-//  {
-//    
-//    title: "Operational Handbooks",
-//    items: [
-//      "Pre-opening checklists",
-//      "Training plans & service standards",
-//      "F&B bibles & daily systems"
-//    ],
-//    description: "Everything your team needs to operate at a high standard from day one."
-//  }
-//];
-//
+
 
 const ServicesSection = () => {
-  const [, setActiveService] = useState<number | null>(null);
- // const handleDownloadPDF = () => {
- //    // PDF URL
- //    const pdfUrl = "https://banpdomqwvebesayycpm.supabase.co/storage/v1/object/public/pdf/Cracks%20Pitchs/Restaurant-Development-Services.pdf";
- //    
- //    // Open PDF in a new tab
- //    window.open(pdfUrl, '_blank', 'noopener,noreferrer');
- //  };
   return (
-    <section id="services" className="py-24 bg-white">
+    <section id="services" className="py-24 bg-white" role="region" aria-labelledby="services-heading">
 
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="font-playfair text-3xl md:text-4xl text-black mb-4">SERVICES</h2>
-          <div className="w-16 h-px bg-black mx-auto my-6"></div>
+          <h2 id="services-heading" className="font-playfair text-3xl md:text-4xl text-black mb-4">SERVICES</h2>
+          <div className="w-16 h-px bg-black mx-auto my-6" aria-hidden="true"></div>
           <h3 className="font-playfair text-xl md:text-2xl text-black mb-4">STEP BY STEP</h3>
           {/* Phases Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6">
           {phases.map((phase) => (
             <div 
               key={phase.number}
-              className="bg-white border border-gray-200 p-8 transition-all duration-300 hover:shadow-lg"
+              className="bg-white border border-gray-200 p-8 transition-all duration-300 hover:shadow-lg group"
             >
-              <div className="font-playfair text-4xl text-black p-8 mb-6">{phase.number}</div>
-              <div className="w-12 h-px bg-black/30 mb-6"></div>
-              <h3 className="font-playfair text-xl mb-4">{phase.title}</h3>
-              <p className="font-lato text-black" style={{ fontWeight: '300' }}>{phase.description}</p>
+              <div className="font-playfair text-4xl text-black p-8 mb-6 group-hover:text-gray-700 transition-colors">{phase.number}</div>
+              <div className="w-12 h-px bg-black/30 mb-6" aria-hidden="true"></div>
+              <h4 className="font-playfair text-xl mb-4">{phase.title}</h4>
+              <p className="font-lato font-light text-black">{phase.description}</p>
             </div>
           ))}
         </div>
         
           <h3 className="font-playfair text-xl md:text-2xl text-black mb-4">SCOPE OF SERVICES</h3>
-          <div className="w-16 h-px bg-black mx-auto my-6"></div>  
-          <p className="font-lato font-thin text-l md:text-l text-black mb-4 text-center mb-6"style={{ fontWeight: '300' }}>Comprehensive restaurant consulting services tailored for high-end establishments, 
-            from concept development to operational excellence.</p>
+          <div className="w-16 h-px bg-black mx-auto my-6" aria-hidden="true"></div>  
+          <p className="font-lato font-light text-lg text-black text-center mb-6">
+            Comprehensive restaurant consulting services tailored for high-end establishments, 
+            from concept development to operational excellence.
+          </p>
             
             
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 ">
+        <div className="grid grid-cols-1 gap-6">
           {services.map((service) => (
             <div 
               key={service.id}
-              className="bg-white border border-gray-200 p-8 transition-all duration-300 hover:shadow-lg"
-              onMouseEnter={() => setActiveService(service.id)}
-              onMouseLeave={() => setActiveService(null)}
+              className="bg-white border border-gray-200 p-8 transition-all duration-300 hover:shadow-lg hover:border-gray-300 group"
             >
-              
-              <h3 className="font-playfair text-left text-xl text-black mb-4">{service.title}</h3>
-              <p 
-  className="font-lato font-thin text-left text-black mb-6" 
-  style={{ fontWeight: '300' }}
-  dangerouslySetInnerHTML={{ __html: service.description }}
-/>
+              <h4 className="font-playfair text-xl text-black mb-4 group-hover:text-gray-700 transition-colors">
+                {service.title}
+              </h4>
+              <div 
+                className="font-lato font-light text-black leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: service.description }}
+              />
             </div>
           ))}
-</div>
+        </div>
             
         {/* Deliverables 
         <div className="mb-20">

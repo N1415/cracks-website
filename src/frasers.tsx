@@ -1,5 +1,7 @@
 import React from 'react';
 import FrasersConcepts from './components/frasers/concepts';
+import SEO from './components/common/SEO';
+import { SITE_CONFIG } from './config/constants';
 
 function FrasersPage() {
   // Set the document title
@@ -27,16 +29,24 @@ function FrasersPage() {
   }, []);
 
   return (
-    <div style={{ 
-      position: 'fixed', 
-      top: 0, 
-      left: 0, 
-      width: '100%', 
-      height: '100%', 
-      zIndex: 9999 
-    }}>
-      <FrasersConcepts />
-    </div>
+    <>
+      <SEO 
+        title="Fraser Suites Concepts"
+        description="Explore innovative hospitality concepts designed by Cracks Hospitality Studio for Fraser Suites"
+        canonical={`${SITE_CONFIG.url}/frasers`}
+      />
+      
+      <div style={{ 
+        position: 'fixed', 
+        top: 0, 
+        left: 0, 
+        width: '100%', 
+        height: '100%', 
+        zIndex: 9999 
+      }}>
+        <FrasersConcepts />
+      </div>
+    </>
   );
 }
 

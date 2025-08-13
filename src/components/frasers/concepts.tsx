@@ -1,4 +1,3 @@
-import React from 'react';
 
 const FrasersConcepts = () => {
   const iframeUrl = "https://frasers-ue1m9pk.gamma.site/frasers";
