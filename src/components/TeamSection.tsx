@@ -1,4 +1,4 @@
-import { Star, Linkedin } from 'lucide-react';
+import { Linkedin } from 'lucide-react';
 
 const teamMembers = [
   {
@@ -38,9 +38,9 @@ const teamMembers = [
 ];
 
 const TeamSection = () => {
-  const formatParagraphs = (text) => {
+  const formatParagraphs = (text: string) => {
     // Split the text by double line breaks (which indicate paragraphs)
-    return text.split('\n\n').map((paragraph, index) => (
+    return text.split('\n\n').map((paragraph: string, index: number) => (
       <p key={index} className="font-lato text-sm text-black leading-relaxed mb-4"style={{ fontWeight: '300' }}>
         {paragraph.trim()}
       </p>
