@@ -43,9 +43,7 @@ const PriceCalculator: React.FC<PriceCalculatorProps> = ({
             ))}
           </select>
           <div id="region-description" className="text-xs text-gray-400 mt-1">
-            {TRAVEL_SUPPLEMENTS[country as keyof typeof TRAVEL_SUPPLEMENTS] > 0 && 
-              `+${TRAVEL_SUPPLEMENTS[country as keyof typeof TRAVEL_SUPPLEMENTS] * 100}% travel supplement`
-            }
+            {/* Travel supplement display removed */}
           </div>
         </div>
         
