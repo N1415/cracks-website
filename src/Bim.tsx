@@ -1,10 +1,10 @@
 import React from 'react';
-import FrasersConcepts from './components/frasers/concepts';
+import BIMCompany from './components/frasers/BIM';
 
-function FrasersPage() {
+function BimPage() {
   // Set the document title
   React.useEffect(() => {
-    document.title = "Fraser Suites Concepts";
+    document.title = "BIM Company";
     
     // Remove any body classes that might be coming from the main site
     document.body.className = "";
@@ -28,7 +28,6 @@ function FrasersPage() {
 
   return (
     <>
-      
       <div style={{ 
         position: 'fixed', 
         top: 0, 
@@ -37,10 +36,10 @@ function FrasersPage() {
         height: '100%', 
         zIndex: 9999 
       }}>
-        <FrasersConcepts />
+        <BIMCompany />
       </div>
     </>
   );
 }
 
-export default FrasersPage; 
+export default BimPage; 
