@@ -78,7 +78,8 @@ export const CURRENCIES = {
 } as const;
 
 // Travel Supplements
-export const TRAVEL_SUPPLEMENTS = {
+export const 
+TRAVEL_SUPPLEMENTS = {
   'Thailand': 0,
   'Southeast Asia': 0.05,
   'Asia-Pacific': 0.10,
