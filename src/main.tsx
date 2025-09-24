@@ -9,6 +9,7 @@ import './index.css';
 // Lazy load pages for better performance
 const FrasersPage = lazy(() => import('./frasers.tsx'));
 const BimPage = lazy(() => import('./Bim.tsx'));
+const ShangriLaPage = lazy(() => import('./ShangriLa.tsx'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy.tsx'));
 
 createRoot(document.getElementById('root')!).render(
@@ -42,6 +43,20 @@ createRoot(document.getElementById('root')!).render(
                 }
               >
                 <BimPage />
+              </Suspense>
+            } 
+          />
+          <Route 
+            path="/shangri-la" 
+            element={
+              <Suspense 
+                fallback={
+                  <div className="min-h-screen flex items-center justify-center bg-gray-50">
+                    <LoadingSpinner size="lg" text="Loading Shangri-La..." />
+                  </div>
+                }
+              >
+                <ShangriLaPage />
               </Suspense>
             } 
           />
