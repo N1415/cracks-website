@@ -11,6 +11,7 @@ const FrasersPage = lazy(() => import('./frasers.tsx'));
 const BimPage = lazy(() => import('./Bim.tsx'));
 const ShangriLaPage = lazy(() => import('./ShangriLa.tsx'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy.tsx'));
+const AppPrivacyPolicy = lazy(() => import('./pages/AppPrivacyPolicy.jsx'));
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -71,6 +72,20 @@ createRoot(document.getElementById('root')!).render(
                 }
               >
                 <PrivacyPolicy />
+              </Suspense>
+            } 
+          />
+          <Route 
+            path="/app-privacy-policy" 
+            element={
+              <Suspense 
+                fallback={
+                  <div className="min-h-screen flex items-center justify-center bg-gray-50">
+                    <LoadingSpinner size="lg" text="Loading App Privacy Policy..." />
+                  </div>
+                }
+              >
+                <AppPrivacyPolicy />
               </Suspense>
             } 
           />
