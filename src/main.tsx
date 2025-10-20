@@ -11,7 +11,7 @@ const FrasersPage = lazy(() => import('./frasers.tsx'));
 const BimPage = lazy(() => import('./Bim.tsx'));
 const ShangriLaPage = lazy(() => import('./ShangriLa.tsx'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy.tsx'));
-const AppPrivacyPolicy = lazy(() => import('./pages/AppPrivacyPolicy.jsx'));
+const AppPrivacyPolicy = lazy(() => import('./pages/AppPrivacyPolicy.tsx'));
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
