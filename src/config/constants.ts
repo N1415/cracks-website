@@ -22,10 +22,10 @@ export const SITE_CONFIG = {
 
 // API Configuration
 export const API_CONFIG = {
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'https://n8n-cracks-u43278.vm.elestio.app',
+  baseURL: import.meta.env.VITE_API_BASE_URL || '',
   endpoints: {
-    contact: `/webhook/${import.meta.env.VITE_CONTACT_WEBHOOK_ID || 'c3d103a5-6075-42e7-9b45-2b2a4e0ccca9'}`,
-    quotation: `/webhook/${import.meta.env.VITE_QUOTATION_WEBHOOK_ID || '321f6d73-288c-48f4-aa15-9b24cba76166'}`
+    contact: '/api/contact',
+    quotation: '/api/quotation'
   },
   timeout: 10000,
   retries: 3

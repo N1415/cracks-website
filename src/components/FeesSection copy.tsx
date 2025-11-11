@@ -93,7 +93,7 @@ const FeesSection = () => {
       alert("Please enter your email address");
       return;
     }
-    
+
     // Compile all the form data
     const quotationData = {
       projectDetails: {
@@ -114,11 +114,11 @@ const FeesSection = () => {
       },
       timestamp: new Date().toISOString()
     };
-    
+
     try {
-      // Use the provided n8n webhook URL
-      const response = await axios.post('https://n8n-latest-i2tr.onrender.com/webhook/153a77e4-41ee-4243-9475-f6f3c13fae09', quotationData);
-      
+      // Use the new Vercel API endpoint
+      const response = await axios.post('/api/quotation', quotationData);
+
       if (response.status === 200) {
         alert("Quotation sent successfully! We'll contact you shortly.");
         setEmail(''); // Clear email field after successful submission
@@ -128,7 +128,7 @@ const FeesSection = () => {
     } catch (error) {
       console.error('Error sending quotation:', error);
       alert("There was an error sending your quotation. Please try again later.");
-      
+
       // Fallback: open email client with pre-filled information
       const subject = encodeURIComponent("Restaurant Development Quotation Request");
       const body = encodeURIComponent(`
