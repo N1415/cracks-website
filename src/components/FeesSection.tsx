@@ -270,15 +270,9 @@ const FeesSection = () => {
     }
 
     const email = packageEmails[packageId as keyof typeof packageEmails];
-    const squareMetersNum = parseInt(squareMeters);
 
     if (!email) {
       setSubmitError('Please enter your email address');
-      return;
-    }
-
-    if (!squareMetersNum || squareMetersNum < 250) {
-      setSubmitError('Please enter a valid square meters value (minimum 250)');
       return;
     }
 
@@ -288,19 +282,7 @@ const FeesSection = () => {
 
       const quotationData = {
         package: packageId,
-        squareMeters: squareMetersNum,
-        country,
-        city,
-        currency,
-        email,
-        calculatedPrice: {
-          thb: prices[packageId as keyof typeof prices],
-          selected: prices[packageId as keyof typeof prices] * 1, // Will be converted in API
-          currency
-        },
-        discountApplied: 0, // Will be calculated based on size
-        travelSupplement: TRAVEL_SUPPLEMENTS[country as keyof typeof TRAVEL_SUPPLEMENTS] * 100,
-        timeline: getEstimatedTimeline(packageId, squareMetersNum)
+        email
       };
 
       await ApiService.submitQuotationRequest(quotationData);
@@ -410,17 +392,16 @@ const FeesSection = () => {
         {/* Legal Disclaimers */}
         <div className="mt-16 space-y-2">
           <p className="font-lato font-light text-sm text-gray-400">
-            * Minimum project size is 250 SQM. Projects smaller than 250 SQM will be billed at the 250 SQM rate.
+            * Minimum project size is 250 SQM.
           </p>
           <p className="font-lato font-light text-sm text-gray-400">
             * Travel expenses are billed separately according to our International Consulting Engagement Policy.
           </p>
           <p className="font-lato font-light text-sm text-gray-400">
-            * All fees are subject to applicable taxes. Fees are valid for contracts signed in 2025 and subject to annual review. 
-            For detailed terms and conditions, please refer to your consulting agreement.
+            * All fees are subject to applicable taxes. For detailed terms and conditions, please refer to your consulting agreement.
           </p>
           <p className="font-lato font-light text-sm text-gray-400">
-            * For custom projects or special requirements, please contact us for personalized pricing.
+            * For custom projects or special requirements, please contact us.
           </p>
         </div>
         </div>
