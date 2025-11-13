@@ -321,14 +321,14 @@ const FeesSection = () => {
           <h2 id="fees-heading" className="font-playfair text-3xl md:text-4xl mb-4">FEES</h2>
           <div className="w-16 h-px bg-white mx-auto my-8" aria-hidden="true"></div>
           <p className="font-lato font-light text-lg text-gray-300 max-w-3xl mx-auto">
-            Cracks Hospitality Studio utilizes a transparent square meter-based pricing model that scales with your project size. 
-            This approach ensures our fees directly correspond to the complexity and scope of your hospitality establishment 
-            while providing predictability for your consulting budget.
+            Our fees are structured around three distinct packages tailored to your specific needs and scope of work.
+            Whether you need support with concept development only or comprehensive guidance from initial planning through to opening day,
+            we offer flexible engagement options that align with your project's complexity and your level of involvement.
           </p>
         </div>
 
-        {/* Price Calculator */}
-        <PriceCalculator
+        {/* Price Calculator - Hidden */}
+        {/* <PriceCalculator
           squareMeters={squareMeters}
           onSquareMetersChange={updateSquareMeters}
           country={country}
@@ -337,7 +337,7 @@ const FeesSection = () => {
           onCityChange={updateCity}
           currency={currency}
           onCurrencyChange={updateCurrency}
-        />
+        /> */}
 
         {/* Success/Error Messages */}
         {submitSuccess && (

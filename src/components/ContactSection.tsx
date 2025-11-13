@@ -71,8 +71,11 @@ const ContactSection = () => {
             <div className="bg-green-900/30 border border-green-700 rounded-lg p-6 text-center" role="alert">
               <CheckCircle className="w-8 h-8 text-green-400 mx-auto mb-3" aria-hidden="true" />
               <h3 className="text-xl font-medium text-white mb-2">Thank You!</h3>
-              <p className="text-gray-300 text-sm">
-                Your message has been received and we will be contacting you within 24 hours.
+              <p className="text-gray-300 text-sm mb-2">
+                Your message has been received and we will get back to you within 24-48 hours.
+              </p>
+              <p className="text-gray-400 text-xs">
+                A confirmation email has been sent to your inbox.
               </p>
               <button
                 onClick={() => setSubmitSuccess(false)}
