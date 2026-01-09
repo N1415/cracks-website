@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { AlertCircle, CheckCircle } from 'lucide-react';
 import { useFeesCalculator } from '../hooks/useFeesCalculator';
 import { useRateLimit } from '../hooks/useRateLimit';
 import { ApiService } from '../services/api';
-import { PACKAGES, TRAVEL_SUPPLEMENTS } from '../config/constants';
-import PriceCalculator from './fees/PriceCalculator';
+import { PACKAGES } from '../config/constants';
 import PackageCard from './fees/PackageCard';
+import PriceCalculator from './fees/PriceCalculator';
 
 // Package features data - moved from the original component
 const packageFeatures = {
@@ -247,15 +247,12 @@ const FeesSection = () => {
     country,
     city,
     currency,
-    prices,
     packageEmails,
     updateSquareMeters,
     updateCountry,
     updateCity,
-    updateCurrency,
     updatePackageEmail,
-    getEstimatedTimeline,
-    formatPrice
+    getEstimatedTimeline
   } = useFeesCalculator();
 
   const { checkRateLimit } = useRateLimit({ limit: 5, windowMs: 300000 }); // 5 minutes
@@ -282,7 +279,11 @@ const FeesSection = () => {
 
       const quotationData = {
         package: packageId,
-        email
+        email,
+        region: country,
+        city,
+        squareMeters,
+        timeline: getEstimatedTimeline(packageId, parseInt(squareMeters) || 0)
       };
 
       await ApiService.submitQuotationRequest(quotationData);
@@ -309,17 +310,15 @@ const FeesSection = () => {
           </p>
         </div>
 
-        {/* Price Calculator - Hidden */}
-        {/* <PriceCalculator
+        {/* Project Information Calculator */}
+        <PriceCalculator
           squareMeters={squareMeters}
           onSquareMetersChange={updateSquareMeters}
           country={country}
           onCountryChange={updateCountry}
           city={city}
           onCityChange={updateCity}
-          currency={currency}
-          onCurrencyChange={updateCurrency}
-        /> */}
+        />
 
         {/* Success/Error Messages */}
         {submitSuccess && (
@@ -347,7 +346,7 @@ const FeesSection = () => {
             subtitle="The starting point, providing the essential groundwork for a successful hospitality concept. We validate your vision through market analysis, concept refinement, and financial modeling to ensure your project stands on solid ground before significant investments are made. We provide you with tools to develop a successful concept."
             includes="VALIDATING YOUR IDEA:"
             features={packageFeatures.bronze}
-            price={prices.bronze}
+            price={0}
             currency={currency}
             timeline={getEstimatedTimeline('bronze', parseInt(squareMeters) || 0)}
             email={packageEmails.bronze}
@@ -363,7 +362,7 @@ const FeesSection = () => {
             subtitle="Building upon your validated concept, this option guides you through transforming your vision into a physical space. We work with your design and construction teams to ensure the operational efficiency and aesthetic appeal of your establishment."
             includes="EVERYTHING IN THE BLUEPRINT PACKAGE, PLUS:"
             features={packageFeatures.silver}
-            price={prices.silver}
+            price={0}
             currency={currency}
             timeline={getEstimatedTimeline('silver', parseInt(squareMeters) || 0)}
             email={packageEmails.silver}
@@ -379,7 +378,7 @@ const FeesSection = () => {
             subtitle="Designed for owners who wants to delegate their project and be hands off. The Launch package delivers comprehensive support from kick off meeting to construction through grand opening. We handle the critical operational setup, staff training, and launch preparations that will define your establishment's early success and long-term sustainability."
             includes="EVERYTHING IN BLUEPRINT AND FRAMEWORK PACKAGES, PLUS:"
             features={packageFeatures.gold}
-            price={prices.gold}
+            price={0}
             currency={currency}
             timeline={getEstimatedTimeline('gold', parseInt(squareMeters) || 0)}
             email={packageEmails.gold}

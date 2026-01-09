@@ -5,7 +5,7 @@ const projects = [
     id: 1,
     title: 'CENTO',
     category: 'Italian Eatery',
-    image: 'https://banpdomqwvebesayycpm.supabase.co/storage/v1/object/public/image_metadata/permanent/Cracks%20website/Cento-Header-Home-2400x932-1.jpg',
+    image: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Images/Cracks%20website/Cento-Header-Home-2400x932-1.jpg',
     description: 'Cento, translating to ‘hundred’ in Italian, embraces a ‘one hundred years’ mentality across all aspects of its operations. It symbolises a commitment to enduring excellence, inviting guests to indulge in an unforgettable dining experience rooted in the beauty of uncomplicated simplicity',
     url: 'https://centobangkok.com/' // Redirect to CENTO Bangkok website
   },
@@ -13,7 +13,7 @@ const projects = [
   //   id: 2,
   //   title: 'FRASERS SUITES',
   //   category: 'Coming Soon to One Bangkok:',
-  //   image: 'https://banpdomqwvebesayycpm.supabase.co/storage/v1/object/public/image_metadata/permanent/Cracks%20website/one_bangkok.jpg',
+  //   image: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Images/Cracks%20website/one_bangkok.jpg',
   //   description: `A bold new destination is taking shape in the heart of One Bangkok—900 square meters of seamless hospitality innovation under one roof. This dynamic hospitality hub is designed to evolve from sun-up to late-night, delivering distinct yet harmonized guest experiences. Each space is crafted with precision to offer its own atmosphere, pace, and point of view.<br /><br />This upcoming project demonstrates how thoughtful space planning and immersive storytelling can unlock all-day value for landlords and unforgettable moments for guests.`,
   //   address: 'One Bangkok, Wireless Road, Lumphini, Patumwan, Bangkok 10330 Thailand',
   //   url: 'https://www.frasershospitality.com/en/thailand/bangkok/fraser-suites-bangkok/' // Redirect to CENTO Bangkok website

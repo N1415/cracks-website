@@ -20,12 +20,11 @@ export const SITE_CONFIG = {
   }
 } as const;
 
-// API Configuration
+// API Configuration - Centralized SMTP service
 export const API_CONFIG = {
-  baseURL: import.meta.env.VITE_API_BASE_URL || '',
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'https://api.cracks-app.com',
   endpoints: {
-    contact: '/api/contact',
-    quotation: '/api/quotation'
+    contact: '/public/contact'
   },
   timeout: 10000,
   retries: 3
@@ -33,9 +32,9 @@ export const API_CONFIG = {
 
 // External Assets
 export const ASSETS_CONFIG = {
-  supabaseURL: import.meta.env.VITE_SUPABASE_URL || 'https://banpdomqwvebesayycpm.supabase.co',
+  supabaseURL: import.meta.env.VITE_SUPABASE_URL || 'https://moyusgyrteirxbivehyz.supabase.co',
   images: {
-    heroBackground: `${import.meta.env.VITE_SUPABASE_URL || 'https://banpdomqwvebesayycpm.supabase.co'}/storage/v1/object/public/image_metadata/permanent/Cracks%20website/home-photo.jpg`
+    heroBackground: `${import.meta.env.VITE_SUPABASE_URL || 'https://moyusgyrteirxbivehyz.supabase.co'}/storage/v1/object/public/Images/Cracks%20website/home-photo.jpg`
   }
 } as const;
 

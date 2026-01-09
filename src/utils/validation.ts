@@ -79,7 +79,7 @@ export const VALIDATION_RULES = {
   },
   phone: {
     required: true,
-    pattern: /^[\+]?[1-9][\d]{0,15}$/
+    pattern: /^[\+]?[\d\s\-\(\)]{6,20}$/
   },
   message: {
     required: true,

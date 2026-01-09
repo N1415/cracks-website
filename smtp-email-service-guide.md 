@@ -1,0 +1,482 @@
+# SMTP Email Service - Integration Guide
+
+## Overview
+
+Centralized email service hosted on `api.cracks-app.com` that handles contact form submissions for all CRACKS projects. Uses Gmail SMTP with App Password authentication.
+
+## Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                              FRONTEND                                        │
+│  ┌─────────────────────┐              ┌─────────────────────┐               │
+│  │   cracks-app.com    │              │  cracks-studio.com  │               │
+│  │   (Next.js/React)   │              │      (Vue.js)       │               │
+│  └──────────┬──────────┘              └──────────┬──────────┘               │
+│             │                                    │                           │
+│             │  POST /public/contact              │                           │
+│             └────────────────┬───────────────────┘                           │
+└──────────────────────────────┼───────────────────────────────────────────────┘
+                               │
+                               ▼
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                         BACKEND (api.cracks-app.com)                         │
+│                              Railway / FastAPI                               │
+│  ┌────────────────────────────────────────────────────────────────────────┐  │
+│  │  /public/contact endpoint                                              │  │
+│  │  - No authentication required                                          │  │
+│  │  - CORS whitelist: cracks-app.com, cracks-studio.com                  │  │
+│  │  - Sends 2 emails: admin notification + user confirmation             │  │
+│  └────────────────────────────────────────────────────────────────────────┘  │
+└──────────────────────────────┬───────────────────────────────────────────────┘
+                               │
+                               │ SMTP (port 587/TLS)
+                               ▼
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                           Gmail SMTP                                         │
+│                        smtp.gmail.com:587                                    │
+│                     (App Password Auth)                                      │
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+## API Endpoint
+
+### POST `/public/contact`
+
+**Base URL:** `https://api.cracks-app.com`
+
+**Full URL:** `https://api.cracks-app.com/public/contact`
+
+#### Request
+
+```json
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john@example.com",
+  "message": "Hello, I'm interested in your services.",
+  "company": "Acme Corp"  // optional
+}
+```
+
+#### Response (Success - 200)
+
+```json
+{
+  "success": true,
+  "message": "Thank you for your message! We'll get back to you soon."
+}
+```
+
+#### Response (Error - 4xx/5xx)
+
+```json
+{
+  "detail": "Error message here"
+}
+```
+
+#### Error Codes
+
+| Code | Description |
+|------|-------------|
+| 422 | Validation error (missing/invalid fields) |
+| 503 | Email service not configured |
+| 500 | Failed to send email |
+
+---
+
+## Vue.js Integration (cracks-studio.com)
+
+### Option 1: Composition API (Recommended)
+
+```vue
+<script setup lang="ts">
+import { ref, reactive } from 'vue'
+
+const API_URL = 'https://api.cracks-app.com'
+
+const isSubmitting = ref(false)
+const submitSuccess = ref(false)
+const submitError = ref('')
+
+const formData = reactive({
+  firstName: '',
+  lastName: '',
+  email: '',
+  company: '',
+  message: ''
+})
+
+async function handleSubmit() {
+  isSubmitting.value = true
+  submitError.value = ''
+
+  try {
+    const response = await fetch(`${API_URL}/public/contact`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    })
+
+    if (!response.ok) {
+      const error = await response.json()
+      throw new Error(error.detail || 'Failed to send message')
+    }
+
+    submitSuccess.value = true
+    // Reset form
+    Object.assign(formData, {
+      firstName: '',
+      lastName: '',
+      email: '',
+      company: '',
+      message: ''
+    })
+  } catch (error) {
+    submitError.value = error instanceof Error ? error.message : 'Failed to send message'
+  } finally {
+    isSubmitting.value = false
+  }
+}
+</script>
+
+<template>
+  <form @submit.prevent="handleSubmit">
+    <div v-if="submitSuccess" class="success-message">
+      Thank you! We'll get back to you soon.
+    </div>
+
+    <div v-if="submitError" class="error-message">
+      {{ submitError }}
+    </div>
+
+    <input
+      v-model="formData.firstName"
+      type="text"
+      placeholder="First Name"
+      required
+    />
+
+    <input
+      v-model="formData.lastName"
+      type="text"
+      placeholder="Last Name"
+      required
+    />
+
+    <input
+      v-model="formData.email"
+      type="email"
+      placeholder="Email"
+      required
+    />
+
+    <input
+      v-model="formData.company"
+      type="text"
+      placeholder="Company (optional)"
+    />
+
+    <textarea
+      v-model="formData.message"
+      placeholder="Your message"
+      required
+    ></textarea>
+
+    <button type="submit" :disabled="isSubmitting">
+      {{ isSubmitting ? 'Sending...' : 'Send Message' }}
+    </button>
+  </form>
+</template>
+```
+
+### Option 2: Options API
+
+```vue
+<script>
+const API_URL = 'https://api.cracks-app.com'
+
+export default {
+  data() {
+    return {
+      isSubmitting: false,
+      submitSuccess: false,
+      submitError: '',
+      formData: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        company: '',
+        message: ''
+      }
+    }
+  },
+  methods: {
+    async handleSubmit() {
+      this.isSubmitting = true
+      this.submitError = ''
+
+      try {
+        const response = await fetch(`${API_URL}/public/contact`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(this.formData),
+        })
+
+        if (!response.ok) {
+          const error = await response.json()
+          throw new Error(error.detail || 'Failed to send message')
+        }
+
+        this.submitSuccess = true
+        this.resetForm()
+      } catch (error) {
+        this.submitError = error.message || 'Failed to send message'
+      } finally {
+        this.isSubmitting = false
+      }
+    },
+    resetForm() {
+      this.formData = {
+        firstName: '',
+        lastName: '',
+        email: '',
+        company: '',
+        message: ''
+      }
+    }
+  }
+}
+</script>
+```
+
+### Option 3: With Axios (if already using)
+
+```typescript
+// services/api.ts
+import axios from 'axios'
+
+const API_URL = 'https://api.cracks-app.com'
+
+interface ContactFormData {
+  firstName: string
+  lastName: string
+  email: string
+  message: string
+  company?: string
+}
+
+export async function submitContactForm(data: ContactFormData) {
+  const response = await axios.post(`${API_URL}/public/contact`, data)
+  return response.data
+}
+```
+
+```vue
+<script setup lang="ts">
+import { submitContactForm } from '@/services/api'
+
+async function handleSubmit() {
+  try {
+    await submitContactForm(formData)
+    // success
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      submitError.value = error.response?.data?.detail || 'Failed to send'
+    }
+  }
+}
+</script>
+```
+
+---
+
+## Migration from Nodemailer
+
+### Files to Delete
+
+Remove these from the cracks-studio project:
+
+```
+api/contact.ts          # Vercel serverless function
+api/quotation.ts        # Vercel serverless function (if exists)
+```
+
+### Dependencies to Remove
+
+```bash
+npm uninstall nodemailer
+npm uninstall @types/nodemailer  # if using TypeScript
+```
+
+### Environment Variables to Remove (from Vercel)
+
+```
+GMAIL_USER
+GMAIL_APP_PASSWORD
+```
+
+---
+
+## Email Templates
+
+Both emails use branded HTML templates matching the CRACKS brand:
+
+### Admin Notification Email
+
+- **Subject:** `New Contact Form: {firstName} {lastName} from {company}`
+- **To:** `nacho@cracks-studio.com` (configured via `CONTACT_EMAIL` env var)
+- **Reply-To:** User's email address
+- **Content:** Name, email, company, message
+
+### User Confirmation Email
+
+- **Subject:** `We've received your message - CRACKS App`
+- **To:** User's email address
+- **Content:** Thank you message with personalized greeting
+
+### Brand Colors Used
+
+```
+Background: #F5F1E8 (cream)
+Dark:       #2C2C2C (charcoal)
+Accent:     #C85C3C (terracotta)
+```
+
+### Fonts
+
+- Headings: Playfair Display
+- Body: Lato
+
+---
+
+## Security
+
+### CORS Whitelist
+
+Only these origins can call the endpoint:
+
+```
+http://localhost:3000          # Development
+https://www.cracks-app.com     # CRACKS App
+https://cracks-app.com
+https://www.cracks-studio.com  # CRACKS Studio
+https://cracks-studio.com
+```
+
+### No Authentication Required
+
+This is a public endpoint - no API key or token needed.
+
+### Input Validation
+
+- `firstName`: required, string
+- `lastName`: required, string
+- `email`: required, valid email format
+- `message`: required, string
+- `company`: optional, string
+
+---
+
+## Backend Configuration (Railway)
+
+### Environment Variables
+
+```bash
+# Gmail SMTP
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your-gmail@gmail.com
+SMTP_PASSWORD=xxxx-xxxx-xxxx-xxxx  # Google App Password (16 chars)
+
+# Email settings
+SMTP_FROM_NAME=CRACKS App
+CONTACT_EMAIL=nacho@cracks-studio.com  # Where admin notifications go
+```
+
+### Creating Google App Password
+
+1. Go to [Google Account Security](https://myaccount.google.com/security)
+2. Enable 2-Factor Authentication (required)
+3. Go to "App passwords"
+4. Select "Mail" and your device
+5. Copy the 16-character password
+6. Use this as `SMTP_PASSWORD`
+
+---
+
+## Testing
+
+### cURL Test
+
+```bash
+curl -X POST https://api.cracks-app.com/public/contact \
+  -H "Content-Type: application/json" \
+  -d '{
+    "firstName": "Test",
+    "lastName": "User",
+    "email": "test@example.com",
+    "message": "This is a test message",
+    "company": "Test Company"
+  }'
+```
+
+### Expected Response
+
+```json
+{
+  "success": true,
+  "message": "Thank you for your message! We'll get back to you soon."
+}
+```
+
+---
+
+## Troubleshooting
+
+### CORS Error
+
+```
+Access to fetch at 'https://api.cracks-app.com/public/contact'
+from origin 'https://your-domain.com' has been blocked by CORS policy
+```
+
+**Solution:** Add your domain to the CORS whitelist in `backend-python/main.py`
+
+### 422 Validation Error
+
+```json
+{"detail": [{"loc": ["body", "email"], "msg": "value is not a valid email address"}]}
+```
+
+**Solution:** Check that all required fields are provided and email format is valid
+
+### 503 Service Unavailable
+
+```json
+{"detail": "Email service is not configured. Please try again later."}
+```
+
+**Solution:** Ensure `SMTP_USER` and `SMTP_PASSWORD` are set in Railway
+
+### 500 Internal Server Error
+
+```json
+{"detail": "Failed to send message. Please try again later."}
+```
+
+**Solution:** Check Railway logs for SMTP connection errors. Common causes:
+- Invalid App Password
+- Gmail account security block
+- Network/firewall issues
+
+---
+
+## Support
+
+For issues with this integration, contact the development team or check the backend logs in Railway.

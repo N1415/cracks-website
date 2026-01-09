@@ -1,5 +1,5 @@
 import React from 'react';
-import { CURRENCIES, TRAVEL_SUPPLEMENTS } from '../../config/constants';
+import { TRAVEL_SUPPLEMENTS } from '../../config/constants';
 
 interface PriceCalculatorProps {
   squareMeters: string;
@@ -8,8 +8,6 @@ interface PriceCalculatorProps {
   onCountryChange: (value: string) => void;
   city: string;
   onCityChange: (value: string) => void;
-  currency: string;
-  onCurrencyChange: (value: string) => void;
 }
 
 const PriceCalculator: React.FC<PriceCalculatorProps> = ({
@@ -18,15 +16,13 @@ const PriceCalculator: React.FC<PriceCalculatorProps> = ({
   country,
   onCountryChange,
   city,
-  onCityChange,
-  currency,
-  onCurrencyChange
+  onCityChange
 }) => {
   return (
     <div className="bg-[#0f1420] border border-gray-800 rounded-lg p-12 mb-12">
-      <h2 className="font-playfair text-3xl mb-10 text-center">Calculate Your Fees</h2>
-      
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+      <h2 className="font-playfair text-3xl mb-10 text-center">Project Information</h2>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
         <div className="flex flex-col">
           <label htmlFor="region-select" className="block text-base mb-3 font-medium">
             Region
@@ -43,10 +39,10 @@ const PriceCalculator: React.FC<PriceCalculatorProps> = ({
             ))}
           </select>
           <div id="region-description" className="text-xs text-gray-400 mt-1">
-            {/* Travel supplement display removed */}
+            Select your project region
           </div>
         </div>
-        
+
         <div className="flex flex-col">
           <label htmlFor="city-input" className="block text-base mb-3 font-medium">
             City / Country
@@ -64,7 +60,7 @@ const PriceCalculator: React.FC<PriceCalculatorProps> = ({
             Specify the project location
           </div>
         </div>
-        
+
         <div className="flex flex-col">
           <label htmlFor="sqm-input" className="block text-base mb-3 font-medium">
             Square Meters <span className="text-red-400" aria-label="required">*</span>
@@ -76,31 +72,12 @@ const PriceCalculator: React.FC<PriceCalculatorProps> = ({
             onChange={(e) => onSquareMetersChange(e.target.value)}
             className="w-full bg-[#0a0f1a] border border-gray-800 rounded px-4 py-3 text-white focus:border-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#0f1420] transition-colors"
             placeholder="Enter square meters"
-            min="250"
+            min="1"
             aria-describedby="sqm-help"
-            aria-required="true"
           />
           <div id="sqm-help" className="text-xs text-gray-400 mt-1">
-            Minimum 250 sqm
+            Estimated project size
           </div>
-        </div>
-        
-        <div className="flex flex-col">
-          <label htmlFor="currency-select" className="block text-base mb-3 font-medium">
-            Currency
-          </label>
-          <select
-            id="currency-select"
-            value={currency}
-            onChange={(e) => onCurrencyChange(e.target.value)}
-            className="w-full bg-[#0a0f1a] border border-gray-800 rounded px-4 py-3 text-white focus:border-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#0f1420] transition-colors"
-          >
-            {Object.keys(CURRENCIES).map(curr => (
-              <option key={curr} value={curr}>
-                {curr} ({CURRENCIES[curr as keyof typeof CURRENCIES].symbol})
-              </option>
-            ))}
-          </select>
         </div>
       </div>
     </div>

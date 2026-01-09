@@ -14,7 +14,7 @@ const teamMembers = [
     \n\nHis approach, centered on Soul & Scale, operational excellence, guest obsession, and distinctive brand storytelling, continues to shape the future of hospitality across the region.
     
     `,
-    image: "https://banpdomqwvebesayycpm.supabase.co/storage/v1/object/public/image_metadata/permanent/Cracks%20website/manu.jpg",
+    image: "https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Images/Cracks%20website/manu.jpg",
     objectPosition: "100% 0%",
     linkedin: "https://www.linkedin.com/in/manuel-palacio/",
     imageHeight: "h-64", // Full height
@@ -30,7 +30,7 @@ const teamMembers = [
     \n\nAs Operations Manager of Pici Hong Kong, he helped elevate one of the region's most celebrated pasta concepts, while earlier directing large-scale beach operations at Cala Bassa Beach Club in Ibiza and founding MamaQuilla in Madrid, a vibrant Latin dinner show experience. \n\nToday, he leads Cracks Hospitality Studio, shaping next-generation restaurant concepts with purpose and performance, while also consulting for hotels and operators to create high-yield venues. 
     
     \n\nHis approach, known as The Nacho Method, focuses on building people-first cultures, engineering concepts for operational success, and designing guest-centric experiences that consistently drive revenue and loyalty.`,
-    image: "https://banpdomqwvebesayycpm.supabase.co/storage/v1/object/public/image_metadata/permanent/Cracks%20website/nacho.jpg",
+    image: "https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Images/Cracks%20website/nacho.jpg",
     objectPosition: "40% 20%",
     linkedin: "https://www.linkedin.com/in/nacho-lopez-diaz-29586450",
     imageHeight: "h-40", // 80% of original height
