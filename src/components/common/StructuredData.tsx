@@ -1,4 +1,4 @@
-import { SITE_CONFIG } from '../../config/constants';
+import { SITE_CONFIG, ASSETS_CONFIG } from '../../config/constants';
 
 interface StructuredDataProps {
   type?: 'organization' | 'service' | 'article';
@@ -15,6 +15,7 @@ const StructuredData: React.FC<StructuredDataProps> = ({ type = 'organization', 
           "name": SITE_CONFIG.name,
           "description": SITE_CONFIG.description,
           "url": SITE_CONFIG.url,
+          "logo": ASSETS_CONFIG.logos.png.black,
           "telephone": SITE_CONFIG.contact.phone,
           "email": SITE_CONFIG.contact.email,
           "address": {

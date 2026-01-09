@@ -35,6 +35,20 @@ export const ASSETS_CONFIG = {
   supabaseURL: import.meta.env.VITE_SUPABASE_URL || 'https://moyusgyrteirxbivehyz.supabase.co',
   images: {
     heroBackground: `${import.meta.env.VITE_SUPABASE_URL || 'https://moyusgyrteirxbivehyz.supabase.co'}/storage/v1/object/public/Images/Cracks%20website/home-photo.jpg`
+  },
+  logos: {
+    svg: {
+      black: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Logos/svg/studio_black.svg',
+      white: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Logos/svg/studio_white.svg'
+    },
+    png: {
+      black: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Logos/png/studio_black.png',
+      white: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Logos/png/studio_white.png'
+    },
+    og: {
+      black: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Logos/jpg/black_og.jpg',
+      white: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Logos/jpg/white_og.jpg'
+    }
   }
 } as const;
 
