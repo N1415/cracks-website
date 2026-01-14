@@ -45,24 +45,69 @@ export default function MethodSection() {
           </p>
         </div>
 
-        <BentoGrid className="md:grid-cols-2 gap-6">
-          {methods.map((method, index) => (
-            <BentoGridItem
-              key={index}
-              title={method.title}
-              description={method.description}
-              header={
-                <div className="relative w-full h-full min-h-[200px]">
-                  <Image
-                    src={method.image}
-                    alt={method.title}
-                    fill
-                    className="object-cover rounded-md"
-                  />
-                </div>
-              }
-            />
-          ))}
+        <BentoGrid className="md:grid-cols-3 gap-6">
+          {/* Row 1: 1 col + 2 col span */}
+          <BentoGridItem
+            title={methods[0].title}
+            description={methods[0].description}
+            className="md:col-span-1"
+            header={
+              <div className="relative w-full h-full min-h-[200px]">
+                <Image
+                  src={methods[0].image}
+                  alt={methods[0].title}
+                  fill
+                  className="object-cover rounded-md"
+                />
+              </div>
+            }
+          />
+          <BentoGridItem
+            title={methods[1].title}
+            description={methods[1].description}
+            className="md:col-span-2"
+            header={
+              <div className="relative w-full h-full min-h-[200px]">
+                <Image
+                  src={methods[1].image}
+                  alt={methods[1].title}
+                  fill
+                  className="object-cover rounded-md"
+                />
+              </div>
+            }
+          />
+          {/* Row 2: 2 col span + 1 col */}
+          <BentoGridItem
+            title={methods[2].title}
+            description={methods[2].description}
+            className="md:col-span-2"
+            header={
+              <div className="relative w-full h-full min-h-[200px]">
+                <Image
+                  src={methods[2].image}
+                  alt={methods[2].title}
+                  fill
+                  className="object-cover rounded-md"
+                />
+              </div>
+            }
+          />
+          <BentoGridItem
+            title={methods[3].title}
+            description={methods[3].description}
+            className="md:col-span-1"
+            header={
+              <div className="relative w-full h-full min-h-[200px]">
+                <Image
+                  src={methods[3].image}
+                  alt={methods[3].title}
+                  fill
+                  className="object-cover rounded-md"
+                />
+              </div>
+            }
+          />
         </BentoGrid>
       </div>
     </section>
