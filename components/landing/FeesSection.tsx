@@ -51,28 +51,28 @@ function PackageCard({
   };
 
   return (
-    <div className="bg-[#0f1420] border border-gray-800 rounded-lg flex flex-col h-full">
-      <h3 className="font-serif text-xl py-4 border-b border-gray-800 text-center text-white">
+    <div className="bg-card border border-border rounded-lg flex flex-col h-full">
+      <h3 className="font-serif text-xl py-4 border-b border-border text-center text-foreground">
         {name}
       </h3>
 
       {title && (
-        <h4 className="font-sans text-sm font-light py-3 px-4 text-center border-b border-gray-800 h-16 flex items-center justify-center text-white">
+        <h4 className="font-sans text-sm font-light py-3 px-4 text-center border-b border-border h-16 flex items-center justify-center text-foreground">
           {title}
         </h4>
       )}
 
       {subtitle && (
-        <div className="border-b border-gray-800 h-48 overflow-auto px-4 py-3">
-          <p className="font-sans text-sm font-light text-left text-gray-300">
+        <div className="border-b border-border h-48 overflow-auto px-4 py-3">
+          <p className="font-sans text-sm font-light text-left text-muted-foreground">
             {subtitle}
           </p>
         </div>
       )}
 
       {includes && (
-        <div className="border-b border-gray-800 h-10 flex items-center">
-          <h4 className="font-sans text-xs px-4 text-left text-white">
+        <div className="border-b border-border h-10 flex items-center">
+          <h4 className="font-sans text-xs px-4 text-left text-foreground">
             {includes}
           </h4>
         </div>
@@ -85,25 +85,25 @@ function PackageCard({
           const isExpanded = expandedSections[sectionKey];
 
           return (
-            <div key={sectionKey} className="border-b border-gray-800">
+            <div key={sectionKey} className="border-b border-border">
               <button
                 onClick={() => toggleSection(sectionKey)}
-                className="flex items-center justify-between cursor-pointer py-3 px-4 w-full text-left hover:bg-gray-800/50 transition-colors focus:outline-none"
+                className="flex items-center justify-between cursor-pointer py-3 px-4 w-full text-left hover:bg-muted/50 transition-colors focus:outline-none"
                 aria-expanded={isExpanded}
                 aria-controls={`section-${sectionKey}`}
               >
-                <h4 className="font-light text-xs text-white">{section.title}</h4>
+                <h4 className="font-light text-xs text-foreground">{section.title}</h4>
                 {isExpanded ? (
-                  <ChevronUp size={16} className="text-white flex-shrink-0" />
+                  <ChevronUp size={16} className="text-foreground flex-shrink-0" />
                 ) : (
-                  <ChevronDown size={16} className="text-white flex-shrink-0" />
+                  <ChevronDown size={16} className="text-foreground flex-shrink-0" />
                 )}
               </button>
 
               {isExpanded && (
                 <div id={`section-${sectionKey}`} className="px-4 pb-3 space-y-2">
                   {section.items.map((item, idx) => (
-                    <p key={idx} className="text-xs font-light text-white pl-2">
+                    <p key={idx} className="text-xs font-light text-foreground pl-2">
                       {item}
                     </p>
                   ))}
@@ -115,9 +115,9 @@ function PackageCard({
       </div>
 
       {/* Timeline Section */}
-      <div className="border-t border-gray-800 py-6 px-4 text-center">
-        <p className="text-base text-gray-400">Estimated Timeline:</p>
-        <p className="text-xl font-semibold mt-1 text-white">{timeline}</p>
+      <div className="border-t border-border py-6 px-4 text-center">
+        <p className="text-base text-muted-foreground">Estimated Timeline:</p>
+        <p className="text-xl font-semibold mt-1 text-foreground">{timeline}</p>
       </div>
 
       {/* Quote Form */}
@@ -127,7 +127,7 @@ function PackageCard({
             type="email"
             value={email}
             onChange={(e) => onEmailChange(packageId, e.target.value)}
-            className="flex-grow bg-[#0a0f1a] border border-gray-800 rounded px-4 py-3 text-white text-sm focus:border-white focus:outline-none transition-colors"
+            className="flex-grow bg-background border border-border rounded px-4 py-3 text-foreground text-sm focus:border-foreground focus:outline-none transition-colors"
             placeholder="Your email"
             required
             aria-label={`Email address for ${name} package quote`}
@@ -135,8 +135,8 @@ function PackageCard({
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`bg-white text-black px-3 py-3 rounded flex items-center justify-center gap-1 transition-all text-sm whitespace-nowrap ${
-              isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-200'
+            className={`bg-foreground text-background px-3 py-3 rounded flex items-center justify-center gap-1 transition-all text-sm whitespace-nowrap ${
+              isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-80'
             }`}
             aria-label={`Get quote for ${name} package`}
           >
@@ -215,7 +215,7 @@ export default function FeesSection() {
   return (
     <section
       id="fees"
-      className="py-24 bg-black text-white"
+      className="py-24 bg-background text-foreground"
       role="region"
       aria-labelledby="fees-heading"
     >
@@ -225,8 +225,8 @@ export default function FeesSection() {
           <h2 id="fees-heading" className="font-serif text-3xl md:text-4xl mb-4">
             FEES
           </h2>
-          <div className="w-16 h-px bg-white mx-auto my-8" aria-hidden="true" />
-          <p className="font-sans font-light text-lg text-gray-300 max-w-3xl mx-auto">
+          <div className="w-16 h-px bg-foreground mx-auto my-8" aria-hidden="true" />
+          <p className="font-sans font-light text-lg text-muted-foreground max-w-3xl mx-auto">
             Our fees are structured around three distinct packages tailored to
             your specific needs and scope of work. Whether you need support with
             concept development only or comprehensive guidance from initial
@@ -237,8 +237,8 @@ export default function FeesSection() {
         </div>
 
         {/* Project Information Calculator */}
-        <div className="bg-[#0f1420] border border-gray-800 rounded-lg p-12 mb-12">
-          <h2 className="font-serif text-3xl mb-10 text-center">
+        <div className="bg-card border border-border rounded-lg p-12 mb-12">
+          <h2 className="font-serif text-3xl mb-10 text-center text-foreground">
             Project Information
           </h2>
 
@@ -251,7 +251,7 @@ export default function FeesSection() {
                 id="region-select"
                 value={country}
                 onChange={(e) => updateCountry(e.target.value)}
-                className="w-full bg-[#0a0f1a] border border-gray-800 rounded px-4 py-3 text-white focus:border-white focus:outline-none transition-colors"
+                className="w-full bg-background border border-border rounded px-4 py-3 text-foreground focus:border-foreground focus:outline-none transition-colors"
               >
                 {Object.keys(TRAVEL_SUPPLEMENTS).map((region) => (
                   <option key={region} value={region}>
@@ -270,7 +270,7 @@ export default function FeesSection() {
                 type="text"
                 value={city}
                 onChange={(e) => updateCity(e.target.value)}
-                className="w-full bg-[#0a0f1a] border border-gray-800 rounded px-4 py-3 text-white focus:border-white focus:outline-none transition-colors"
+                className="w-full bg-background border border-border rounded px-4 py-3 text-foreground focus:border-foreground focus:outline-none transition-colors"
                 placeholder="Enter city name"
               />
             </div>
@@ -284,7 +284,7 @@ export default function FeesSection() {
                 type="number"
                 value={squareMeters}
                 onChange={(e) => updateSquareMeters(e.target.value)}
-                className="w-full bg-[#0a0f1a] border border-gray-800 rounded px-4 py-3 text-white focus:border-white focus:outline-none transition-colors"
+                className="w-full bg-background border border-border rounded px-4 py-3 text-foreground focus:border-foreground focus:outline-none transition-colors"
                 placeholder="Enter square meters"
                 min="1"
               />
@@ -366,18 +366,18 @@ export default function FeesSection() {
 
         {/* Legal Disclaimers */}
         <div className="mt-16 space-y-2">
-          <p className="font-sans font-light text-sm text-gray-400">
+          <p className="font-sans font-light text-sm text-muted-foreground">
             * Minimum project size is 250 SQM.
           </p>
-          <p className="font-sans font-light text-sm text-gray-400">
+          <p className="font-sans font-light text-sm text-muted-foreground">
             * Travel expenses are billed separately according to our
             International Consulting Engagement Policy.
           </p>
-          <p className="font-sans font-light text-sm text-gray-400">
+          <p className="font-sans font-light text-sm text-muted-foreground">
             * All fees are subject to applicable taxes. For detailed terms and
             conditions, please refer to your consulting agreement.
           </p>
-          <p className="font-sans font-light text-sm text-gray-400">
+          <p className="font-sans font-light text-sm text-muted-foreground">
             * For custom projects or special requirements, please contact us.
           </p>
         </div>

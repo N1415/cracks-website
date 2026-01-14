@@ -8,14 +8,14 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-black text-white pt-16 pb-8">
+    <footer className="bg-foreground text-background pt-16 pb-8">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between mb-12">
           <div className="mb-8 md:mb-0 max-w-md">
-            <h2 className="text-3xl font-serif font-thin text-white mb-4">
+            <h2 className="text-3xl font-serif font-thin text-background mb-4">
               Cracks Hospitality Studio
             </h2>
-            <p className="font-sans font-light text-white">
+            <p className="font-sans font-light text-background/80">
               Cracks Hospitality Studio exists to design, operationalize, and
               scale high-performance hospitality businesses by combining expert
               consulting, advanced technology, and education-driven media. We
@@ -27,27 +27,27 @@ export default function Footer() {
 
           <div className="grid grid-cols-2 gap-8">
             <div>
-              <h4 className="font-sans font-semibold text-lg mb-4">
+              <h4 className="font-sans font-semibold text-lg mb-4 text-background">
                 Quick Links
               </h4>
-              <ul className="space-y-2 font-sans font-light text-white">
+              <ul className="space-y-2 font-sans font-light text-background/80">
                 <li>
-                  <a href="#home" className="hover:text-gray-300 transition-colors">
+                  <a href="#home" className="hover:text-background transition-colors">
                     Home
                   </a>
                 </li>
                 <li>
-                  <a href="#services" className="hover:text-gray-300 transition-colors">
+                  <a href="#services" className="hover:text-background transition-colors">
                     Services
                   </a>
                 </li>
                 <li>
-                  <a href="#method" className="hover:text-gray-300 transition-colors">
+                  <a href="#method" className="hover:text-background transition-colors">
                     Our Method
                   </a>
                 </li>
                 <li>
-                  <a href="#contact" className="hover:text-gray-300 transition-colors">
+                  <a href="#contact" className="hover:text-background transition-colors">
                     Contact
                   </a>
                 </li>
@@ -55,12 +55,12 @@ export default function Footer() {
             </div>
 
             <div>
-              <h4 className="font-sans font-semibold text-lg mb-4">Legal</h4>
-              <ul className="space-y-2 font-sans font-light text-white">
+              <h4 className="font-sans font-semibold text-lg mb-4 text-background">Legal</h4>
+              <ul className="space-y-2 font-sans font-light text-background/80">
                 <li>
                   <Link
                     href="/legal/privacy"
-                    className="hover:text-gray-300 transition-colors"
+                    className="hover:text-background transition-colors"
                   >
                     Privacy Policy
                   </Link>
@@ -68,7 +68,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/legal/app-privacy"
-                    className="hover:text-gray-300 transition-colors"
+                    className="hover:text-background transition-colors"
                   >
                     App Privacy
                   </Link>
@@ -78,8 +78,8 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <div className="font-sans text-white text-sm mb-4 md:mb-0 font-light">
+        <div className="border-t border-background/20 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <div className="font-sans text-background/80 text-sm mb-4 md:mb-0 font-light">
             &copy; {currentYear} Cracks Hospitality Studio. All rights reserved.
           </div>
 
@@ -88,7 +88,7 @@ export default function Footer() {
               href={SITE_CONFIG.social.facebook}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-background/60 hover:text-background transition-colors"
               aria-label="Visit our Facebook page"
             >
               <svg
@@ -109,7 +109,7 @@ export default function Footer() {
               href={SITE_CONFIG.social.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-background/60 hover:text-background transition-colors"
               aria-label="Visit our Instagram page"
             >
               <svg
@@ -132,7 +132,7 @@ export default function Footer() {
               href={SITE_CONFIG.social.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-background/60 hover:text-background transition-colors"
               aria-label="Visit our LinkedIn page"
             >
               <Linkedin size={20} />

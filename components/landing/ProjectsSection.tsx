@@ -12,10 +12,10 @@ export default function ProjectsSection() {
   };
 
   return (
-    <section id="projects" className="py-24 bg-[#1a1a1a] text-white">
+    <section id="projects" className="py-24 bg-background text-foreground">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="font-serif text-3xl md:text-4xl mb-4">PROJECTS</h2>
+          <h2 className="font-serif text-3xl md:text-4xl mb-4 text-foreground">PROJECTS</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {PROJECTS.map((project) => (
