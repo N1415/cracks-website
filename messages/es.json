@@ -1,0 +1,151 @@
+{
+  "navigation": {
+    "home": "Inicio",
+    "method": "Nuestro Método",
+    "services": "Servicios",
+    "fees": "Tarifas",
+    "projects": "Proyectos",
+    "team": "Equipo",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "title": "CRACKS HOSPITALITY STUDIO",
+    "subtitle": "CONSTRUYENDO ICONOS DE LA HOSPITALIDAD, UN RESTAURANTE A LA VEZ",
+    "bookCall": "RESERVAR LLAMADA",
+    "getQuote": "OBTENER COTIZACIÓN"
+  },
+  "method": {
+    "title": "NUESTRO MÉTODO",
+    "subtitle": "Claro, Fundamentado, Construido para Durar",
+    "cards": {
+      "guestCentric": {
+        "title": "Centrado en el Cliente y Orientado a los Ingresos",
+        "description": "Creemos que el mejor ambiente es un comedor lleno y feliz. Nuestro trabajo está diseñado para impulsar visitas repetidas — alineando precios, experiencia y cultura del equipo con lo que los clientes realmente valoran."
+      },
+      "authentic": {
+        "title": "Auténtico y Guiado por la Historia",
+        "description": "Cada concepto que construimos tiene una identidad clara y un alma cultural — cobrada vida a través del diseño, la comida y la narrativa que se sienten honestas y relevantes."
+      },
+      "operational": {
+        "title": "Operacionalmente Integrado",
+        "description": "Tomamos cada decisión con la ejecución en mente. Desde el primer día, aseguramos que sus equipos puedan ofrecer experiencias rentables, prácticas y consistentes."
+      },
+      "global": {
+        "title": "Perspectiva Global, Comprensión Local",
+        "description": "Nuestros conceptos son globalmente conscientes pero nunca fuera de lugar. Enraizamos cada proyecto en conocimiento local — porque el contexto no solo es importante, lo es todo."
+      }
+    }
+  },
+  "services": {
+    "title": "SERVICIOS",
+    "stepByStep": "PASO A PASO",
+    "scopeOfServices": "ALCANCE DE SERVICIOS",
+    "scopeDescription": "Servicios de consultoría de restaurantes completos adaptados para establecimientos de alta gama, desde el desarrollo del concepto hasta la excelencia operativa.",
+    "phases": {
+      "phase1": {
+        "number": "01",
+        "title": "Inicio Inteligente — Eficiencia de Capital desde el Día Cero",
+        "description": "Con más de 50 aperturas en 3 continentes, le ayudamos a evitar errores costosos y tomar decisiones de alto impacto temprano. Desde la elección del lugar hasta el diseño y el presupuesto, protegemos su inversión antes de que entre el primer cliente."
+      },
+      "phase2": {
+        "number": "02",
+        "title": "Activación de Ingresos — Maximizando la Línea Superior",
+        "description": "Diseñamos múltiples flujos de ingresos, desde asociaciones de marca hasta diseño de servicio. Nuestras estrategias están integradas en sus operaciones, marketing y menú — asegurando impulso desde el día de apertura."
+      },
+      "phase3": {
+        "number": "03",
+        "title": "Rentabilidad Sostenida — Rendimiento a Largo Plazo",
+        "description": "Permanecemos involucrados más allá del lanzamiento. Desde sistemas hasta herramientas de liderazgo, aseguramos que su negocio sea resistente, escalable y optimizado para un rendimiento financiero consistente."
+      }
+    },
+    "scope": {
+      "conceptDevelopment": {
+        "title": "Desarrollo de Concepto y Lanzamiento",
+        "description": "Nuestros paquetes de desarrollo de concepto—Blueprint, Framework y Launch—están diseñados para encontrarle donde esté. Ya sea que necesite ayuda para validar una idea, desarrollar un concepto completo o ir hasta la apertura, cada paquete ofrece un conjunto de servicios adaptado a sus necesidades."
+      },
+      "management": {
+        "title": "Servicios de Gestión",
+        "description": "Nuestro paquete de Gestión proporciona apoyo operativo continuo después de su apertura exitosa. Trabajamos junto a su equipo para optimizar el rendimiento, implementar sistemas e impulsar el crecimiento sostenible."
+      },
+      "partner": {
+        "title": "Servicios de Socios",
+        "description": "Cracks Hospitality Studio trabaja con una red de socios especializados verificados que pueden proporcionar servicios complementarios no incluidos en nuestros paquetes principales."
+      },
+      "additional": {
+        "title": "Servicios Adicionales",
+        "description": "Para ayudarle a poner en marcha su restaurante. Estudio de viabilidad, revisión de concepto, desarrollo de menú y auditorías operativas."
+      }
+    }
+  },
+  "fees": {
+    "title": "TARIFAS",
+    "description": "Nuestras tarifas están estructuradas en tres paquetes distintos adaptados a sus necesidades específicas y alcance del trabajo.",
+    "projectInfo": "Información del Proyecto",
+    "region": "Región",
+    "city": "Ciudad / País",
+    "squareMeters": "Metros Cuadrados",
+    "getQuote": "Obtener Cotización",
+    "estimatedTimeline": "Plazo Estimado",
+    "disclaimers": {
+      "minSize": "El tamaño mínimo del proyecto es 250 m².",
+      "travel": "Los gastos de viaje se facturan por separado según nuestra Política de Consultoría Internacional.",
+      "taxes": "Todas las tarifas están sujetas a impuestos aplicables.",
+      "custom": "Para proyectos personalizados o requisitos especiales, contáctenos."
+    }
+  },
+  "projects": {
+    "title": "PROYECTOS"
+  },
+  "team": {
+    "title": "EL EQUIPO",
+    "subtitle": "Somos expertos en hospitalidad con un historial comprobado de crear y escalar restaurantes en múltiples regiones con más de 40 años de experiencia combinada.",
+    "connectLinkedIn": "Conectar en LinkedIn"
+  },
+  "contact": {
+    "title": "Contáctenos",
+    "subtitle": "¿Listo para elevar su concepto de restaurante? Póngase en contacto con nuestro equipo para discutir cómo podemos ayudarle a dar vida a su visión.",
+    "form": {
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "telephone": "Número de Teléfono",
+      "email": "Correo Electrónico",
+      "company": "Empresa",
+      "subject": "Asunto",
+      "message": "Mensaje",
+      "required": "requerido",
+      "optional": "opcional",
+      "sendMessage": "Enviar Mensaje",
+      "sending": "Enviando..."
+    },
+    "subjects": {
+      "quotation": "Cotización",
+      "newConcept": "Creación de Nuevo Concepto de Restaurante",
+      "partnership": "Oportunidad de Asociación / Colaboración",
+      "general": "Otra Cosa / Consulta General"
+    },
+    "success": {
+      "title": "¡Gracias!",
+      "message": "Su mensaje ha sido recibido y nos pondremos en contacto dentro de 24-48 horas.",
+      "confirmation": "Se ha enviado un correo de confirmación a su bandeja de entrada.",
+      "sendAnother": "Enviar otro mensaje"
+    },
+    "info": {
+      "location": "Nuestra Ubicación",
+      "phone": "Llámenos",
+      "email": "Escríbanos",
+      "hours": "Horario de Atención",
+      "weekdays": "Lunes - Viernes: 9:00 AM - 8:00 PM",
+      "saturday": "Sábado: 10:00 AM - 8:00 PM",
+      "timezone": "(Hora de Tailandia - ICT)"
+    }
+  },
+  "footer": {
+    "description": "Cracks Hospitality Studio existe para diseñar, operacionalizar y escalar negocios de hospitalidad de alto rendimiento combinando consultoría experta, tecnología avanzada y medios impulsados por la educación.",
+    "quickLinks": "Enlaces Rápidos",
+    "copyright": "Todos los derechos reservados."
+  },
+  "common": {
+    "learnMore": "Más Información",
+    "backToHome": "Volver al Inicio"
+  }
+}
