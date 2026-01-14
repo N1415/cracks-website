@@ -52,14 +52,12 @@ export default function MethodSection() {
             description={methods[0].description}
             className="md:col-span-1"
             header={
-              <div className="relative w-full h-full min-h-[200px]">
-                <Image
-                  src={methods[0].image}
-                  alt={methods[0].title}
-                  fill
-                  className="object-cover rounded-md"
-                />
-              </div>
+              <Image
+                src={methods[0].image}
+                alt={methods[0].title}
+                fill
+                className="object-cover rounded-md"
+              />
             }
           />
           <BentoGridItem
@@ -67,14 +65,12 @@ export default function MethodSection() {
             description={methods[1].description}
             className="md:col-span-2"
             header={
-              <div className="relative w-full h-full min-h-[200px]">
-                <Image
-                  src={methods[1].image}
-                  alt={methods[1].title}
-                  fill
-                  className="object-cover rounded-md"
-                />
-              </div>
+              <Image
+                src={methods[1].image}
+                alt={methods[1].title}
+                fill
+                className="object-cover rounded-md"
+              />
             }
           />
           {/* Row 2: 2 col span + 1 col */}
@@ -83,14 +79,12 @@ export default function MethodSection() {
             description={methods[2].description}
             className="md:col-span-2"
             header={
-              <div className="relative w-full h-full min-h-[200px]">
-                <Image
-                  src={methods[2].image}
-                  alt={methods[2].title}
-                  fill
-                  className="object-cover rounded-md"
-                />
-              </div>
+              <Image
+                src={methods[2].image}
+                alt={methods[2].title}
+                fill
+                className="object-cover rounded-md"
+              />
             }
           />
           <BentoGridItem
@@ -98,14 +92,12 @@ export default function MethodSection() {
             description={methods[3].description}
             className="md:col-span-1"
             header={
-              <div className="relative w-full h-full min-h-[200px]">
-                <Image
-                  src={methods[3].image}
-                  alt={methods[3].title}
-                  fill
-                  className="object-cover rounded-md"
-                />
-              </div>
+              <Image
+                src={methods[3].image}
+                alt={methods[3].title}
+                fill
+                className="object-cover rounded-md"
+              />
             }
           />
         </BentoGrid>
