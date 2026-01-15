@@ -93,21 +93,28 @@ export default function ContactSection() {
         <div className="max-w-2xl mx-auto bg-muted/30 rounded-2xl p-8 lg:p-10 border border-border">
           {submitSuccess ? (
             <div
-              className="bg-green-900/30 border border-green-700 rounded-lg p-6 text-center"
+              className="text-center py-8"
               role="alert"
             >
-              <CheckCircle className="w-8 h-8 text-green-500 mx-auto mb-3" />
-              <h3 className="text-xl font-medium text-foreground mb-2">Thank You!</h3>
-              <p className="text-muted-foreground text-sm mb-2">
-                Your message has been received and we will get back to you
-                within 24-48 hours.
+              <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-secondary/10 flex items-center justify-center">
+                <CheckCircle className="w-8 h-8 text-secondary" />
+              </div>
+              <h3
+                className="text-2xl md:text-3xl font-bold text-foreground mb-4 font-serif tracking-wide"
+                style={{ fontVariant: 'small-caps' }}
+              >
+                Message Received
+              </h3>
+              <div className="w-12 h-0.5 bg-secondary mx-auto mb-6" />
+              <p className="text-muted-foreground mb-2">
+                Thank you for reaching out to us.
               </p>
-              <p className="text-muted-foreground text-xs">
-                A confirmation email has been sent to your inbox.
+              <p className="text-muted-foreground text-sm mb-6">
+                We will get back to you within 24-48 hours.
               </p>
               <button
                 onClick={() => setSubmitSuccess(false)}
-                className="mt-4 text-green-400 hover:text-green-300 text-sm underline focus:outline-none"
+                className="text-secondary hover:text-secondary/80 text-sm font-medium transition-colors focus:outline-none focus:underline"
               >
                 Send another message
               </button>
