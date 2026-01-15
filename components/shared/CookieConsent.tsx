@@ -11,31 +11,42 @@ const COOKIE_CONSENT_KEY = 'cookie-consent';
 export function CookieConsent() {
   const t = useTranslations('cookieConsent');
   const [isVisible, setIsVisible] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
     const consent = localStorage.getItem(COOKIE_CONSENT_KEY);
     if (!consent) {
-      // Small delay to avoid layout shift on initial load
-      const timer = setTimeout(() => setIsVisible(true), 1000);
+      // Delay to avoid layout shift on initial load and allow page to settle
+      const timer = setTimeout(() => {
+        setIsVisible(true);
+        // Trigger animation after mount
+        requestAnimationFrame(() => setIsAnimating(true));
+      }, 1500);
       return () => clearTimeout(timer);
     }
   }, []);
 
   const handleAccept = () => {
     localStorage.setItem(COOKIE_CONSENT_KEY, 'accepted');
-    setIsVisible(false);
+    setIsAnimating(false);
+    setTimeout(() => setIsVisible(false), 300);
   };
 
   const handleDecline = () => {
     localStorage.setItem(COOKIE_CONSENT_KEY, 'declined');
-    setIsVisible(false);
+    setIsAnimating(false);
+    setTimeout(() => setIsVisible(false), 300);
   };
 
   if (!isVisible) return null;
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6 animate-in slide-in-from-bottom duration-300"
+      className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6 transition-all duration-300 ease-out"
+      style={{
+        opacity: isAnimating ? 1 : 0,
+        transform: isAnimating ? 'translateY(0)' : 'translateY(100%)',
+      }}
       role="dialog"
       aria-label="Cookie consent"
     >

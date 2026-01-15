@@ -8,6 +8,7 @@ import { useFeesCalculator } from '@/hooks/useFeesCalculator';
 import { useRateLimit } from '@/hooks/useRateLimit';
 import { ApiService } from '@/lib/api';
 import { PACKAGES, PACKAGE_FEATURES, TRAVEL_SUPPLEMENTS } from '@/config/constants';
+import { useTranslations } from 'next-intl';
 
 interface PackageCardProps {
   name: string;
@@ -16,6 +17,7 @@ interface PackageCardProps {
   includes: string;
   features: readonly { readonly title: string; readonly items: readonly string[] }[];
   timeline: string;
+  estimatedTimelineLabel: string;
 }
 
 function PackageCard({
@@ -25,6 +27,7 @@ function PackageCard({
   includes,
   features,
   timeline,
+  estimatedTimelineLabel,
 }: PackageCardProps) {
   return (
     <div className="bg-card border border-border rounded-lg flex flex-col transition-all duration-300 ease-in-out hover:shadow-[0_0_30px_rgba(200,92,60,0.3)] hover:border-secondary/60 hover:scale-[1.01]">
@@ -48,7 +51,7 @@ function PackageCard({
 
       {/* Timeline Section */}
       <div className="border-b border-border py-4 px-4 text-center">
-        <p className="text-xs text-foreground">Estimated Timeline:</p>
+        <p className="text-xs text-foreground">{estimatedTimelineLabel}:</p>
         <p className="text-sm font-semibold mt-1 text-foreground">{timeline}</p>
       </div>
 
@@ -78,6 +81,8 @@ function PackageCard({
 }
 
 export default function FeesSection() {
+  const t = useTranslations('fees');
+
   const {
     squareMeters,
     country,
@@ -173,25 +178,20 @@ export default function FeesSection() {
             <div className="lg:sticky lg:top-24">
               {/* Header */}
               <h3 id="fees-heading" className="text-3xl font-semibold mb-4 font-serif tracking-wide" style={{ fontVariant: 'small-caps' }}>
-                Fees
+                {t('title')}
               </h3>
 
               {/* Fees Description */}
               <div className="mb-6">
                 <p className="font-light text-sm text-foreground leading-relaxed">
-                  Our fees are structured around three distinct packages tailored to
-                  your specific needs and scope of work. Whether you need support with
-                  concept development only or comprehensive guidance from initial
-                  planning through to opening day, we offer flexible engagement
-                  options that align with your project&apos;s complexity and your
-                  level of involvement.
+                  {t('description')}
                 </p>
               </div>
 
               {/* Project Information Calculator */}
               <div className="bg-card border border-border rounded-lg p-6">
                 <h4 className="font-serif text-xl mb-4 text-center text-foreground font-semibold">
-                  Project Information
+                  {t('projectInfo')}
                 </h4>
 
                 <div className="space-y-4">
@@ -199,7 +199,7 @@ export default function FeesSection() {
                   <div className="grid grid-cols-2 gap-4">
                     <div className="flex flex-col">
                       <label htmlFor="region-select" className="block text-xs mb-1 font-medium">
-                        Region
+                        {t('region')}
                       </label>
                       <select
                         id="region-select"
@@ -217,7 +217,7 @@ export default function FeesSection() {
 
                     <div className="flex flex-col">
                       <label htmlFor="city-input" className="block text-xs mb-1 font-medium">
-                        City / Country
+                        {t('city')}
                       </label>
                       <input
                         id="city-input"
@@ -234,7 +234,7 @@ export default function FeesSection() {
                   <div className="grid grid-cols-2 gap-4">
                     <div className="flex flex-col">
                       <label htmlFor="sqm-input" className="block text-xs mb-1 font-medium">
-                        Square Meters <span className="text-red-400">*</span>
+                        {t('squareMeters')} <span className="text-red-400">*</span>
                       </label>
                       <input
                         id="sqm-input"
@@ -292,7 +292,7 @@ export default function FeesSection() {
                         ) : (
                           <>
                             <Mail className="h-4 w-4 mr-1" />
-                            Get Quote
+                            {t('getQuote')}
                           </>
                         )}
                       </Button>
@@ -316,15 +316,13 @@ export default function FeesSection() {
               {/* Legal Disclaimers */}
               <div className="mt-6 space-y-1">
                 <p className="font-sans font-light text-sm text-foreground">
-                  * Travel expenses are billed separately according to our
-                  International Consulting Engagement Policy.
+                  * {t('disclaimers.travel')}
                 </p>
                 <p className="font-sans font-light text-sm text-foreground">
-                  * All fees are subject to applicable taxes. For detailed terms and
-                  conditions, please refer to your consulting agreement.
+                  * {t('disclaimers.taxes')}
                 </p>
                 <p className="font-sans font-light text-sm text-foreground">
-                  * For custom projects or special requirements, please contact us.
+                  * {t('disclaimers.custom')}
                 </p>
               </div>
             </div>
@@ -341,6 +339,7 @@ export default function FeesSection() {
                 timeline={getEstimatedTimeline(pkg.packageId, parseInt(squareMeters) || 0)}
                 includes={pkg.includes}
                 features={pkg.features}
+                estimatedTimelineLabel={t('estimatedTimeline')}
               />
             ))}
           </div>

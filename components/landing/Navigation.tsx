@@ -6,19 +6,22 @@ import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/shared/ThemeToggle';
+import { LanguageSwitcher } from '@/components/shared/LanguageSwitcher';
 import { ASSETS_CONFIG } from '@/config/constants';
+import { useTranslations } from 'next-intl';
 
-const navigationItems = [
-  { label: 'Home', href: 'home' },
-  { label: 'Our Method', href: 'method' },
-  { label: 'Services', href: 'services' },
-  { label: 'Fees', href: 'fees' },
-  { label: 'Projects', href: 'projects' },
-  { label: 'Team', href: 'team' },
-  { label: 'Contact', href: 'contact' }
+const navigationKeys = [
+  { key: 'home', href: 'home' },
+  { key: 'method', href: 'method' },
+  { key: 'services', href: 'services' },
+  { key: 'fees', href: 'fees' },
+  { key: 'projects', href: 'projects' },
+  { key: 'team', href: 'team' },
+  { key: 'contact', href: 'contact' }
 ];
 
 export default function Navigation() {
+  const t = useTranslations('navigation');
   const [isOpen, setIsOpen] = useState(false);
   const [visible, setVisible] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -122,19 +125,20 @@ export default function Navigation() {
 
             {/* Nav Links - Desktop (centered) */}
             <div className="hidden md:flex items-center justify-center gap-5">
-              {navigationItems.map((item) => (
+              {navigationKeys.map((item) => (
                 <button
                   key={item.href}
                   onClick={() => handleNavClick(item.href)}
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors focus:outline-none"
                 >
-                  {item.label}
+                  {t(item.key)}
                 </button>
               ))}
             </div>
 
-            {/* Right Side - Theme Toggle - fixed width for balance */}
-            <div className="hidden md:flex items-center justify-end w-24">
+            {/* Right Side - Theme Toggle + Language - fixed width for balance */}
+            <div className="hidden md:flex items-center justify-end w-24 gap-2">
+              <LanguageSwitcher />
               <ThemeToggle />
             </div>
 
@@ -145,6 +149,7 @@ export default function Navigation() {
                 size="icon"
                 className="size-10"
                 onClick={() => setIsOpen(true)}
+                aria-label="Open menu"
               >
                 <Menu className="size-6" />
               </Button>
@@ -184,6 +189,7 @@ export default function Navigation() {
             size="icon"
             className="size-10"
             onClick={() => setIsOpen(false)}
+            aria-label="Close menu"
           >
             <X className="size-6" />
           </Button>
@@ -191,7 +197,7 @@ export default function Navigation() {
 
         {/* Navigation Links */}
         <div className="flex flex-col px-6 pt-12">
-          {navigationItems.map((item, index) => (
+          {navigationKeys.map((item, index) => (
             <button
               key={item.href}
               onClick={() => handleNavClick(item.href)}
@@ -201,7 +207,7 @@ export default function Navigation() {
                 animationDelay: `${index * 50}ms`
               }}
             >
-              {item.label}
+              {t(item.key)}
             </button>
           ))}
         </div>

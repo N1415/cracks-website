@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Linkedin, Facebook, Instagram, Mail, MapPin, Phone } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import { SITE_CONFIG, ASSETS_CONFIG } from '@/config/constants';
+import { useTranslations } from 'next-intl';
 
 const socialLinks = [
   { icon: Linkedin, href: SITE_CONFIG.social.linkedin, label: 'LinkedIn' },
@@ -12,6 +13,8 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+  const t = useTranslations('footer');
+  const tNav = useTranslations('navigation');
   const currentYear = new Date().getFullYear();
 
   return (
@@ -67,14 +70,14 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-semibold mb-4">Quick Links</h4>
+            <h3 className="font-semibold mb-4 text-base">{t('quickLinks')}</h3>
             <ul className="space-y-3">
               <li>
                 <a
                   href="#home"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  Home
+                  {tNav('home')}
                 </a>
               </li>
               <li>
@@ -82,7 +85,7 @@ export default function Footer() {
                   href="#services"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  Services
+                  {tNav('services')}
                 </a>
               </li>
               <li>
@@ -90,7 +93,7 @@ export default function Footer() {
                   href="#method"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  Our Method
+                  {tNav('method')}
                 </a>
               </li>
               <li>
@@ -98,7 +101,7 @@ export default function Footer() {
                   href="#contact"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  Contact
+                  {tNav('contact')}
                 </a>
               </li>
             </ul>
@@ -106,7 +109,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="font-semibold mb-4">Contact</h4>
+            <h3 className="font-semibold mb-4 text-base">{tNav('contact')}</h3>
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-muted-foreground">
                 <Mail className="w-4 h-4" />
@@ -137,7 +140,7 @@ export default function Footer() {
         {/* Bottom */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
           <p>
-            &copy; {currentYear} Cracks Hospitality Studio. All rights reserved.
+            &copy; {currentYear} Cracks Hospitality Studio. {t('copyright')}
           </p>
           <div className="flex items-center gap-6">
             <Link

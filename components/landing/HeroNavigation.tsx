@@ -4,20 +4,23 @@ import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { LanguageSwitcher } from '@/components/shared/LanguageSwitcher';
 import { ASSETS_CONFIG } from '@/config/constants';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
-const navigationItems = [
-  { label: 'Home', href: 'home' },
-  { label: 'Our Method', href: 'method' },
-  { label: 'Services', href: 'services' },
-  { label: 'Fees', href: 'fees' },
-  { label: 'Projects', href: 'projects' },
-  { label: 'Team', href: 'team' },
-  { label: 'Contact', href: 'contact' }
+const navigationKeys = [
+  { key: 'home', href: 'home' },
+  { key: 'method', href: 'method' },
+  { key: 'services', href: 'services' },
+  { key: 'fees', href: 'fees' },
+  { key: 'projects', href: 'projects' },
+  { key: 'team', href: 'team' },
+  { key: 'contact', href: 'contact' }
 ];
 
 export default function HeroNavigation() {
+  const t = useTranslations('navigation');
   const { setTheme, resolvedTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [visible, setVisible] = useState(true);
@@ -85,19 +88,22 @@ export default function HeroNavigation() {
 
             {/* Desktop Layout - Nav Links */}
             <div className="hidden md:flex items-center gap-8">
-              {navigationItems.map((item) => (
+              {navigationKeys.map((item) => (
                 <button
                   key={item.href}
                   onClick={() => handleNavClick(item.href)}
                   className="text-base text-primary/80 hover:text-primary transition-colors font-medium focus:outline-none"
                 >
-                  {item.label}
+                  {t(item.key)}
                 </button>
               ))}
             </div>
 
-            {/* Right Side - Theme Toggle (Desktop) */}
-            <div className="hidden md:flex items-center">
+            {/* Right Side - Language + Theme Toggle (Desktop) */}
+            <div className="hidden md:flex items-center gap-2">
+              <div className="text-primary/80 hover:text-primary">
+                <LanguageSwitcher />
+              </div>
               <Button
                 variant="ghost"
                 size="icon"
@@ -165,14 +171,14 @@ export default function HeroNavigation() {
 
         {/* Navigation Links */}
         <div className="flex flex-col px-6 pt-12">
-          {navigationItems.map((item) => (
+          {navigationKeys.map((item) => (
             <button
               key={item.href}
               onClick={() => handleNavClick(item.href)}
               className="text-3xl font-serif font-semibold text-foreground py-4 border-b border-border/50 transition-colors hover:text-secondary text-left focus:outline-none"
               style={{ fontVariant: 'small-caps' }}
             >
-              {item.label}
+              {t(item.key)}
             </button>
           ))}
         </div>

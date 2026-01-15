@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { ThemeProvider } from '@/components/shared/ThemeProvider';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { generateOrganizationSchema, generateWebsiteSchema } from '@/components/seo/schemas';
+import { ASSETS_CONFIG } from '@/config/constants';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://cracks-studio.com'),
@@ -62,6 +65,14 @@ export const metadata: Metadata = {
     ],
     apple: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Logos/png/studio_black.png',
   },
+  alternates: {
+    canonical: 'https://cracks-studio.com',
+    languages: {
+      'en': 'https://cracks-studio.com/en',
+      'es': 'https://cracks-studio.com/es',
+      'x-default': 'https://cracks-studio.com/en',
+    },
+  },
 };
 
 export default function RootLayout({
@@ -72,12 +83,25 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Preconnect for external resources */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://moyusgyrteirxbivehyz.supabase.co" />
+
+        {/* Preload hero image for better LCP */}
+        <link
+          rel="preload"
+          as="image"
+          href={ASSETS_CONFIG.images.heroBackground}
+        />
+
+        {/* Google Fonts */}
         <link
           href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap"
           rel="stylesheet"
         />
+
+        {/* Calendly widget */}
         <link
           rel="stylesheet"
           href="https://assets.calendly.com/assets/external/widget.css"
@@ -86,6 +110,10 @@ export default function RootLayout({
           src="https://assets.calendly.com/assets/external/widget.js"
           async
         />
+
+        {/* Organization & Website JSON-LD schemas */}
+        <JsonLd data={generateOrganizationSchema()} />
+        <JsonLd data={generateWebsiteSchema()} />
       </head>
       <body className="antialiased bg-background text-foreground min-h-screen">
         <ThemeProvider

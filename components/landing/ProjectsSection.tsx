@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { PROJECTS } from '@/config/constants';
+import { useTranslations } from 'next-intl';
 
 const projectIcons: Record<number, React.ReactNode> = {
   1: (
@@ -71,10 +72,9 @@ function MobileProjectCard({ project, index }: { project: typeof PROJECTS[number
       {/* Background Image */}
       <Image
         src={project.image}
-        alt={project.title}
+        alt={`${project.title} - ${project.category} restaurant project by Cracks Hospitality Studio`}
         fill
-        sizes="100vw"
-        unoptimized
+        sizes="(max-width: 768px) 100vw, 50vw"
         className="object-cover"
       />
 
@@ -105,6 +105,7 @@ function MobileProjectCard({ project, index }: { project: typeof PROJECTS[number
 }
 
 export default function ProjectsSection() {
+  const t = useTranslations('projects');
   const [activeIndex, setActiveIndex] = useState(0);
   const [animatedOptions, setAnimatedOptions] = useState<number[]>([]);
 
@@ -135,7 +136,7 @@ export default function ProjectsSection() {
     <section id="projects" className="py-24 bg-background text-foreground">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground font-serif tracking-wide" style={{ fontVariant: 'small-caps' }}>Projects</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground font-serif tracking-wide" style={{ fontVariant: 'small-caps' }}>{t('title')}</h2>
         </div>
 
         {/* Mobile: Vertical Cards */}
@@ -175,10 +176,9 @@ export default function ProjectsSection() {
               {/* Background Image */}
               <Image
                 src={project.image}
-                alt={project.title}
+                alt={`${project.title} - ${project.category} restaurant project by Cracks Hospitality Studio`}
                 fill
-                sizes="70vw"
-                unoptimized
+                sizes="(max-width: 1100px) 100vw, 70vw"
                 className="object-cover"
                 style={{
                   transition: 'transform 700ms ease-in-out',

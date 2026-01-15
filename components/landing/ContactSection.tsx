@@ -8,8 +8,10 @@ import { useFormValidation } from '@/hooks/useFormValidation';
 import { useRateLimit } from '@/hooks/useRateLimit';
 import { VALIDATION_RULES } from '@/lib/validation';
 import { SITE_CONFIG, COUNTRY_CODES } from '@/config/constants';
+import { useTranslations } from 'next-intl';
 
 export default function ContactSection() {
+  const t = useTranslations('contact');
   const { checkRateLimit, remainingAttempts } = useRateLimit({
     limit: 3,
     windowMs: 300000,
@@ -80,12 +82,11 @@ export default function ContactSection() {
             className="text-3xl md:text-5xl font-bold mb-4 text-foreground font-serif tracking-wide"
             style={{ fontVariant: 'small-caps' }}
           >
-            Contact Us
+            {t('title')}
           </h2>
           <div className="w-16 h-0.5 bg-foreground mx-auto my-6" aria-hidden="true" />
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Ready to elevate your restaurant concept? Get in touch with our team
-            to discuss how we can help bring your vision to life.
+            {t('subtitle')}
           </p>
         </div>
 
@@ -103,20 +104,20 @@ export default function ContactSection() {
                 className="text-2xl md:text-3xl font-bold text-foreground mb-4 font-serif tracking-wide"
                 style={{ fontVariant: 'small-caps' }}
               >
-                Message Received
+                {t('success.title')}
               </h3>
               <div className="w-12 h-0.5 bg-secondary mx-auto mb-6" />
               <p className="text-muted-foreground mb-2">
-                Thank you for reaching out to us.
+                {t('success.message')}
               </p>
               <p className="text-muted-foreground text-sm mb-6">
-                We will get back to you within 24-48 hours.
+                {t('success.confirmation')}
               </p>
               <button
                 onClick={() => setSubmitSuccess(false)}
                 className="text-secondary hover:text-secondary/80 text-sm font-medium transition-colors focus:outline-none focus:underline"
               >
-                Send another message
+                {t('success.sendAnother')}
               </button>
             </div>
           ) : (
@@ -124,7 +125,7 @@ export default function ContactSection() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="firstName" className="block mb-1 text-xs font-medium">
-                    First Name <span className="text-red-400">*</span>
+                    {t('form.firstName')} <span className="text-red-400">*</span>
                   </label>
                   <input
                     type="text"
@@ -138,7 +139,7 @@ export default function ContactSection() {
                         ? 'border-red-500'
                         : 'border-border focus:border-foreground'
                     }`}
-                    placeholder="First name"
+                    placeholder={t('form.firstName')}
                   />
                   {errors.firstName && (
                     <div className="flex items-center gap-1 text-red-400 text-xs mt-1">
@@ -150,7 +151,7 @@ export default function ContactSection() {
 
                 <div>
                   <label htmlFor="lastName" className="block mb-1 text-xs font-medium">
-                    Last Name <span className="text-red-400">*</span>
+                    {t('form.lastName')} <span className="text-red-400">*</span>
                   </label>
                   <input
                     type="text"
@@ -164,7 +165,7 @@ export default function ContactSection() {
                         ? 'border-red-500'
                         : 'border-border focus:border-foreground'
                     }`}
-                    placeholder="Last name"
+                    placeholder={t('form.lastName')}
                   />
                   {errors.lastName && (
                     <div className="flex items-center gap-1 text-red-400 text-xs mt-1">
@@ -178,7 +179,7 @@ export default function ContactSection() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="telephone" className="block mb-1 text-xs font-medium">
-                    Telephone Number <span className="text-red-400">*</span>
+                    {t('form.telephone')} <span className="text-red-400">*</span>
                   </label>
                   <div className="flex gap-2">
                     <select
@@ -186,6 +187,7 @@ export default function ContactSection() {
                       value={countryCode}
                       onChange={(e) => setCountryCode(e.target.value)}
                       className="bg-card border border-border rounded px-2 py-2 text-foreground text-sm focus:border-foreground focus:outline-none transition-colors w-28"
+                      aria-label="Country code"
                     >
                       {COUNTRY_CODES.map(({ code, flag }) => (
                         <option key={code} value={code}>
@@ -218,7 +220,7 @@ export default function ContactSection() {
 
                 <div>
                   <label htmlFor="email" className="block mb-1 text-xs font-medium">
-                    Email <span className="text-red-400">*</span>
+                    {t('form.email')} <span className="text-red-400">*</span>
                   </label>
                   <input
                     type="email"
@@ -232,7 +234,7 @@ export default function ContactSection() {
                         ? 'border-red-500'
                         : 'border-border focus:border-foreground'
                     }`}
-                    placeholder="Your email"
+                    placeholder={t('form.email')}
                   />
                   {errors.email && (
                     <div className="flex items-center gap-1 text-red-400 text-xs mt-1">
@@ -245,7 +247,7 @@ export default function ContactSection() {
 
               <div>
                 <label htmlFor="company" className="block mb-1 text-xs font-medium">
-                  Company <span className="text-muted-foreground">(optional)</span>
+                  {t('form.company')} <span className="text-muted-foreground">({t('form.optional')})</span>
                 </label>
                 <input
                   type="text"
@@ -254,13 +256,13 @@ export default function ContactSection() {
                   value={formData.company as string}
                   onChange={handleInputChange}
                   className="w-full bg-card border border-border rounded px-3 py-2 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-foreground focus:border-foreground transition-colors"
-                  placeholder="Your company"
+                  placeholder={t('form.company')}
                 />
               </div>
 
               <div>
                 <label htmlFor="subject" className="block mb-1 text-xs font-medium">
-                  Subject <span className="text-red-400">*</span>
+                  {t('form.subject')} <span className="text-red-400">*</span>
                 </label>
                 <select
                   id="subject"
@@ -270,22 +272,22 @@ export default function ContactSection() {
                   required
                   className="w-full bg-card border border-border rounded px-3 py-2 text-foreground text-sm focus:border-foreground focus:outline-none transition-colors"
                 >
-                  <option value="Quotation">Quotation</option>
+                  <option value="Quotation">{t('subjects.quotation')}</option>
                   <option value="New Restaurant Concept Creation">
-                    New Restaurant Concept Creation
+                    {t('subjects.newConcept')}
                   </option>
                   <option value="Partnership / Collaboration Opportunity">
-                    Partnership / Collaboration
+                    {t('subjects.partnership')}
                   </option>
                   <option value="Something Else / General Enquiry">
-                    General Enquiry
+                    {t('subjects.general')}
                   </option>
                 </select>
               </div>
 
               <div>
                 <label htmlFor="message" className="block mb-1 text-xs font-medium">
-                  Message <span className="text-red-400">*</span>
+                  {t('form.message')} <span className="text-red-400">*</span>
                 </label>
                 <textarea
                   id="message"
@@ -340,12 +342,12 @@ export default function ContactSection() {
                   {isSubmitting ? (
                     <>
                       <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                      Sending...
+                      {t('form.sending')}
                     </>
                   ) : (
                     <>
                       <Send className="mr-2 h-5 w-5" />
-                      Send Message
+                      {t('form.sendMessage')}
                     </>
                   )}
                 </Button>

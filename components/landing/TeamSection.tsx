@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Linkedin } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 const team = [
   {
@@ -38,6 +39,8 @@ His approach, known as The Nacho Method, focuses on building people-first cultur
 ] as const;
 
 export default function TeamSection() {
+  const t = useTranslations('team');
+
   return (
     <section id="team" className="py-24 lg:py-32 bg-muted/30">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -49,11 +52,9 @@ export default function TeamSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 font-serif tracking-wide" style={{ fontVariant: 'small-caps' }}>The Team</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 font-serif tracking-wide" style={{ fontVariant: 'small-caps' }}>{t('title')}</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            We are hospitality experts with proven track record of creating and
-            scaling restaurants across multiple regions with over 40 years of
-            experience combined.
+            {t('subtitle')}
           </p>
         </motion.div>
 
@@ -85,6 +86,7 @@ export default function TeamSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="absolute bottom-2 right-2 w-10 h-10 bg-foreground text-background rounded-full flex items-center justify-center hover:bg-foreground/80 transition-colors"
+                  aria-label={`View ${member.name}'s LinkedIn profile`}
                 >
                   <Linkedin className="w-5 h-5" />
                 </a>

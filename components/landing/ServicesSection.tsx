@@ -12,56 +12,28 @@ import {
   Handshake,
   ClipboardList,
 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
-const phases = [
-  {
-    number: '01',
-    title: 'Smart Start — Capital Efficiency from Day Zero',
-    description:
-      'With over 50 openings across 3 continents, we help you avoid costly mistakes and make high-impact decisions early. From location choice to layout and budgeting, we protect your investment before the first guest walks in.',
-  },
-  {
-    number: '02',
-    title: 'Revenue Activation — Maximising the Top Line',
-    description:
-      'We engineer multiple revenue streams, from brand partnerships to service design. Our strategies are built into your operations, marketing, and menu — ensuring momentum from opening day.',
-  },
-  {
-    number: '03',
-    title: 'Sustained Profitability — Long-Term Performance',
-    description:
-      'We stay involved beyond the launch. From systems to leadership tools, we ensure your business is resilient, scalable, and tuned for consistent financial performance.',
-  },
-];
+const phaseKeys = ['phase1', 'phase2', 'phase3'] as const;
 
-const services: FeatureItem[] = [
-  {
-    title: 'Concept Development and Launch',
-    description:
-      'Our concept development packages—Blueprint, Framework, and Launch—are designed to meet you where you are. From strategy and branding to operational systems and launch execution.',
-    icon: <Lightbulb className="h-6 w-6" />,
-  },
-  {
-    title: 'Management Services',
-    description:
-      'Continued operational support after your successful opening. We optimize performance, implement systems, and drive sustainable growth.',
-    icon: <Settings className="h-6 w-6" />,
-  },
-  {
-    title: 'Partner Services',
-    description:
-      'We work with vetted specialist partners to provide complementary services, coordinating partnerships to ensure seamless integration.',
-    icon: <Handshake className="h-6 w-6" />,
-  },
-  {
-    title: 'Additional Services',
-    description:
-      'Feasibility study, concept review, menu development, and operational audits to help get your restaurant up and running.',
-    icon: <ClipboardList className="h-6 w-6" />,
-  },
-];
+const serviceIcons = {
+  conceptDevelopment: <Lightbulb className="h-6 w-6" />,
+  management: <Settings className="h-6 w-6" />,
+  partner: <Handshake className="h-6 w-6" />,
+  additional: <ClipboardList className="h-6 w-6" />,
+};
+
+const serviceKeys = ['conceptDevelopment', 'management', 'partner', 'additional'] as const;
 
 export default function ServicesSection() {
+  const t = useTranslations('services');
+
+  const services: FeatureItem[] = serviceKeys.map((key) => ({
+    title: t(`scope.${key}.title`),
+    description: t(`scope.${key}.description`),
+    icon: serviceIcons[key],
+  }));
+
   return (
     <section
       id="services"
@@ -85,45 +57,44 @@ export default function ServicesSection() {
               className="text-3xl md:text-5xl font-semibold text-foreground mb-4 font-serif tracking-wide"
               style={{ fontVariant: 'small-caps' }}
             >
-              Services
+              {t('title')}
             </h2>
-            <p className="text-lg text-muted-foreground mb-8">Step by Step</p>
+            <p className="text-lg text-muted-foreground mb-8">{t('stepByStep')}</p>
 
             {/* Phases Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-6">
-              
-              {phases.map((phase) => (
+
+              {phaseKeys.map((phaseKey) => (
                 <GlareCard
-                  key={phase.number}
+                  key={phaseKey}
                   className="flex flex-col items-start justify-start p-8 text-left"
                 >
                   <div className="font-serif text-4xl text-[#2C2C2C] dark:text-[#F5F1E8] mb-6">
-                    {phase.number}
+                    {t(`phases.${phaseKey}.number`)}
                   </div>
                   <div className="w-12 h-px bg-[#2C2C2C]/30 dark:bg-[#F5F1E8]/30 mb-6" aria-hidden="true" />
-                  <h4 className="font-serif text-xl mb-4 text-[#2C2C2C] dark:text-[#F5F1E8] font-semibold">
-                    {phase.title}
-                  </h4>
+                  <h3 className="font-serif text-xl mb-4 text-[#2C2C2C] dark:text-[#F5F1E8] font-semibold">
+                    {t(`phases.${phaseKey}.title`)}
+                  </h3>
                   <p className="font-sans font-light text-[#2C2C2C]/70 dark:text-[#F5F1E8]/70 text-sm leading-relaxed">
-                    {phase.description}
+                    {t(`phases.${phaseKey}.description`)}
                   </p>
                 </GlareCard>
               ))}
             </div>
 
-            
+
               <h3 className="text-2xl md:text-3xl font-semibold text-foreground mb-4 mt-16 font-serif tracking-wide" style={{ fontVariant: 'small-caps' }}>
-                Scope of Services
+                {t('scopeOfServices')}
               </h3>
               <p className="text-lg text-muted-foreground text-center">
-                Comprehensive restaurant consulting services tailored for high-end
-                establishments, from concept development to operational excellence.
+                {t('scopeDescription')}
               </p>
-            
+
 
             <FeaturesSectionWithHoverEffects features={services} />
           </div>
-          
+
         </div>
       </WarpBackground>
     </section>

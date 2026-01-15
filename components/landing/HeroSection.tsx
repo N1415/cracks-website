@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ASSETS_CONFIG } from '@/config/constants';
 import { Button } from '@/components/ui/button';
+import { useTranslations } from 'next-intl';
 
 declare global {
   interface Window {
@@ -16,6 +17,8 @@ declare global {
 const IMG_PADDING = 12;
 
 export default function HeroSection() {
+  const t = useTranslations('hero');
+
   const scrollToFees = () => {
     const feesSection = document.getElementById('fees');
     if (feesSection) {
@@ -48,6 +51,10 @@ export default function HeroSection() {
           <OverlayCopy
             openCalendly={openCalendly}
             scrollToFees={scrollToFees}
+            title={t('title')}
+            subtitle={t('subtitle')}
+            bookCall={t('bookCall')}
+            getQuote={t('getQuote')}
           />
         </div>
       </div>
@@ -95,9 +102,13 @@ const StickyImage = ({ imgUrl }: StickyImageProps) => {
 interface OverlayCopyProps {
   openCalendly: () => void;
   scrollToFees: () => void;
+  title: string;
+  subtitle: string;
+  bookCall: string;
+  getQuote: string;
 }
 
-const OverlayCopy = ({ openCalendly, scrollToFees }: OverlayCopyProps) => {
+const OverlayCopy = ({ openCalendly, scrollToFees, title, subtitle, bookCall, getQuote }: OverlayCopyProps) => {
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -121,13 +132,13 @@ const OverlayCopy = ({ openCalendly, scrollToFees }: OverlayCopyProps) => {
         className="font-serif text-3xl md:text-4xl lg:text-5xl text-white mb-6 tracking-wider text-center"
         style={{ fontVariant: 'small-caps' }}
       >
-        Cracks Hospitality Studio
+        {title}
       </h1>
       <h2
         className="font-serif text-lg md:text-xl text-white mb-8 tracking-wider text-center"
         style={{ fontVariant: 'small-caps' }}
       >
-        Building Hospitality Icons, One Restaurant at a Time
+        {subtitle}
       </h2>
 
       <div id="hero-description" className="sr-only">
@@ -141,9 +152,8 @@ const OverlayCopy = ({ openCalendly, scrollToFees }: OverlayCopyProps) => {
           onClick={openCalendly}
           size="lg"
           className="bg-primary text-primary-foreground hover:bg-primary/90 tracking-wide font-bold"
-          aria-label="Book a first consultation"
         >
-          BOOK A FIRST CALL
+          {bookCall}
         </Button>
 
         <Button
@@ -151,7 +161,7 @@ const OverlayCopy = ({ openCalendly, scrollToFees }: OverlayCopyProps) => {
           size="lg"
           className="bg-secondary text-secondary-foreground hover:bg-secondary/90 tracking-wide font-bold"
         >
-          GET A TAILORED QUOTE
+          {getQuote}
         </Button>
       </div>
     </motion.div>
