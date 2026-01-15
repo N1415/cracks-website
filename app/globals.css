@@ -63,10 +63,10 @@
 
   /* Secondary = Orange (subtle accents only) */
   --secondary: #C85C3C;
-  --secondary-foreground: #F5F1E8;
+  --secondary-foreground: #FFFFFF;
 
   --muted: #F5F1E8;
-  --muted-foreground: #2C2C2C99;
+  --muted-foreground: #2C2C2CBF;
   --accent: #F5F1E8B3;
   --accent-foreground: #2C2C2C;
   --destructive: #DC2626;
@@ -109,10 +109,10 @@
 
   /* Secondary = Orange (subtle accents only) */
   --secondary: #C85C3C;
-  --secondary-foreground: #F5F1E8;
+  --secondary-foreground: #FFFFFF;
 
   --muted: #4A4A4A;
-  --muted-foreground: #F5F1E899;
+  --muted-foreground: #F5F1E8BF;
   --accent: #F5F1E8B3;
   --accent-foreground: #2C2C2C;
   --destructive: #EF4444;

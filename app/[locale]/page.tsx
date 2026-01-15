@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Navigation from '@/components/landing/Navigation';
 import HeroNavigation from '@/components/landing/HeroNavigation';
 import HeroSection from '@/components/landing/HeroSection';
@@ -15,6 +16,25 @@ import {
   generateFAQSchema,
   generateTeamSchema,
 } from '@/components/seo/schemas';
+
+type Props = {
+  params: Promise<{ locale: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+
+  return {
+    alternates: {
+      canonical: `https://cracks-studio.com/${locale}`,
+      languages: {
+        'en': 'https://cracks-studio.com/en',
+        'es': 'https://cracks-studio.com/es',
+        'x-default': 'https://cracks-studio.com/en',
+      },
+    },
+  };
+}
 
 export default function HomePage() {
   const teamSchemas = generateTeamSchema();

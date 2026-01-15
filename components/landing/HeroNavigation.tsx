@@ -109,6 +109,7 @@ export default function HeroNavigation() {
                 size="icon"
                 className="size-10 text-primary/80 hover:text-primary hover:bg-primary/10"
                 onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+                aria-label={mounted && resolvedTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
               >
                 {mounted && resolvedTheme === 'dark' ? (
                   <Sun className="size-5" />
@@ -125,6 +126,7 @@ export default function HeroNavigation() {
                 size="icon"
                 className="size-10 text-primary/80 hover:text-primary hover:bg-primary/10"
                 onClick={() => setIsOpen(true)}
+                aria-label="Open menu"
               >
                 <Menu className="size-6" />
               </Button>
@@ -164,6 +166,7 @@ export default function HeroNavigation() {
             size="icon"
             className="size-10"
             onClick={() => setIsOpen(false)}
+            aria-label="Close menu"
           >
             <X className="size-6" />
           </Button>
