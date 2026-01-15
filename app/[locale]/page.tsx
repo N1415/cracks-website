@@ -1,4 +1,5 @@
 import Navigation from '@/components/landing/Navigation';
+import HeroNavigation from '@/components/landing/HeroNavigation';
 import HeroSection from '@/components/landing/HeroSection';
 import MethodSection from '@/components/landing/MethodSection';
 import ServicesSection from '@/components/landing/ServicesSection';
@@ -11,6 +12,7 @@ import Footer from '@/components/landing/Footer';
 export default function HomePage() {
   return (
     <main>
+      <HeroNavigation />
       <Navigation />
       <HeroSection />
       <MethodSection />

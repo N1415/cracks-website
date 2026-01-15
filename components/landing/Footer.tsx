@@ -1,142 +1,163 @@
 'use client';
 
-import { Linkedin } from 'lucide-react';
-import { SITE_CONFIG } from '@/config/constants';
+import Image from 'next/image';
+import { Linkedin, Facebook, Instagram, Mail, MapPin, Phone } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
+import { SITE_CONFIG, ASSETS_CONFIG } from '@/config/constants';
+
+const socialLinks = [
+  { icon: Linkedin, href: SITE_CONFIG.social.linkedin, label: 'LinkedIn' },
+  { icon: Facebook, href: SITE_CONFIG.social.facebook, label: 'Facebook' },
+  { icon: Instagram, href: SITE_CONFIG.social.instagram, label: 'Instagram' },
+];
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-foreground text-background pt-16 pb-8">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between mb-12">
-          <div className="mb-8 md:mb-0 max-w-md">
-            <h2 className="text-3xl font-serif font-thin text-background mb-4">
-              Cracks Hospitality Studio
-            </h2>
-            <p className="font-sans font-light text-background/80">
-              Cracks Hospitality Studio exists to design, operationalize, and
-              scale high-performance hospitality businesses by combining expert
-              consulting, advanced technology, and education-driven media. We
-              create pragmatic, profit-focused solutions that bridge the gap
-              between operational excellence, guest experience, and brand
-              scalability.
-            </p>
+    <footer className="bg-background text-foreground py-16">
+      <div className="max-w-7xl mx-auto px-8 sm:px-12 lg:px-16">
+        <div className="h-px bg-foreground/20 mb-12" />
+        <div className="grid md:grid-cols-4 gap-12 mb-12">
+          {/* Brand */}
+          <div className="md:col-span-2">
+            <div className="flex items-start gap-4 mb-4">
+              <div className="relative h-16 w-16 flex-shrink-0">
+                <Image
+                  src={ASSETS_CONFIG.logos.svg.black}
+                  alt="Cracks Hospitality Studio"
+                  fill
+                  sizes="64px"
+                  className="object-contain dark:hidden"
+                />
+                <Image
+                  src={ASSETS_CONFIG.logos.svg.white}
+                  alt="Cracks Hospitality Studio"
+                  fill
+                  sizes="64px"
+                  className="object-contain hidden dark:block"
+                />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-serif text-lg font-semibold tracking-wide uppercase">Cracks Hospitality Studio</span>
+                <span className="text-muted-foreground text-sm">Building hospitality icons,</span>
+                <span className="text-muted-foreground text-sm">one restaurant at a time</span>
+              </div>
+            </div>
+
+            {/* Social Links */}
+            <div className="flex gap-4 mt-6">
+              {socialLinks.map((social) => {
+                const Icon = social.icon;
+                return (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-full bg-muted flex items-center justify-center hover:bg-muted/80 transition-colors"
+                    aria-label={social.label}
+                  >
+                    <Icon className="w-5 h-5" />
+                  </a>
+                );
+              })}
+            </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-8">
-            <div>
-              <h4 className="font-sans font-semibold text-lg mb-4 text-background">
-                Quick Links
-              </h4>
-              <ul className="space-y-2 font-sans font-light text-background/80">
-                <li>
-                  <a href="#home" className="hover:text-background transition-colors">
-                    Home
-                  </a>
-                </li>
-                <li>
-                  <a href="#services" className="hover:text-background transition-colors">
-                    Services
-                  </a>
-                </li>
-                <li>
-                  <a href="#method" className="hover:text-background transition-colors">
-                    Our Method
-                  </a>
-                </li>
-                <li>
-                  <a href="#contact" className="hover:text-background transition-colors">
-                    Contact
-                  </a>
-                </li>
-              </ul>
-            </div>
+          {/* Quick Links */}
+          <div>
+            <h4 className="font-semibold mb-4">Quick Links</h4>
+            <ul className="space-y-3">
+              <li>
+                <a
+                  href="#home"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Home
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#services"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Services
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#method"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Our Method
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#contact"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Contact
+                </a>
+              </li>
+            </ul>
+          </div>
 
-            <div>
-              <h4 className="font-sans font-semibold text-lg mb-4 text-background">Legal</h4>
-              <ul className="space-y-2 font-sans font-light text-background/80">
-                <li>
-                  <Link
-                    href="/legal/privacy"
-                    className="hover:text-background transition-colors"
-                  >
-                    Privacy Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/legal/app-privacy"
-                    className="hover:text-background transition-colors"
-                  >
-                    App Privacy
-                  </Link>
-                </li>
-              </ul>
-            </div>
+          {/* Contact */}
+          <div>
+            <h4 className="font-semibold mb-4">Contact</h4>
+            <ul className="space-y-3">
+              <li className="flex items-center gap-2 text-muted-foreground">
+                <Mail className="w-4 h-4" />
+                <a
+                  href={`mailto:${SITE_CONFIG.contact.email}`}
+                  className="hover:text-foreground transition-colors"
+                >
+                  {SITE_CONFIG.contact.email}
+                </a>
+              </li>
+              <li className="flex items-center gap-2 text-muted-foreground">
+                <Phone className="w-4 h-4" />
+                <a
+                  href={`tel:${SITE_CONFIG.contact.phone}`}
+                  className="hover:text-foreground transition-colors"
+                >
+                  {SITE_CONFIG.contact.phone}
+                </a>
+              </li>
+              <li className="flex items-center gap-2 text-muted-foreground">
+                <MapPin className="w-4 h-4" />
+                <span>{SITE_CONFIG.contact.location.city}, {SITE_CONFIG.contact.location.country}</span>
+              </li>
+            </ul>
           </div>
         </div>
 
-        <div className="border-t border-background/20 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <div className="font-sans text-background/80 text-sm mb-4 md:mb-0 font-light">
+        {/* Bottom */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
+          <p>
             &copy; {currentYear} Cracks Hospitality Studio. All rights reserved.
-          </div>
-
-          <div className="flex space-x-6">
-            <a
-              href={SITE_CONFIG.social.facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-background/60 hover:text-background transition-colors"
-              aria-label="Visit our Facebook page"
+          </p>
+          <div className="flex items-center gap-6">
+            <Link
+              href="/legal/privacy"
+              className="hover:text-foreground transition-colors"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-              </svg>
-            </a>
-            <a
-              href={SITE_CONFIG.social.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-background/60 hover:text-background transition-colors"
-              aria-label="Visit our Instagram page"
+              Privacy Policy
+            </Link>
+            <Link
+              href="/legal/terms"
+              className="hover:text-foreground transition-colors"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-              </svg>
-            </a>
-            <a
-              href={SITE_CONFIG.social.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-background/60 hover:text-background transition-colors"
-              aria-label="Visit our LinkedIn page"
+              Terms of Service
+            </Link>
+            <Link
+              href="/legal/cookies"
+              className="hover:text-foreground transition-colors"
             >
-              <Linkedin size={20} />
-            </a>
+              Cookies
+            </Link>
           </div>
         </div>
       </div>

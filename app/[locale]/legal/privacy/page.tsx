@@ -1,200 +1,410 @@
-import type { Metadata } from 'next';
-import { ArrowLeft } from 'lucide-react';
-import { Link } from '@/i18n/navigation';
-import { SITE_CONFIG } from '@/config/constants';
+'use client'
 
-export const metadata: Metadata = {
-  title: 'Privacy Policy',
-  description:
-    'Privacy Policy for Cracks Hospitality Studio - How we collect, use, and protect your personal information.',
-};
+import { Link } from '@/i18n/navigation'
+import { Button } from '@/components/ui/button'
+import { ArrowLeft } from 'lucide-react'
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="bg-black text-white py-6">
-        <div className="container mx-auto px-4">
-          <Link
-            href="/"
-            className="flex items-center gap-2 text-white hover:text-gray-300 transition-colors mb-4"
-          >
-            <ArrowLeft size={20} />
-            Back to Home
-          </Link>
-          <h1 className="font-serif text-3xl md:text-4xl">Privacy Policy</h1>
-        </div>
-      </header>
+    <div className="min-h-screen bg-background py-16 px-4 sm:px-6 lg:px-8">
+      {/* Floating back button */}
+      <Link href="/" className="fixed top-6 left-10 z-50">
+        <Button variant="ghost" size="sm" className="gap-2 bg-background/80 backdrop-blur-sm border border-border shadow-sm">
+          <ArrowLeft className="size-4" />
+          Back to Home
+        </Button>
+      </Link>
 
-      {/* Content */}
-      <main className="container mx-auto px-4 py-12 max-w-4xl">
-        <div className="prose prose-lg max-w-none">
-          <p className="text-muted-foreground mb-8">
-            <strong>Last updated:</strong> January 15, 2025
+      <div className="max-w-3xl mx-auto">
+        <h1 className="text-4xl font-serif mb-4">Privacy Policy</h1>
+        <p className="text-sm text-muted-foreground mb-8">Last updated: January 2026</p>
+
+        <div className="prose prose-neutral dark:prose-invert max-w-none space-y-8">
+          <p className="text-muted-foreground leading-relaxed">
+            This Privacy Policy describes Our policies and procedures on the collection, use and
+            disclosure of Your information when You use the Service and tells You about Your
+            privacy rights and how the law protects You.
+          </p>
+          <p className="text-muted-foreground leading-relaxed">
+            We use Your Personal data to provide and improve the Service. By using the Service,
+            You agree to the collection and use of information in accordance with this Privacy Policy.
           </p>
 
-          <section className="mb-8">
-            <h2 className="font-serif text-2xl mb-4">Introduction</h2>
-            <p className="text-foreground leading-relaxed mb-4">
-              Cracks Hospitality Studio (&quot;we,&quot; &quot;our,&quot; or
-              &quot;us&quot;) respects your privacy and is committed to
-              protecting your personal data. This privacy policy explains how we
-              collect, use, and safeguard your information when you visit our
-              website or use our services.
+          {/* Interpretation and Definitions */}
+          <section>
+            <h2 className="text-2xl font-serif mb-4">Interpretation and Definitions</h2>
+
+            <h3 className="text-lg font-semibold mt-4 mb-2">Interpretation</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              The words whose initial letters are capitalized have meanings defined under the
+              following conditions. The following definitions shall have the same meaning
+              regardless of whether they appear in singular or in plural.
             </p>
-          </section>
 
-          <section className="mb-8">
-            <h2 className="font-serif text-2xl mb-4">Information We Collect</h2>
-
-            <h3 className="font-semibold text-lg mb-3">
-              Information You Provide
-            </h3>
-            <ul className="list-disc pl-6 mb-4 text-foreground">
-              <li>Contact information (name, email, phone number)</li>
-              <li>Company information</li>
-              <li>Project details and requirements</li>
-              <li>Communication preferences</li>
-            </ul>
-
-            <h3 className="font-semibold text-lg mb-3">
-              Information Automatically Collected
-            </h3>
-            <ul className="list-disc pl-6 mb-4 text-foreground">
-              <li>IP address and location data</li>
-              <li>Browser type and version</li>
-              <li>Pages visited and time spent</li>
-              <li>Device information</li>
+            <h3 className="text-lg font-semibold mt-6 mb-2">Definitions</h3>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              For the purposes of this Privacy Policy:
+            </p>
+            <ul className="space-y-3 text-muted-foreground">
+              <li><strong className="text-foreground">Account</strong> means a unique account created for You to access our Service or parts of our Service.</li>
+              <li><strong className="text-foreground">Affiliate</strong> means an entity that controls, is controlled by, or is under common control with a party, where &quot;control&quot; means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.</li>
+              <li><strong className="text-foreground">Application</strong> refers to CRACKS App, the software program provided by the Company.</li>
+              <li><strong className="text-foreground">Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Agreement) refers to Cracks Studio Ltd, RM 1-2, 17/F, 135 BONHAM STRAND TRADE CENTRE, 135 BONHAM STRAND, SHEUNG WAN, HONG KONG.</li>
+              <li><strong className="text-foreground">Country</strong> refers to: Hong Kong SAR China</li>
+              <li><strong className="text-foreground">Device</strong> means any device that can access the Service such as a computer, a cell phone or a digital tablet.</li>
+              <li><strong className="text-foreground">Personal Data</strong> is any information that relates to an identified or identifiable individual.</li>
+              <li><strong className="text-foreground">Service</strong> refers to the Application.</li>
+              <li><strong className="text-foreground">Service Provider</strong> means any natural or legal person who processes the data on behalf of the Company. It refers to third-party companies or individuals employed by the Company to facilitate the Service, to provide the Service on behalf of the Company, to perform services related to the Service or to assist the Company in analyzing how the Service is used.</li>
+              <li><strong className="text-foreground">Third-party Social Media Service</strong> refers to any website or any social network website through which a User can log in or create an account to use the Service.</li>
+              <li><strong className="text-foreground">Usage Data</strong> refers to data collected automatically, either generated by the use of the Service or from the Service infrastructure itself (for example, the duration of a page visit).</li>
+              <li><strong className="text-foreground">You</strong> means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</li>
             </ul>
           </section>
 
-          <section className="mb-8">
-            <h2 className="font-serif text-2xl mb-4">
-              How We Use Your Information
-            </h2>
-            <ul className="list-disc pl-6 text-foreground">
-              <li>Respond to inquiries and provide customer service</li>
-              <li>Deliver consulting services and project management</li>
-              <li>Send project updates and business communications</li>
-              <li>Improve our website and services</li>
-              <li>Comply with legal obligations</li>
+          {/* Collecting and Using Your Personal Data */}
+          <section>
+            <h2 className="text-2xl font-serif mb-4">Collecting and Using Your Personal Data</h2>
+
+            <h3 className="text-lg font-semibold mt-4 mb-2">Types of Data Collected</h3>
+
+            <h4 className="font-semibold mt-4 mb-2">Personal Data</h4>
+            <p className="text-muted-foreground leading-relaxed mb-2">
+              While using Our Service, We may ask You to provide Us with certain personally
+              identifiable information that can be used to contact or identify You. Personally
+              identifiable information may include, but is not limited to:
+            </p>
+            <ul className="list-disc list-inside text-muted-foreground space-y-1 mb-4">
+              <li>Email address</li>
+              <li>First name and last name</li>
+              <li>Usage Data</li>
+            </ul>
+
+            <h4 className="font-semibold mt-4 mb-2">Usage Data</h4>
+            <p className="text-muted-foreground leading-relaxed mb-2">
+              Usage Data is collected automatically when using the Service.
+            </p>
+            <p className="text-muted-foreground leading-relaxed mb-2">
+              Usage Data may include information such as Your Device&apos;s Internet Protocol address
+              (e.g. IP address), browser type, browser version, the pages of our Service that You
+              visit, the time and date of Your visit, the time spent on those pages, unique device
+              identifiers and other diagnostic data.
+            </p>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              When You access the Service by or through a mobile device, We may collect certain
+              information automatically, including, but not limited to, the type of mobile device
+              You use, Your mobile device&apos;s unique ID, the IP address of Your mobile device, Your
+              mobile operating system, the type of mobile Internet browser You use, unique device
+              identifiers and other diagnostic data.
+            </p>
+
+            <h4 className="font-semibold mt-4 mb-2">Information from Third-Party Social Media Services</h4>
+            <p className="text-muted-foreground leading-relaxed mb-2">
+              The Company allows You to create an account and log in to use the Service through
+              the following Third-party Social Media Services:
+            </p>
+            <ul className="list-disc list-inside text-muted-foreground space-y-1 mb-4">
+              <li>Google</li>
+              <li>Facebook</li>
+              <li>Instagram</li>
+              <li>Twitter</li>
+              <li>LinkedIn</li>
+            </ul>
+            <p className="text-muted-foreground leading-relaxed mb-2">
+              If You decide to register through or otherwise grant us access to a Third-Party
+              Social Media Service, We may collect Personal data that is already associated with
+              Your Third-Party Social Media Service&apos;s account, such as Your name, Your email
+              address, Your activities or Your contact list associated with that account.
+            </p>
+            <p className="text-muted-foreground leading-relaxed">
+              You may also have the option of sharing additional information with the Company
+              through Your Third-Party Social Media Service&apos;s account. If You choose to provide
+              such information and Personal Data, during registration or otherwise, You are giving
+              the Company permission to use, share, and store it in a manner consistent with this
+              Privacy Policy.
+            </p>
+          </section>
+
+          {/* AI-Generated Content - NEW SECTION */}
+          <section>
+            <h2 className="text-2xl font-serif mb-4">AI-Generated Content and Data Processing</h2>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              Our Service uses artificial intelligence to provide features such as business plan
+              generation, menu suggestions, concept creation, and operational recommendations.
+              When You use these AI-powered features:
+            </p>
+            <ul className="list-disc list-inside text-muted-foreground space-y-2 mb-4">
+              <li>Data You input (such as restaurant concepts, menu items, or business details) may be processed by third-party AI providers including OpenAI, Google (Gemini), and Anthropic (Claude) to generate content and recommendations.</li>
+              <li>We do not use Your business data to train AI models. Your data is processed solely to provide You with the requested Service features.</li>
+              <li>AI-generated content is provided for informational and planning purposes. You are responsible for reviewing and validating any AI-generated recommendations before implementation.</li>
+              <li>We retain AI interaction logs to improve Service quality and troubleshoot issues, subject to our data retention policies.</li>
             </ul>
           </section>
 
-          <section className="mb-8">
-            <h2 className="font-serif text-2xl mb-4">Cookies and Tracking</h2>
-            <p className="text-foreground leading-relaxed mb-4">
-              We use cookies and similar technologies to enhance your experience
-              on our website. You can control cookie preferences through our
-              cookie banner or browser settings.
+          {/* Third-Party Service Providers - NEW SECTION */}
+          <section>
+            <h2 className="text-2xl font-serif mb-4">Third-Party Service Providers</h2>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              We use the following third-party services to operate and improve our Service:
             </p>
-
-            <h3 className="font-semibold text-lg mb-3">Types of Cookies</h3>
-            <ul className="list-disc pl-6 text-foreground">
-              <li>
-                <strong>Necessary:</strong> Required for website functionality
-              </li>
-              <li>
-                <strong>Analytics:</strong> Help us understand website usage
-              </li>
-              <li>
-                <strong>Marketing:</strong> Used for personalized content and
-                ads
-              </li>
+            <ul className="list-disc list-inside text-muted-foreground space-y-2">
+              <li><strong className="text-foreground">Supabase</strong> - Database hosting, authentication, and file storage services. Your data is stored on Supabase servers with encryption at rest and in transit.</li>
+              <li><strong className="text-foreground">Vercel</strong> - Web hosting and deployment services.</li>
+              <li><strong className="text-foreground">OpenAI, Google AI, Anthropic</strong> - AI content generation services for business planning and recommendations.</li>
+              <li><strong className="text-foreground">Payment Processors</strong> - For subscription billing (specific provider details available upon request).</li>
             </ul>
           </section>
 
-          <section className="mb-8">
-            <h2 className="font-serif text-2xl mb-4">
-              Data Sharing and Disclosure
-            </h2>
-            <p className="text-foreground leading-relaxed mb-4">
-              We do not sell or rent your personal information. We may share
-              information with:
+          {/* Use of Your Personal Data */}
+          <section>
+            <h2 className="text-2xl font-serif mb-4">Use of Your Personal Data</h2>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              The Company may use Personal Data for the following purposes:
             </p>
-            <ul className="list-disc pl-6 text-foreground">
-              <li>Service providers and business partners</li>
-              <li>Legal authorities when required by law</li>
-              <li>Successors in case of business transfer</li>
+            <ul className="space-y-3 text-muted-foreground">
+              <li><strong className="text-foreground">To provide and maintain our Service</strong>, including to monitor the usage of our Service.</li>
+              <li><strong className="text-foreground">To manage Your Account:</strong> to manage Your registration as a user of the Service. The Personal Data You provide can give You access to different functionalities of the Service that are available to You as a registered user.</li>
+              <li><strong className="text-foreground">For the performance of a contract:</strong> the development, compliance and undertaking of the purchase contract for the products, items or services You have purchased or of any other contract with Us through the Service.</li>
+              <li><strong className="text-foreground">To contact You:</strong> To contact You by email, telephone calls, SMS, or other equivalent forms of electronic communication, such as a mobile application&apos;s push notifications regarding updates or informative communications related to the functionalities, products or contracted services, including the security updates, when necessary or reasonable for their implementation.</li>
+              <li><strong className="text-foreground">To provide You</strong> with news, special offers, and general information about other goods, services and events which We offer that are similar to those that you have already purchased or inquired about unless You have opted not to receive such information.</li>
+              <li><strong className="text-foreground">To manage Your requests:</strong> To attend and manage Your requests to Us.</li>
+              <li><strong className="text-foreground">For business transfers:</strong> We may use Your information to evaluate or conduct a merger, divestiture, restructuring, reorganization, dissolution, or other sale or transfer of some or all of Our assets.</li>
+              <li><strong className="text-foreground">For other purposes:</strong> We may use Your information for other purposes, such as data analysis, identifying usage trends, determining the effectiveness of our promotional campaigns and to evaluate and improve our Service, products, services, marketing and your experience.</li>
             </ul>
           </section>
 
-          <section className="mb-8">
-            <h2 className="font-serif text-2xl mb-4">Data Security</h2>
-            <p className="text-foreground leading-relaxed">
-              We implement appropriate technical and organizational measures to
-              protect your personal data against unauthorized access, alteration,
-              disclosure, or destruction. However, no internet transmission is
-              100% secure.
+          {/* Sharing Your Personal Data */}
+          <section>
+            <h2 className="text-2xl font-serif mb-4">Sharing Your Personal Information</h2>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              We may share Your personal information in the following situations:
             </p>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="font-serif text-2xl mb-4">Your Rights</h2>
-            <p className="text-foreground leading-relaxed mb-4">
-              Depending on your location, you may have the following rights:
-            </p>
-            <ul className="list-disc pl-6 text-foreground">
-              <li>Access your personal data</li>
-              <li>Correct inaccurate information</li>
-              <li>Delete your personal data</li>
-              <li>Restrict processing</li>
-              <li>Data portability</li>
-              <li>Object to processing</li>
+            <ul className="space-y-3 text-muted-foreground">
+              <li><strong className="text-foreground">With Service Providers:</strong> We may share Your personal information with Service Providers to monitor and analyze the use of our Service, to contact You.</li>
+              <li><strong className="text-foreground">For business transfers:</strong> We may share or transfer Your personal information in connection with, or during negotiations of, any merger, sale of Company assets, financing, or acquisition of all or a portion of Our business to another company.</li>
+              <li><strong className="text-foreground">With Affiliates:</strong> We may share Your information with Our affiliates, in which case we will require those affiliates to honor this Privacy Policy.</li>
+              <li><strong className="text-foreground">With business partners:</strong> We may share Your information with Our business partners to offer You certain products, services or promotions.</li>
+              <li><strong className="text-foreground">With other users:</strong> when You share personal information or otherwise interact in the public areas with other users, such information may be viewed by all users and may be publicly distributed outside.</li>
+              <li><strong className="text-foreground">With Your consent:</strong> We may disclose Your personal information for any other purpose with Your consent.</li>
             </ul>
           </section>
 
-          <section className="mb-8">
-            <h2 className="font-serif text-2xl mb-4">International Transfers</h2>
-            <p className="text-foreground leading-relaxed">
-              Your information may be transferred to and processed in countries
-              other than your own. We ensure appropriate safeguards are in place
-              to protect your data during international transfers.
+          {/* Retention */}
+          <section>
+            <h2 className="text-2xl font-serif mb-4">Retention of Your Personal Data</h2>
+            <p className="text-muted-foreground leading-relaxed mb-2">
+              The Company will retain Your Personal Data only for as long as is necessary for
+              the purposes set out in this Privacy Policy. We will retain and use Your Personal
+              Data to the extent necessary to comply with our legal obligations, resolve disputes,
+              and enforce our legal agreements and policies.
+            </p>
+            <p className="text-muted-foreground leading-relaxed">
+              The Company will also retain Usage Data for internal analysis purposes. Usage Data
+              is generally retained for a shorter period of time, except when this data is used
+              to strengthen the security or to improve the functionality of Our Service, or We
+              are legally obligated to retain this data for longer periods.
             </p>
           </section>
 
-          <section className="mb-8">
-            <h2 className="font-serif text-2xl mb-4">Data Retention</h2>
-            <p className="text-foreground leading-relaxed">
-              We retain your personal data only as long as necessary for the
-              purposes outlined in this policy, or as required by law.
-              Project-related data is typically retained for 7 years after
-              project completion.
+          {/* Transfer */}
+          <section>
+            <h2 className="text-2xl font-serif mb-4">Transfer of Your Personal Data</h2>
+            <p className="text-muted-foreground leading-relaxed mb-2">
+              Your information, including Personal Data, is processed at the Company&apos;s operating
+              offices and in any other places where the parties involved in the processing are
+              located. It means that this information may be transferred to — and maintained on —
+              computers located outside of Your state, province, country or other governmental
+              jurisdiction where the data protection laws may differ from those from Your jurisdiction.
+            </p>
+            <p className="text-muted-foreground leading-relaxed mb-2">
+              Your consent to this Privacy Policy followed by Your submission of such information
+              represents Your agreement to that transfer.
+            </p>
+            <p className="text-muted-foreground leading-relaxed">
+              The Company will take all steps reasonably necessary to ensure that Your data is
+              treated securely and in accordance with this Privacy Policy and no transfer of Your
+              Personal Data will take place to an organization or a country unless there are
+              adequate controls in place including the security of Your data and other personal information.
             </p>
           </section>
 
-          <section className="mb-8">
-            <h2 className="font-serif text-2xl mb-4">Contact Us</h2>
-            <p className="text-foreground leading-relaxed mb-4">
-              If you have questions about this privacy policy or wish to
-              exercise your rights, please contact us:
+          {/* Delete Your Data */}
+          <section>
+            <h2 className="text-2xl font-serif mb-4">Delete Your Personal Data</h2>
+            <p className="text-muted-foreground leading-relaxed mb-2">
+              You have the right to delete or request that We assist in deleting the Personal
+              Data that We have collected about You.
             </p>
-            <div className="bg-muted p-4 rounded">
-              <p>
-                <strong>Email:</strong> {SITE_CONFIG.contact.email}
-              </p>
-              <p>
-                <strong>Phone:</strong> {SITE_CONFIG.contact.phone}
-              </p>
-              <p>
-                <strong>Address:</strong> {SITE_CONFIG.contact.location.city},{' '}
-                {SITE_CONFIG.contact.location.country}
-              </p>
-            </div>
+            <p className="text-muted-foreground leading-relaxed mb-2">
+              Our Service may give You the ability to delete certain information about You from
+              within the Service.
+            </p>
+            <p className="text-muted-foreground leading-relaxed mb-2">
+              You may update, amend, or delete Your information at any time by signing in to
+              Your Account, if you have one, and visiting the account settings section that
+              allows you to manage Your personal information. You may also contact Us to request
+              access to, correct, or delete any personal information that You have provided to Us.
+            </p>
+            <p className="text-muted-foreground leading-relaxed">
+              Please note, however, that We may need to retain certain information when we have
+              a legal obligation or lawful basis to do so.
+            </p>
           </section>
 
-          <section className="mb-8">
-            <h2 className="font-serif text-2xl mb-4">
-              Changes to This Policy
-            </h2>
-            <p className="text-foreground leading-relaxed">
-              We may update this privacy policy from time to time. We will
-              notify you of any changes by posting the new policy on this page
-              and updating the &quot;Last updated&quot; date.
+          {/* Disclosure */}
+          <section>
+            <h2 className="text-2xl font-serif mb-4">Disclosure of Your Personal Data</h2>
+
+            <h3 className="text-lg font-semibold mt-4 mb-2">Business Transactions</h3>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              If the Company is involved in a merger, acquisition or asset sale, Your Personal
+              Data may be transferred. We will provide notice before Your Personal Data is
+              transferred and becomes subject to a different Privacy Policy.
             </p>
+
+            <h3 className="text-lg font-semibold mt-4 mb-2">Law Enforcement</h3>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              Under certain circumstances, the Company may be required to disclose Your Personal
+              Data if required to do so by law or in response to valid requests by public
+              authorities (e.g. a court or a government agency).
+            </p>
+
+            <h3 className="text-lg font-semibold mt-4 mb-2">Other Legal Requirements</h3>
+            <p className="text-muted-foreground leading-relaxed mb-2">
+              The Company may disclose Your Personal Data in the good faith belief that such
+              action is necessary to:
+            </p>
+            <ul className="list-disc list-inside text-muted-foreground space-y-1">
+              <li>Comply with a legal obligation</li>
+              <li>Protect and defend the rights or property of the Company</li>
+              <li>Prevent or investigate possible wrongdoing in connection with the Service</li>
+              <li>Protect the personal safety of Users of the Service or the public</li>
+              <li>Protect against legal liability</li>
+            </ul>
+          </section>
+
+          {/* GDPR Rights - NEW SECTION */}
+          <section>
+            <h2 className="text-2xl font-serif mb-4">Your Rights Under GDPR (European Users)</h2>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              If You are a resident of the European Economic Area (EEA), You have certain data
+              protection rights. We aim to take reasonable steps to allow You to correct, amend,
+              delete, or limit the use of Your Personal Data.
+            </p>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              You have the following rights:
+            </p>
+            <ul className="list-disc list-inside text-muted-foreground space-y-2 mb-4">
+              <li><strong className="text-foreground">Right to Access:</strong> You have the right to request copies of Your personal data.</li>
+              <li><strong className="text-foreground">Right to Rectification:</strong> You have the right to request that We correct any information You believe is inaccurate or complete information You believe is incomplete.</li>
+              <li><strong className="text-foreground">Right to Erasure:</strong> You have the right to request that We erase Your personal data, under certain conditions.</li>
+              <li><strong className="text-foreground">Right to Restrict Processing:</strong> You have the right to request that We restrict the processing of Your personal data, under certain conditions.</li>
+              <li><strong className="text-foreground">Right to Data Portability:</strong> You have the right to request that We transfer the data that We have collected to another organization, or directly to You, under certain conditions.</li>
+              <li><strong className="text-foreground">Right to Object:</strong> You have the right to object to Our processing of Your personal data, under certain conditions.</li>
+              <li><strong className="text-foreground">Right to Withdraw Consent:</strong> You also have the right to withdraw Your consent at any time where We relied on Your consent to process Your personal information.</li>
+            </ul>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              <strong className="text-foreground">Legal Basis for Processing:</strong> We process Your personal data on the following legal bases:
+            </p>
+            <ul className="list-disc list-inside text-muted-foreground space-y-1 mb-4">
+              <li>Performance of a contract (providing the Service)</li>
+              <li>Your consent (for marketing communications)</li>
+              <li>Legitimate interests (improving our Service, fraud prevention)</li>
+              <li>Legal obligations (tax records, regulatory requirements)</li>
+            </ul>
+            <p className="text-muted-foreground leading-relaxed">
+              If You wish to exercise any of these rights, please contact Us. You also have the
+              right to lodge a complaint with a Data Protection Authority about Our collection
+              and use of Your Personal Data.
+            </p>
+          </section>
+
+          {/* Security */}
+          <section>
+            <h2 className="text-2xl font-serif mb-4">Security of Your Personal Data</h2>
+            <p className="text-muted-foreground leading-relaxed">
+              The security of Your Personal Data is important to Us, but remember that no method
+              of transmission over the Internet, or method of electronic storage is 100% secure.
+              While We strive to use commercially reasonable means to protect Your Personal Data,
+              We cannot guarantee its absolute security.
+            </p>
+          </section>
+
+          {/* Children's Privacy */}
+          <section>
+            <h2 className="text-2xl font-serif mb-4">Children&apos;s Privacy</h2>
+            <p className="text-muted-foreground leading-relaxed mb-2">
+              Our Service does not address anyone under the age of 13. We do not knowingly collect
+              personally identifiable information from anyone under the age of 13. If You are a
+              parent or guardian and You are aware that Your child has provided Us with Personal
+              Data, please contact Us. If We become aware that We have collected Personal Data
+              from anyone under the age of 13 without verification of parental consent, We take
+              steps to remove that information from Our servers.
+            </p>
+            <p className="text-muted-foreground leading-relaxed">
+              If We need to rely on consent as a legal basis for processing Your information and
+              Your country requires consent from a parent, We may require Your parent&apos;s consent
+              before We collect and use that information.
+            </p>
+          </section>
+
+          {/* Cookies */}
+          <section>
+            <h2 className="text-2xl font-serif mb-4">Cookies</h2>
+            <p className="text-muted-foreground leading-relaxed">
+              We use cookies and similar tracking technologies to track activity on Our Service
+              and store certain information. For detailed information about the cookies We use
+              and Your choices regarding cookies, please visit our{' '}
+              <Link href="/legal/cookies" className="text-primary hover:underline">
+                Cookie Policy
+              </Link>.
+            </p>
+          </section>
+
+          {/* Links to Other Websites */}
+          <section>
+            <h2 className="text-2xl font-serif mb-4">Links to Other Websites</h2>
+            <p className="text-muted-foreground leading-relaxed mb-2">
+              Our Service may contain links to other websites that are not operated by Us. If
+              You click on a third party link, You will be directed to that third party&apos;s site.
+              We strongly advise You to review the Privacy Policy of every site You visit.
+            </p>
+            <p className="text-muted-foreground leading-relaxed">
+              We have no control over and assume no responsibility for the content, privacy
+              policies or practices of any third party sites or services.
+            </p>
+          </section>
+
+          {/* Changes */}
+          <section>
+            <h2 className="text-2xl font-serif mb-4">Changes to this Privacy Policy</h2>
+            <p className="text-muted-foreground leading-relaxed mb-2">
+              We may update Our Privacy Policy from time to time. We will notify You of any
+              changes by posting the new Privacy Policy on this page.
+            </p>
+            <p className="text-muted-foreground leading-relaxed mb-2">
+              We will let You know via email and/or a prominent notice on Our Service, prior to
+              the change becoming effective and update the &quot;Last updated&quot; date at the top of this
+              Privacy Policy.
+            </p>
+            <p className="text-muted-foreground leading-relaxed">
+              You are advised to review this Privacy Policy periodically for any changes. Changes
+              to this Privacy Policy are effective when they are posted on this page.
+            </p>
+          </section>
+
+          {/* Contact */}
+          <section>
+            <h2 className="text-2xl font-serif mb-4">Contact Us</h2>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              If you have any questions about this Privacy Policy, You can contact us:
+            </p>
+            <ul className="list-disc list-inside text-muted-foreground space-y-2">
+              <li>By email: <a href="mailto:nacho@cracks-studio.com" className="text-primary hover:underline">nacho@cracks-studio.com</a></li>
+              <li>By visiting our website: <a href="https://www.cracks-app.com/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">https://www.cracks-app.com/</a></li>
+            </ul>
           </section>
         </div>
-      </main>
+      </div>
     </div>
-  );
+  )
 }

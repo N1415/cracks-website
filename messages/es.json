@@ -147,5 +147,11 @@
   "common": {
     "learnMore": "Más Información",
     "backToHome": "Volver al Inicio"
+  },
+  "cookieConsent": {
+    "message": "Utilizamos cookies para mejorar tu experiencia. Al continuar visitando este sitio aceptas nuestro uso de cookies.",
+    "accept": "Aceptar",
+    "decline": "Rechazar",
+    "learnMore": "Más información"
   }
 }

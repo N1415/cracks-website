@@ -48,7 +48,7 @@ const BentoGridItem = React.forwardRef<HTMLDivElement, BentoGridItemProps>(
         {...props}
       >
         {/* Header content, now perfect for images */}
-        <div className="relative flex-1 min-h-[200px] overflow-hidden rounded-md bg-muted">
+        <div className="flex h-full min-h-[6rem] flex-1 overflow-hidden rounded-md bg-muted">
             {header}
         </div>
 

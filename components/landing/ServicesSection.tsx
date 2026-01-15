@@ -1,5 +1,18 @@
 'use client';
 
+import {
+  FeaturesSectionWithHoverEffects,
+  type FeatureItem,
+} from '@/components/ui/feature-section-with-hover-effects';
+import { GlareCard } from '@/components/ui/glare-card';
+import { WarpBackground } from '@/components/ui/warp-background';
+import {
+  Lightbulb,
+  Settings,
+  Handshake,
+  ClipboardList,
+} from 'lucide-react';
+
 const phases = [
   {
     number: '01',
@@ -21,30 +34,30 @@ const phases = [
   },
 ];
 
-const services = [
+const services: FeatureItem[] = [
   {
-    id: 1,
     title: 'Concept Development and Launch',
     description:
-      'Our concept development packages—Blueprint, Framework, and Launch—are designed to meet you where you are. Whether you need help validating an idea, developing a full concept, or going all the way for opening, each package offers a tailored set of services to match your needs. From strategy and branding to operational systems and launch execution, we provide the structure, expertise, and support to bring your vision to life.',
+      'Our concept development packages—Blueprint, Framework, and Launch—are designed to meet you where you are. From strategy and branding to operational systems and launch execution.',
+    icon: <Lightbulb className="h-6 w-6" />,
   },
   {
-    id: 2,
     title: 'Management Services',
     description:
-      'Our Management package provides continued operational support after your successful opening. We work alongside your team to optimize performance, implement systems, and drive sustainable growth through data-driven strategies and operational excellence.',
+      'Continued operational support after your successful opening. We optimize performance, implement systems, and drive sustainable growth.',
+    icon: <Settings className="h-6 w-6" />,
   },
   {
-    id: 3,
     title: 'Partner Services',
     description:
-      'Cracks Hospitality Studio works with a network of vetted specialist partners who can provide complementary services not included in our core packages. We can coordinate and oversee these partnerships to ensure seamless integration with our consulting work.',
+      'We work with vetted specialist partners to provide complementary services, coordinating partnerships to ensure seamless integration.',
+    icon: <Handshake className="h-6 w-6" />,
   },
   {
-    id: 4,
     title: 'Additional Services',
     description:
-      'To help you get your restaurant up and running. Feasibility study, concept review, menu development, and operational audits.',
+      'Feasibility study, concept review, menu development, and operational audits to help get your restaurant up and running.',
+    icon: <ClipboardList className="h-6 w-6" />,
   },
 ];
 
@@ -52,70 +65,67 @@ export default function ServicesSection() {
   return (
     <section
       id="services"
-      className="py-24 bg-background"
       role="region"
       aria-labelledby="services-heading"
     >
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2
-            id="services-heading"
-            className="font-serif text-3xl md:text-4xl text-foreground mb-4"
-          >
-            SERVICES
-          </h2>
-          <div className="w-16 h-px bg-foreground mx-auto my-6" aria-hidden="true" />
-          <h3 className="font-serif text-xl md:text-2xl text-foreground mb-4">
-            STEP BY STEP
-          </h3>
+      <WarpBackground
+        className="py-24 bg-white dark:bg-[#2c2c2c]"
+        beamsPerSide={2}
+        beamSize={8}
+        beamDuration={8}
+        beamDelayMax={5}
+        beamDelayMin={1}
+        gridColor="hsl(35, 20%, 85%)"
+        perspective={150}
+      >
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2
+              id="services-heading"
+              className="text-3xl md:text-5xl font-semibold text-foreground mb-4 font-serif tracking-wide"
+              style={{ fontVariant: 'small-caps' }}
+            >
+              Services
+            </h2>
+            <p className="text-lg text-muted-foreground mb-8">Step by Step</p>
 
-          {/* Phases Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6">
-            {phases.map((phase) => (
-              <div
-                key={phase.number}
-                className="bg-card border border-border p-8 transition-all duration-300 hover:shadow-lg group rounded-lg"
-              >
-                <div className="font-serif text-4xl text-foreground p-8 mb-6 group-hover:text-muted-foreground transition-colors">
-                  {phase.number}
-                </div>
-                <div className="w-12 h-px bg-foreground/30 mb-6" aria-hidden="true" />
-                <h4 className="font-serif text-xl mb-4 text-foreground">
-                  {phase.title}
-                </h4>
-                <p className="font-sans font-light text-foreground">
-                  {phase.description}
-                </p>
-              </div>
-            ))}
+            {/* Phases Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-6">
+              
+              {phases.map((phase) => (
+                <GlareCard
+                  key={phase.number}
+                  className="flex flex-col items-start justify-start p-8 text-left"
+                >
+                  <div className="font-serif text-4xl text-[#2C2C2C] dark:text-[#F5F1E8] mb-6">
+                    {phase.number}
+                  </div>
+                  <div className="w-12 h-px bg-[#2C2C2C]/30 dark:bg-[#F5F1E8]/30 mb-6" aria-hidden="true" />
+                  <h4 className="font-serif text-xl mb-4 text-[#2C2C2C] dark:text-[#F5F1E8] font-semibold">
+                    {phase.title}
+                  </h4>
+                  <p className="font-sans font-light text-[#2C2C2C]/70 dark:text-[#F5F1E8]/70 text-sm leading-relaxed">
+                    {phase.description}
+                  </p>
+                </GlareCard>
+              ))}
+            </div>
+
+            
+              <h3 className="text-2xl md:text-3xl font-semibold text-foreground mb-4 mt-16 font-serif tracking-wide" style={{ fontVariant: 'small-caps' }}>
+                Scope of Services
+              </h3>
+              <p className="text-lg text-muted-foreground text-center">
+                Comprehensive restaurant consulting services tailored for high-end
+                establishments, from concept development to operational excellence.
+              </p>
+            
+
+            <FeaturesSectionWithHoverEffects features={services} />
           </div>
-
-          <h3 className="font-serif text-xl md:text-2xl text-foreground mb-4 mt-16">
-            SCOPE OF SERVICES
-          </h3>
-          <div className="w-16 h-px bg-foreground mx-auto my-6" aria-hidden="true" />
-          <p className="font-sans font-light text-lg text-foreground text-center mb-6">
-            Comprehensive restaurant consulting services tailored for high-end
-            establishments, from concept development to operational excellence.
-          </p>
-
-          <div className="grid grid-cols-1 gap-6">
-            {services.map((service) => (
-              <div
-                key={service.id}
-                className="bg-card border border-border p-8 transition-all duration-300 hover:shadow-lg hover:border-secondary/30 group rounded-lg text-left"
-              >
-                <h4 className="font-serif text-xl text-foreground mb-4 group-hover:text-muted-foreground transition-colors">
-                  {service.title}
-                </h4>
-                <p className="font-sans font-light text-foreground leading-relaxed">
-                  {service.description}
-                </p>
-              </div>
-            ))}
-          </div>
+          
         </div>
-      </div>
+      </WarpBackground>
     </section>
   );
 }

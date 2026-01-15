@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Mail, MapPin, Phone, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { ApiService, ContactFormData } from '@/lib/api';
 import { useFormValidation } from '@/hooks/useFormValidation';
 import { useRateLimit } from '@/hooks/useRateLimit';
@@ -68,7 +69,7 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="py-24 bg-background text-foreground"
+      className="pb-6 pt-24 bg-background text-foreground"
       role="region"
       aria-labelledby="contact-heading"
     >
@@ -76,19 +77,20 @@ export default function ContactSection() {
         <div className="text-center mb-16">
           <h2
             id="contact-heading"
-            className="font-serif text-3xl md:text-4xl mb-4 font-medium text-foreground"
+            className="text-3xl md:text-5xl font-bold mb-4 text-foreground font-serif tracking-wide"
+            style={{ fontVariant: 'small-caps' }}
           >
             Contact Us
           </h2>
           <div className="w-16 h-0.5 bg-foreground mx-auto my-6" aria-hidden="true" />
-          <p className="max-w-2xl mx-auto text-muted-foreground font-sans font-light">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Ready to elevate your restaurant concept? Get in touch with our team
             to discuss how we can help bring your vision to life.
           </p>
         </div>
 
         {/* Contact Form */}
-        <div className="mb-16 max-w-xl mx-auto">
+        <div className="max-w-2xl mx-auto bg-muted/30 rounded-2xl p-8 lg:p-10 border border-border">
           {submitSuccess ? (
             <div
               className="bg-green-900/30 border border-green-700 rounded-lg p-6 text-center"
@@ -321,87 +323,30 @@ export default function ContactSection() {
                 </div>
               )}
 
-              <div className="text-right">
-                <button
+              <div className="mt-8">
+                <Button
                   type="submit"
+                  size="lg"
+                  className="w-full bg-foreground text-background hover:bg-foreground/80 font-bold tracking-wide"
                   disabled={isSubmitting || remainingAttempts === 0}
-                  className={`inline-flex items-center justify-center gap-2 bg-foreground text-background px-6 py-3 rounded text-sm font-medium transition-all duration-200 ${
-                    isSubmitting || remainingAttempts === 0
-                      ? 'opacity-50 cursor-not-allowed'
-                      : 'hover:opacity-80 hover:scale-105'
-                  }`}
                 >
                   {isSubmitting ? (
                     <>
-                      <Loader2 size={16} className="animate-spin" />
+                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                       Sending...
                     </>
                   ) : (
                     <>
-                      <Send size={16} />
+                      <Send className="mr-2 h-5 w-5" />
                       Send Message
                     </>
                   )}
-                </button>
+                </Button>
               </div>
             </form>
           )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
-          <div className="flex flex-col items-center text-center p-6 hover:bg-muted transition-colors rounded-lg group">
-            <div className="mb-4 text-muted-foreground group-hover:text-foreground transition-colors">
-              <MapPin size={32} />
-            </div>
-            <h4 className="font-serif text-lg mb-2 font-medium text-foreground">Our Location</h4>
-            <address className="text-muted-foreground not-italic">
-              {SITE_CONFIG.contact.location.city},{' '}
-              {SITE_CONFIG.contact.location.postalCode}
-              <br />
-              {SITE_CONFIG.contact.location.country}
-            </address>
-          </div>
-
-          <div className="flex flex-col items-center text-center p-6 hover:bg-muted transition-colors rounded-lg group">
-            <div className="mb-4 text-muted-foreground group-hover:text-foreground transition-colors">
-              <Phone size={32} />
-            </div>
-            <h4 className="font-serif text-lg mb-2 font-medium text-foreground">Call Us</h4>
-            <a
-              href={`tel:${SITE_CONFIG.contact.phone.replace(/\s+/g, '')}`}
-              className="text-muted-foreground hover:text-foreground underline transition-colors"
-            >
-              {SITE_CONFIG.contact.phone}
-            </a>
-          </div>
-
-          <div className="flex flex-col items-center text-center p-6 hover:bg-muted transition-colors rounded-lg group">
-            <div className="mb-4 text-muted-foreground group-hover:text-foreground transition-colors">
-              <Mail size={32} />
-            </div>
-            <h4 className="font-serif text-lg mb-2 font-medium text-foreground">Email Us</h4>
-            <a
-              href={`mailto:${SITE_CONFIG.contact.email}`}
-              className="text-muted-foreground hover:text-foreground underline transition-colors break-all"
-            >
-              {SITE_CONFIG.contact.email}
-            </a>
-          </div>
-
-          <div className="flex flex-col items-center text-center p-6 hover:bg-muted transition-colors rounded-lg group">
-            <div className="mb-4 text-muted-foreground group-hover:text-foreground transition-colors">
-              <div className="w-8 h-8 bg-muted-foreground group-hover:bg-foreground transition-colors rounded-full flex items-center justify-center">
-                <div className="w-3 h-3 border-2 border-current rounded-full" />
-              </div>
-            </div>
-            <h4 className="font-serif text-lg mb-4 font-medium text-foreground">Business Hours</h4>
-            <div className="text-muted-foreground space-y-1">
-              <p>Monday - Friday: 9:00 AM - 8:00 PM</p>
-              <p>Saturday: 10:00 AM - 8:00 PM</p>
-              <p className="text-sm text-muted-foreground mt-2">(Thailand Time - ICT)</p>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );

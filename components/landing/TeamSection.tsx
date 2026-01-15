@@ -1,94 +1,112 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Linkedin } from 'lucide-react';
-import { TEAM_MEMBERS } from '@/config/constants';
+
+const team = [
+  {
+    key: 'manuel',
+    name: 'Manuel Palacio',
+    role: 'Serial Founder & Hospitality Visionary',
+    bio: 'A hospitality innovator who combines operational excellence with brand magic to create some of Asia\'s most successful restaurant concepts.',
+    section: `As Co-founder of Pirata Group, he built Hong Kong's leading restaurant portfolio, scaling to 27 venues across 13 brands including PICI, The Pizza Project, TMK, TokyoLima, Pirata, and more, while driving a culture-first team model with industry-leading retention rates and multi-million dollar EBITDA growth.
+
+Today, he serves as Chairman of Pirata Group, leads Cento — a modern Italian eatery redefining luxury casual dining in Bangkok — and runs Cracks Hospitality Studio, helping visionary operators across Asia develop next-generation F&B concepts that balance authenticity with scalability.
+
+His approach, centered on Soul & Scale, operational excellence, guest obsession, and distinctive brand storytelling, continues to shape the future of hospitality across the region.`,
+    image: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Images/Cracks%20website/manu.jpg',
+    linkedin: 'https://www.linkedin.com/in/manuelpalacioleon/',
+    objectPosition: 'object-[0%_30%]',
+  },
+  {
+    key: 'nacho',
+    name: 'Nacho López',
+    role: 'F&B Strategist & Concept Builder',
+    bio: 'A seasoned hospitality professional with 15+ years of experience transforming raw spaces into high-revenue destinations by blending European roots with Asian agility.',
+    section: `He has built and led high-performing teams across Spain, Hong Kong, and Thailand, scaling operations while maintaining brand integrity and mentoring talent to create sustainable management structures.
+
+As Operations Manager of Pici Hong Kong, he helped elevate one of the region's most celebrated pasta concepts, while earlier directing large-scale beach operations at Cala Bassa Beach Club in Ibiza and founding MamaQuilla in Madrid, a vibrant Latin dinner show experience.
+
+Today, he leads Cracks Hospitality Studio, shaping next-generation restaurant concepts with purpose and performance, while also consulting for hotels and operators to create high-yield venues.
+
+His approach, known as The Nacho Method, focuses on building people-first cultures, engineering concepts for operational success, and designing guest-centric experiences that consistently drive revenue and loyalty.`,
+    image: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Images/Cracks%20website/nacho.jpg',
+    linkedin: 'https://www.linkedin.com/in/nacholopezalvarez/',
+    objectPosition: 'object-[50%_20%]',
+  },
+] as const;
 
 export default function TeamSection() {
-  const formatParagraphs = (text: string) => {
-    return text.split('\n\n').map((paragraph: string, index: number) => (
-      <p
-        key={index}
-        className="font-sans text-sm text-foreground leading-relaxed mb-4 font-light"
-      >
-        {paragraph.trim()}
-      </p>
-    ));
-  };
-
   return (
-    <section id="team" className="py-24 bg-background text-foreground">
-      <div className="container mx-auto px-6">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="font-serif text-3xl md:text-4xl mb-4">THE TEAM</h2>
-          <div className="w-16 h-0.5 bg-foreground mx-auto my-8" />
-          <p className="font-sans text-lg text-muted-foreground max-w-3xl mx-auto font-light">
+    <section id="team" className="py-24 lg:py-32 bg-muted/30">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 font-serif tracking-wide" style={{ fontVariant: 'small-caps' }}>The Team</h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             We are hospitality experts with proven track record of creating and
             scaling restaurants across multiple regions with over 40 years of
             experience combined.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Team Members Grid */}
-        <div className="flex flex-wrap justify-center gap-8">
-          {TEAM_MEMBERS.map((member, index) => (
-            <div
-              key={index}
-              className="bg-muted rounded-lg shadow-md overflow-hidden w-full max-w-[500px]"
+        {/* Team Grid */}
+        <div className="grid md:grid-cols-2 gap-12 lg:gap-16">
+          {team.map((member, index) => (
+            <motion.div
+              key={member.key}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.15 }}
+              className="text-center"
             >
-              {/* Profile Banner with Name/Title */}
-              <div className="relative h-64 p-8 flex items-end">
-                <Image
-                  src={member.image}
-                  alt={member.name}
-                  fill
-                  className="object-cover"
-                  style={{
-                    objectPosition:
-                      member.name === 'Nacho López' ? '0% 15%' : 'center',
-                  }}
-                />
-                <div className="absolute inset-0 bg-black/40" />
-                <div className="relative z-10 text-white">
-                  <h3 className="font-serif text-3xl mb-1">{member.name}</h3>
-                  <p className="font-sans text-sm text-gray-200">
-                    {member.title}
-                  </p>
+              {/* Photo */}
+              <div className="relative mb-6 inline-block">
+                <div className="w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden mx-auto ring-4 ring-primary relative">
+                  <Image
+                    src={member.image}
+                    alt={member.name}
+                    fill
+                    sizes="(max-width: 768px) 192px, 224px"
+                    className={`object-cover ${member.objectPosition}`}
+                  />
                 </div>
-              </div>
-
-              {/* Content Section */}
-              <div className="p-8 bg-card">
-                {/* Summary */}
-                <div className="h-24 flex items-center justify-center mb-6">
-                  <p className="font-sans text-lg font-light text-center text-card-foreground">
-                    {member.bio}
-                  </p>
-                </div>
-
-                {/* Detailed Bio */}
-                <div
-                  className="bg-background p-6 rounded shadow-sm mb-6"
-                  style={{ minHeight: '500px' }}
+                {/* LinkedIn Badge */}
+                <a
+                  href={member.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute bottom-2 right-2 w-10 h-10 bg-foreground text-background rounded-full flex items-center justify-center hover:bg-foreground/80 transition-colors"
                 >
-                  {formatParagraphs(member.section)}
-                </div>
-
-                {/* LinkedIn Link */}
-                <div className="flex justify-center">
-                  <a
-                    href={member.linkedin}
-                    className="inline-flex items-center text-muted-foreground hover:text-secondary transition-colors"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Linkedin size={18} className="mr-2" />
-                    <span className="font-sans text-sm">Connect on LinkedIn</span>
-                  </a>
-                </div>
+                  <Linkedin className="w-5 h-5" />
+                </a>
               </div>
-            </div>
+
+              {/* Name & Role */}
+              <h3 className="text-2xl font-bold mb-1">{member.name}</h3>
+              <p className="text-secondary font-medium mb-4">{member.role}</p>
+
+              {/* Bio */}
+              <p className="text-muted-foreground mb-4 max-w-md mx-auto">
+                {member.bio}
+              </p>
+
+              {/* Detailed Section */}
+              <div className="text-muted-foreground text-sm max-w-md mx-auto text-center space-y-4">
+                {member.section.split('\n\n').map((paragraph, i) => (
+                  <p key={i}>{paragraph}</p>
+                ))}
+              </div>
+
+            </motion.div>
           ))}
         </div>
       </div>

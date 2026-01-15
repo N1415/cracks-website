@@ -1,12 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Menu, X, Sun, Moon } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import Image from 'next/image';
+import { Menu, X, Sun, Moon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { ThemeToggle } from '@/components/shared/ThemeToggle';
 import { ASSETS_CONFIG } from '@/config/constants';
+import Image from 'next/image';
 
 const navigationItems = [
   { label: 'Home', href: 'home' },
@@ -18,12 +17,10 @@ const navigationItems = [
   { label: 'Contact', href: 'contact' }
 ];
 
-export default function Navigation() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [visible, setVisible] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [scrolled, setScrolled] = useState(false);
+export default function HeroNavigation() {
   const { setTheme, resolvedTheme } = useTheme();
+  const [isOpen, setIsOpen] = useState(false);
+  const [visible, setVisible] = useState(true);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -43,38 +40,15 @@ export default function Navigation() {
   }, [isOpen]);
 
   useEffect(() => {
-    let ticking = false;
-    let lastKnownScrollY = lastScrollY;
-
     const handleScroll = () => {
-      lastKnownScrollY = window.scrollY;
-
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          const currentScrollY = lastKnownScrollY;
-          const isPastHero = currentScrollY > 100;
-
-          setScrolled(currentScrollY > 50);
-
-          // Only show this navbar when past hero section
-          if (!isPastHero) {
-            setVisible(false);
-          } else if (currentScrollY > lastScrollY) {
-            setVisible(false);
-          } else {
-            setVisible(true);
-          }
-
-          setLastScrollY(currentScrollY);
-          ticking = false;
-        });
-        ticking = true;
-      }
+      const scrollY = window.scrollY;
+      // Hide hero nav after scrolling 100px
+      setVisible(scrollY <= 100);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+  }, []);
 
   const handleNavClick = (href: string) => {
     const element = document.getElementById(href);
@@ -87,63 +61,63 @@ export default function Navigation() {
   return (
     <>
       <nav
-        className={`fixed top-4 inset-x-0 z-50 px-4 transition-all duration-300 ${
+        className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
           visible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
         }`}
       >
-        <div className="max-w-2xl mx-auto">
-          <div
-            className={`flex items-center justify-between h-14 px-4 rounded-xl backdrop-blur-md shadow-lg border border-border transition-colors ${
-              scrolled ? 'bg-background/90' : 'bg-background/70'
-            }`}
-          >
-            {/* Logo - fixed width for balance */}
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between h-20 bg-transparent">
+            {/* Logo */}
             <button
               onClick={() => handleNavClick('home')}
-              className="flex items-center focus:outline-none w-24"
+              className="flex items-center gap-2 focus:outline-none"
             >
-              <div className="relative h-7 w-24">
-                <Image
-                  src={ASSETS_CONFIG.logos.svg.black}
-                  alt="Cracks Hospitality Studio"
-                  fill
-                  sizes="96px"
-                  className="object-contain object-left dark:hidden"
-                />
+              <div className="relative h-10 w-36">
                 <Image
                   src={ASSETS_CONFIG.logos.svg.white}
                   alt="Cracks Hospitality Studio"
                   fill
-                  sizes="96px"
-                  className="object-contain object-left hidden dark:block"
+                  sizes="144px"
+                  className="object-contain object-left"
                 />
               </div>
             </button>
 
-            {/* Nav Links - Desktop (centered) */}
-            <div className="hidden md:flex items-center justify-center gap-5">
+            {/* Desktop Layout - Nav Links */}
+            <div className="hidden md:flex items-center gap-8">
               {navigationItems.map((item) => (
                 <button
                   key={item.href}
                   onClick={() => handleNavClick(item.href)}
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors focus:outline-none"
+                  className="text-base text-primary/80 hover:text-primary transition-colors font-medium focus:outline-none"
                 >
                   {item.label}
                 </button>
               ))}
             </div>
 
-            {/* Right Side - Theme Toggle - fixed width for balance */}
-            <div className="hidden md:flex items-center justify-end w-24">
-              <ThemeToggle />
+            {/* Right Side - Theme Toggle (Desktop) */}
+            <div className="hidden md:flex items-center">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="size-10 text-primary/80 hover:text-primary hover:bg-primary/10"
+                onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+              >
+                {mounted && resolvedTheme === 'dark' ? (
+                  <Sun className="size-5" />
+                ) : (
+                  <Moon className="size-5" />
+                )}
+              </Button>
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Layout */}
             <div className="flex md:hidden items-center">
               <Button
                 variant="ghost"
                 size="icon"
-                className="size-10"
+                className="size-10 text-primary/80 hover:text-primary hover:bg-primary/10"
                 onClick={() => setIsOpen(true)}
               >
                 <Menu className="size-6" />
@@ -191,15 +165,12 @@ export default function Navigation() {
 
         {/* Navigation Links */}
         <div className="flex flex-col px-6 pt-12">
-          {navigationItems.map((item, index) => (
+          {navigationItems.map((item) => (
             <button
               key={item.href}
               onClick={() => handleNavClick(item.href)}
               className="text-3xl font-serif font-semibold text-foreground py-4 border-b border-border/50 transition-colors hover:text-secondary text-left focus:outline-none"
-              style={{
-                fontVariant: 'small-caps',
-                animationDelay: `${index * 50}ms`
-              }}
+              style={{ fontVariant: 'small-caps' }}
             >
               {item.label}
             </button>

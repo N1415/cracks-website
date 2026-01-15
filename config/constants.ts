@@ -39,10 +39,10 @@ export const ASSETS_CONFIG = {
     frasers: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Images/Cracks%20website/one_bangkok.jpg',
     manu: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Images/Cracks%20website/manu.jpg',
     nacho: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Images/Cracks%20website/nacho.jpg',
-    method1: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Images/Cracks%20website/method-1.jpg',
-    method2: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Images/Cracks%20website/method-2.jpg',
-    method3: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Images/Cracks%20website/method-3.jpg',
-    method4: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Images/Cracks%20website/method-4.jpg'
+    method1: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Images/Cracks%20website/Quilombo-gallery-02-824x1030.jpg',
+    method2: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Images/Cracks%20website/cento_garden.jpg',
+    method3: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Images/Cracks%20website/CENTO-BY-DIEGO-ARENAS---OCTOBER-2024-66.jpg',
+    method4: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Images/Cracks%20website/velvet_room.png'
   },
   logos: {
     svg: {
@@ -421,10 +421,26 @@ export const PROJECTS = [
   },
   {
     id: 2,
-    title: 'FRASERS SUITES',
+    title: 'QUILOMBO',
+    category: 'Fire, Beef & Wine',
+    image: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Images/Cracks%20website/QUILOMBO%202%20By%20Diego%20Arenas%20-%20December%202025-19.jpg',
+    description: "Where Buenos Aires meets Bangkok. Set within Bangkok's only castle, Quilombo is pure Argentine tradition—fire, exceptional beef, and wine—honoured with reverence and executed with precision. A steakhouse built the old way.",
+    url: 'https://quilombobangkok.com/'
+  },
+  {
+    id: 3,
+    title: 'MODERN JAPANESE',
     category: 'Coming Soon to One Bangkok:',
-    image: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Images/Cracks%20website/one_bangkok.jpg',
-    description: "A bold new destination is taking shape in the heart of One Bangkok—900 square meters of seamless hospitality innovation under one roof. This dynamic hospitality hub is designed to evolve from sun-up to late-night, delivering distinct yet harmonized guest experiences.",
+    image: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Images/Cracks%20website/japo_one_bangkok.jpg',
+    description: "A modern interpretation of traditional Japanese robatayaki dining. Precise, elegant, and deeply rooted in Japan's cooking heritage. Designed as a destination dining experience within a luxury hotel, it celebrates the ancient art of charcoal grilling with a disciplined focus on ingredient quality, technical precision, and the theatrical performance of culinary craft.",
+    url: 'https://www.frasershospitality.com/en/thailand/bangkok/fraser-suites-bangkok/'
+  },
+  {
+    id: 4,
+    title: 'ITALIAN MEDITERRANEAN',
+    category: 'Coming Soon to One Bangkok:',
+    image: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Images/Cracks%20website/italian_one_bangkok.jpg',
+    description: "A sophisticated Italian dining destination that captures the effortless elegance and sun-drenched luxury of the Italian Riviera while celebrating authentic Italian culinary traditions. The design evokes the feeling of dining at an exclusive beach club in the Mediterranean or a terrace overlooking the Italian Riviera.",
     url: 'https://www.frasershospitality.com/en/thailand/bangkok/fraser-suites-bangkok/'
   }
 ] as const;

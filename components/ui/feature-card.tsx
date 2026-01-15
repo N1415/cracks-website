@@ -1,0 +1,172 @@
+"use client"
+
+import React, { useRef } from "react"
+import { cn } from "@/lib/utils"
+
+interface FeatureCardProps {
+  className?: string
+  title: string
+  items: readonly string[]
+}
+
+const CornerPlusIcons = () => (
+  <>
+    <PlusIcon className="absolute -top-3 -left-3 z-20" />
+    <PlusIcon className="absolute -top-3 -right-3 z-20" />
+    <PlusIcon className="absolute -bottom-3 -left-3 z-20" />
+    <PlusIcon className="absolute -bottom-3 -right-3 z-20" />
+  </>
+)
+
+const PlusIcon = ({ className }: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    strokeWidth="1"
+    stroke="currentColor"
+    className={cn("text-foreground size-6", className)}
+  >
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
+  </svg>
+)
+
+export const FeatureCard: React.FC<FeatureCardProps> = ({
+  className = "",
+  title,
+  items,
+}) => {
+  const isPointerInside = useRef(false);
+  const refElement = useRef<HTMLDivElement>(null);
+  const state = useRef({
+    glare: { x: 50, y: 50 },
+    background: { x: 50, y: 50 },
+    rotate: { x: 0, y: 0 },
+  });
+
+  const containerStyle = {
+    "--m-x": "50%",
+    "--m-y": "50%",
+    "--r-x": "0deg",
+    "--r-y": "0deg",
+    "--bg-x": "50%",
+    "--bg-y": "50%",
+    "--duration": "300ms",
+    "--foil-size": "100%",
+    "--opacity": "0",
+    "--radius": "8px",
+    "--easing": "ease",
+    "--transition": "var(--duration) var(--easing)",
+  } as React.CSSProperties;
+
+  const backgroundStyle = {
+    "--step": "5%",
+    "--foil-svg": `url("https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Logos/svg/studio_white.svg")`,
+    "--pattern": "var(--foil-svg) center/60% no-repeat",
+    "--rainbow":
+      "repeating-linear-gradient( 0deg,rgba(200,92,60,0.3) calc(var(--step) * 1),rgba(200,92,60,0.4) calc(var(--step) * 2),rgba(200,92,60,0.35) calc(var(--step) * 3),rgba(200,92,60,0.45) calc(var(--step) * 4),rgba(200,92,60,0.3) calc(var(--step) * 5),rgba(200,92,60,0.35) calc(var(--step) * 6),rgba(200,92,60,0.3) calc(var(--step) * 7) ) 0% var(--bg-y)/200% 700% no-repeat",
+    "--diagonal":
+      "repeating-linear-gradient( 128deg,#2a2418 0%,rgba(200,92,60,0.5) 3.8%,rgba(200,92,60,0.5) 4.5%,rgba(200,92,60,0.5) 5.2%,#2a2418 10%,#2a2418 12% ) var(--bg-x) var(--bg-y)/300% no-repeat",
+    "--shade":
+      "radial-gradient( farthest-corner circle at var(--m-x) var(--m-y),rgba(200,92,60,0.2) 12%,rgba(200,92,60,0.25) 20%,rgba(200,92,60,0.15) 120% ) var(--bg-x) var(--bg-y)/300% no-repeat",
+    backgroundBlendMode: "hue, hue, hue, overlay",
+  } as React.CSSProperties;
+
+  const updateStyles = () => {
+    if (refElement.current) {
+      const { background, rotate, glare } = state.current;
+      refElement.current?.style.setProperty("--m-x", `${glare.x}%`);
+      refElement.current?.style.setProperty("--m-y", `${glare.y}%`);
+      refElement.current?.style.setProperty("--r-x", `${rotate.x}deg`);
+      refElement.current?.style.setProperty("--r-y", `${rotate.y}deg`);
+      refElement.current?.style.setProperty("--bg-x", `${background.x}%`);
+      refElement.current?.style.setProperty("--bg-y", `${background.y}%`);
+    }
+  };
+
+  return (
+    <div
+      style={containerStyle}
+      className={cn(
+        "relative isolate [contain:layout_style] [perspective:600px] transition-transform duration-[var(--duration)] ease-[var(--easing)] will-change-transform",
+        className
+      )}
+      ref={refElement}
+      onPointerMove={(event) => {
+        const rotateFactor = 0.2;
+        const rect = event.currentTarget.getBoundingClientRect();
+        const position = {
+          x: event.clientX - rect.left,
+          y: event.clientY - rect.top,
+        };
+        const percentage = {
+          x: (100 / rect.width) * position.x,
+          y: (100 / rect.height) * position.y,
+        };
+        const delta = {
+          x: percentage.x - 50,
+          y: percentage.y - 50,
+        };
+
+        const { background, rotate, glare } = state.current;
+        background.x = 50 + percentage.x / 8 - 6.25;
+        background.y = 50 + percentage.y / 6 - 8.33;
+        rotate.x = -(delta.x / 3.5);
+        rotate.y = delta.y / 2;
+        rotate.x *= rotateFactor;
+        rotate.y *= rotateFactor;
+        glare.x = percentage.x;
+        glare.y = percentage.y;
+
+        updateStyles();
+      }}
+      onPointerEnter={() => {
+        isPointerInside.current = true;
+        if (refElement.current) {
+          setTimeout(() => {
+            if (isPointerInside.current) {
+              refElement.current?.style.setProperty("--duration", "0s");
+            }
+          }, 300);
+        }
+      }}
+      onPointerLeave={() => {
+        isPointerInside.current = false;
+        if (refElement.current) {
+          refElement.current.style.removeProperty("--duration");
+          refElement.current?.style.setProperty("--r-x", `0deg`);
+          refElement.current?.style.setProperty("--r-y", `0deg`);
+        }
+      }}
+    >
+      <CornerPlusIcons />
+      <div className="h-full grid will-change-transform origin-center transition-transform duration-[var(--duration)] ease-[var(--easing)] [transform:rotateY(var(--r-x))_rotateX(var(--r-y))] rounded-[var(--radius)] border border-dashed border-border hover:[--opacity:0.6] dark:hover:[--opacity:0.3] hover:[--duration:200ms] hover:[--easing:linear] hover:filter-none overflow-hidden">
+        <div className="w-full h-full grid [grid-area:1/1] mix-blend-soft-light [clip-path:inset(0_0_0_0_round_var(--radius))]">
+          <div className="h-full w-full bg-card p-6">
+            <div className="relative z-10 space-y-3">
+              <h4 className="text-sm font-semibold text-foreground">
+                {title}
+              </h4>
+              <div className="space-y-2">
+                {items.map((item, idx) => (
+                  <p key={idx} className="text-xs font-light text-foreground leading-relaxed">
+                    {item}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="w-full h-full grid [grid-area:1/1] mix-blend-multiply [clip-path:inset(0_0_1px_0_round_var(--radius))] opacity-[var(--opacity)] transition-opacity transition-background duration-[var(--duration)] ease-[var(--easing)] will-change-background [background:radial-gradient(farthest-corner_circle_at_var(--m-x)_var(--m-y),_rgba(200,92,60,0.7)_10%,_rgba(200,92,60,0.5)_30%,_rgba(200,92,60,0)_80%)]" />
+        <div
+          className="w-full h-full grid [grid-area:1/1] mix-blend-color-dodge opacity-[var(--opacity)] will-change-background transition-opacity [clip-path:inset(0_0_1px_0_round_var(--radius))] [background-blend-mode:hue_hue_hue_overlay] [background:var(--pattern),_var(--rainbow),_var(--diagonal),_var(--shade)] relative after:content-[''] after:grid-area-[inherit] after:bg-repeat-[inherit] after:bg-attachment-[inherit] after:bg-origin-[inherit] after:bg-clip-[inherit] after:bg-[inherit] after:mix-blend-exclusion after:[background-size:var(--foil-size),_200%_400%,_800%,_200%] after:[background-position:center,_0%_var(--bg-y),_calc(var(--bg-x)*_-1)_calc(var(--bg-y)*_-1),_var(--bg-x)_var(--bg-y)] after:[background-blend-mode:soft-light,_hue,_hard-light]"
+          style={{ ...backgroundStyle }}
+        />
+      </div>
+    </div>
+  )
+}
+
+export default FeatureCard
