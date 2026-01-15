@@ -50,7 +50,17 @@ export const metadata: Metadata = {
     ],
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      {
+        url: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Logos/svg/studio_black.svg',
+        media: '(prefers-color-scheme: light)',
+      },
+      {
+        url: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Logos/svg/studio_white.svg',
+        media: '(prefers-color-scheme: dark)',
+      },
+    ],
+    apple: 'https://moyusgyrteirxbivehyz.supabase.co/storage/v1/object/public/Logos/png/studio_black.png',
   },
 };
 
